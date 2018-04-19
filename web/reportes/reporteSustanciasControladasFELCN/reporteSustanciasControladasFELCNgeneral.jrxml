@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-04-24T18:46:24 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSustanciasControladasFELCNgeneral" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1d4be15d-49f8-4fb5-81b9-a7f37126af9e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+	<style name="subtitulo" mode="Transparent" fontName="Arial" fontSize="6" isBold="true"/>
+	<style name="dato" fontName="Arial" fontSize="6"/>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#E3E3E3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FBFDFF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="sustCont" uuid="9fe02ad1-72f2-46cf-a3ab-2c0ff53d3e44">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="fechaIni" class="java.util.Date">
+			<parameterDescription><![CDATA[]]></parameterDescription>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date"/>
+		<queryString>
+			<![CDATA[set dateformat ymd
+select mscc.NOMBRE_SINONIMO,mscc.NOMBRE_SUSTANCIA,mscc.sustancia,
+       med.CANTIDAD_EXISTENCIA as existenciaAnterior,
+       med1.CANTIDAD_EXISTENCIA as existenciaActual,
+       med1.CANTIDAD_INGRESO,
+       med1.CANTIDAD_SALIDA,
+       um.ABREVIATURA as tipoDato
+from  MATERIALES_SUSTANCIAS_CONTROLADAS mscc 
+     left outer join materiales m on m.COD_MATERIAL=mscc.cod_material
+     inner join UNIDADES_MEDIDA um on um.COD_UNIDAD_MEDIDA=mscc.COD_UNIDAD_MEDIDA_DECLARACION
+     left outer join MATERIALES_EXITENCIA_DECLARADA_MES med on med.COD_MATERIAL=mscc.COD_MATERIAL
+     and med.MES=DATEPART(month,DATEADD(day,-1, $P{fechaIni} ))
+     and med.ANIO=DATEPART(year,DATEADD(day,-1, $P{fechaIni} ))
+     left outer join MATERIALES_EXITENCIA_DECLARADA_MES med1 on med1.COD_MATERIAL=mscc.COD_MATERIAL
+     and med1.MES=DATEPART(month, $P{fechaFin} )
+     and med1.ANIO=DATEPART(year, $P{fechaFin} )
+where mscc.estado = 0       
+order by mscc.ORDEN, mscc.NOMBRE_SUSTANCIA,mscc.NOMBRE_SINONIMO]]>
+		</queryString>
+		<field name="NOMBRE_SINONIMO" class="java.lang.String"/>
+		<field name="NOMBRE_SUSTANCIA" class="java.lang.String"/>
+		<field name="sustancia" class="java.lang.String"/>
+		<field name="existenciaAnterior" class="java.math.BigDecimal"/>
+		<field name="existenciaActual" class="java.math.BigDecimal"/>
+		<field name="CANTIDAD_INGRESO" class="java.math.BigDecimal"/>
+		<field name="CANTIDAD_SALIDA" class="java.math.BigDecimal"/>
+		<field name="tipoDato" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="fechaInicio" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new Date(116, 10, 01, 0, 0)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFinal" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new Date(116,10,30,0,0)]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select m.NOMBRE_MES
+from meses m where m.COD_MES=DATEPART(MONTH, $P{fechaFinal} )]]>
+	</queryString>
+	<field name="NOMBRE_MES" class="java.lang.String"/>
+	<variable name="hoy" class="java.sql.Timestamp">
+		<variableExpression><![CDATA[new Date()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="9" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="5" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="329" splitType="Stretch">
+			<staticText>
+				<reportElement x="162" y="0" width="230" height="15" uuid="a7d4512b-934d-4741-ab83-d44612f57af1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTERIO DE GOBIERNO ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="14" width="230" height="15" uuid="6cae1220-b456-41f7-93d0-e5a363ccdc20">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VICEMINISTERIO DE DEFENSA SOCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="28" width="270" height="15" uuid="5d9be17b-49c1-47ae-9b38-dcc1fd74d955">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCIÓN GENERAL DE SUSTANCIAS CONTROLADAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="43" width="230" height="15" uuid="e14dccab-45ab-4bf7-8fed-b38d90e52633">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMULARIO DE DESCARGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" x="40" y="68" width="79" height="10" uuid="ff26ce3b-0e04-4df7-ba83-71aa8b3d757c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Número de Registro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="dato" x="128" y="68" width="381" height="10" uuid="c811a4ed-41fc-4acc-883c-82a1867f0cce">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[2000-00738-988]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" x="40" y="80" width="79" height="10" uuid="0ff1d803-3d12-49f4-92d2-c3fd4af98f9a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Razón Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="dato" x="128" y="80" width="381" height="10" uuid="8c03b396-d471-43d2-b9a3-28faa89fcfd6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[LABORATORIO DE COSMÉTICA Y FARMOQUÍMICA S.A. "COFAR"]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" x="40" y="92" width="79" height="10" uuid="d032bcc4-3815-43e9-9865-07a90ac20a81">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Representante Legal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="dato" x="128" y="92" width="251" height="10" uuid="94a0c0d4-728a-4100-a114-304523928edd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[JOSE CORZON]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" x="381" y="92" width="128" height="22" uuid="ff842bde-4e11-49a5-bcec-1f84fb6c71f5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Descargo Correspondiente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" x="40" y="104" width="79" height="10" uuid="a0916a20-ff05-490b-8ec1-555cd2d8398e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Ciudad/Localidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" x="40" y="116" width="79" height="10" uuid="859b2d25-93cd-403b-8a57-379a7b6f78de">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<text><![CDATA[Fecha de Presentación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="dato" x="128" y="104" width="251" height="10" uuid="f49c3f4b-3996-46fb-b46f-7ba8007371cf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[LA PAZ]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy HH:mm:ss">
+				<reportElement style="dato" x="381" y="116" width="128" height="10" uuid="f59b1a94-6964-4e13-853f-c31da8d913a4"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_MES}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="40" y="150" width="469" height="30" uuid="76eb3a21-0c66-49f3-a33c-1c8723ce1eab">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="sustCont" uuid="29b2c536-f902-4cb6-a300-939cac275976">
+						<datasetParameter name="fechaIni">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFinal}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="120" uuid="b9e90ec4-d880-41ab-a4f5-49f656db8143">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="120" height="20" uuid="9e573d25-122c-49e9-ace1-92df5d9489ae"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[SUSTANCIAS]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField isBlankWhenNull="true">
+								<reportElement style="dato" x="0" y="0" width="120" height="10" uuid="bddd1fd2-d8b5-4076-9639-d155ae0556b4"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph leftIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOMBRE_SUSTANCIA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="bee5300b-1e44-49d5-9efe-efc1861b6a59">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="120" height="20" uuid="b34cbd85-1e41-4078-beb4-0fdb0ea5aebf"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[SINONIMO]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField>
+								<reportElement style="dato" x="0" y="0" width="120" height="10" uuid="523cfc7a-1697-47fa-8629-c770b72ff9f4"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph lineSpacing="Single" leftIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOMBRE_SINONIMO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="202a4e84-09dc-4187-be1f-dfd538e6a4b2">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="50" height="20" uuid="7b37599a-ae73-46d6-a9e4-62de6aad36db"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[SALDO ANTERIOR]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement style="dato" x="0" y="0" width="50" height="10" uuid="9020ffb1-c965-4c48-97dd-45f0c4fdfb3e"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{existenciaAnterior}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="979adef0-9e0f-40aa-82b3-19fa932997db">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="50" height="20" uuid="9553b226-7368-4ebb-b8f9-c1198bdc2f8c"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[TOTAL INGRESOS]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement style="dato" x="0" y="0" width="50" height="10" uuid="f15a546f-c155-4311-a251-6c8e68036e18"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CANTIDAD_INGRESO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="761370e5-cf05-4038-9544-bc2d87a44499">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="50" height="20" uuid="b0d77b0e-4399-42a5-831b-6c1234ab7af5"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[TOTAL EGRESOS]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement style="dato" x="0" y="0" width="50" height="10" uuid="7f85113f-9044-43ac-9397-d0a514c43bc1"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CANTIDAD_SALIDA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="50" uuid="e288c8c8-15c1-4ab6-94f4-c289b1600bc1">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="50" height="20" uuid="ef05a4f0-2942-4e94-9055-fc8886411c51"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[SALDO ACTUAL]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement style="dato" x="0" y="0" width="50" height="10" uuid="a1ea5f4e-fcd3-4abd-b7e4-c3b456bc140e"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph rightIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{existenciaActual}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="30" uuid="6f887d9b-304f-44ea-b3c3-90460392dd21">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:tableHeader style="Table 1_TH" height="20" rowSpan="1">
+							<staticText>
+								<reportElement style="subtitulo" x="0" y="0" width="30" height="20" uuid="49952a1c-1cd7-4d36-8733-3fe13e376d13"/>
+								<textElement textAlignment="Center">
+									<paragraph spacingBefore="3"/>
+								</textElement>
+								<text><![CDATA[UNIDAD]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table 1_TD" height="10">
+							<textField>
+								<reportElement style="dato" x="0" y="0" width="30" height="10" uuid="4e102401-1d07-48ec-875a-2791e224d118"/>
+								<textElement verticalAlignment="Middle">
+									<paragraph leftIndent="3" spacingBefore="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{tipoDato}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement style="subtitulo" positionType="Float" x="40" y="195" width="469" height="14" uuid="cfe23b06-b27d-4033-a272-b8b93dc2ef95">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[RESPONSABLE DEL LLENADO DEL PRESENTE REPORTE: LIC. RIMMY VENEGAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" positionType="Float" x="40" y="212" width="120" height="14" uuid="a50ac2fe-3a48-4129-afa1-978628f1ec7f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[IMPORTANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="dato" positionType="Float" x="40" y="226" width="469" height="24" uuid="f88694a2-fd60-4d50-b69f-1e72cada05cc"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[El presente reporte, es una Declaración Jurada de la Empresa de referencia, declarando la absoluta veracidad de los datos suministrados, siendos los mismos pasivos a una verificación física permanente por la Dirección General de Sustancias Controladas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="subtitulo" positionType="Float" x="128" y="315" width="100" height="13" uuid="adf5c946-1eff-45eb-bf96-187d9cf15d5a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Firma Representante Legal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="" style="subtitulo" positionType="Float" x="306" y="315" width="150" height="13" uuid="b843442f-d75a-48d1-90f4-f3d3fe0be2a7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SELLO DE RECEPCIÓN]]></text>
+			</staticText>
+			<image>
+				<reportElement x="70" y="10" width="50" height="36" uuid="ac886460-25d8-4948-98ce-dccbef4666e6"/>
+				<imageExpression><![CDATA["escudo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="436" y="8" width="50" height="38" uuid="28a34d9a-15c9-4584-abb8-c0b57b575a72"/>
+				<imageExpression><![CDATA["dgsc.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="subtitulo" mode="Opaque" x="280" y="136" width="230" height="14" backcolor="#E3E3E3" uuid="e3fe918b-bc8b-44dd-b9e3-b59a38f7db8c">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DETALLE DE MOVIMIENTOS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement style="dato" x="128" y="116" width="250" height="10" uuid="565b82f7-f408-46a3-8857-fada189cddef"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="14" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="14" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="14" splitType="Stretch"/>
+	</summary>
+</jasperReport>

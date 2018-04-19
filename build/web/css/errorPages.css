@@ -1,0 +1,25 @@
+body{
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.subTitulo{
+    background-color: #354d74;
+    color: white;
+    font-weight: bold;
+}
+.contenido{
+    background-color: #ecf7f9;
+    border:1px solid #b2ced4;
+    padding: 1rem;
+    padding: 1rem;
+}
+.titulo{
+    background-color: #354d74;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0.25rem;
+}

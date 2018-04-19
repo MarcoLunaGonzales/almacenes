@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="reporteGeneralLotesCantidades_OLD"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="792"
+		 pageHeight="612"
+		 columnWidth="732"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="codigo_personal" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["668"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" isForPrompting="false" class="java.io.InputStream"/>
+	<queryString><![CDATA[SELECT
+     MATERIALES."COD_MATERIAL" AS MATERIALES_COD_MATERIAL,
+     RESUMEN_GENERAL_LOTES."COD_MATERIAL" AS RESUMEN_GENERAL_LOTES_COD_MATERIAL,
+     RESUMEN_GENERAL_LOTES."COD_PROD" AS RESUMEN_GENERAL_LOTES_COD_PROD,
+     COMPONENTES_PROD."COD_COMPPROD" AS COMPONENTES_PROD_COD_COMPPROD,
+     COMPONENTES_PROD."nombre_prod_semiterminado" AS COMPONENTES_PROD_nombre_prod_semiterminado,
+     MATERIALES."NOMBRE_MATERIAL" AS MATERIALES_NOMBRE_MATERIAL,
+     RESUMEN_GENERAL_LOTES."lotes_proveedor" AS RESUMEN_GENERAL_LOTES_lotes_proveedor,
+     RESUMEN_GENERAL_LOTES."MP" AS RESUMEN_GENERAL_LOTES_MP,
+     RESUMEN_GENERAL_LOTES."EP" AS RESUMEN_GENERAL_LOTES_EP,
+     RESUMEN_GENERAL_LOTES."ESM" AS RESUMEN_GENERAL_LOTES_ESM,
+     RESUMEN_GENERAL_LOTES."ES" AS RESUMEN_GENERAL_LOTES_ES,
+     RESUMEN_GENERAL_LOTES."VA" AS RESUMEN_GENERAL_LOTES_VA,
+     RESUMEN_GENERAL_LOTES."D_MP" AS RESUMEN_GENERAL_LOTES_D_MP,
+     RESUMEN_GENERAL_LOTES."D_EP" AS RESUMEN_GENERAL_LOTES_D_EP,
+     RESUMEN_GENERAL_LOTES."D_ESM" AS RESUMEN_GENERAL_LOTES_D_ESM,
+     RESUMEN_GENERAL_LOTES."D_ES" AS RESUMEN_GENERAL_LOTES_D_ES,
+     RESUMEN_GENERAL_LOTES."D_VA" AS RESUMEN_GENERAL_LOTES_D_VA,
+     RESUMEN_GENERAL_LOTES."DM_MP" AS RESUMEN_GENERAL_LOTES_DM_MP,
+     RESUMEN_GENERAL_LOTES."DM_EP" AS RESUMEN_GENERAL_LOTES_DM_EP,
+     RESUMEN_GENERAL_LOTES."DM_ESM" AS RESUMEN_GENERAL_LOTES_DM_ESM,
+     RESUMEN_GENERAL_LOTES."DM_ES" AS RESUMEN_GENERAL_LOTES_DM_ES,
+     RESUMEN_GENERAL_LOTES."DM_VA" AS RESUMEN_GENERAL_LOTES_DM_VA,
+     RESUMEN_GENERAL_LOTES."TOTAL_LOTE" AS RESUMEN_GENERAL_LOTES_TOTAL_LOTE,
+     RESUMEN_GENERAL_LOTES."TOTAL_DIF" AS RESUMEN_GENERAL_LOTES_TOTAL_DIF,
+     RESUMEN_GENERAL_LOTES."TOTAL_AJUSTADO" AS RESUMEN_GENERAL_LOTES_TOTAL_AJUSTADO,
+     RESUMEN_GENERAL_LOTES."TOTAL_NETO" AS RESUMEN_GENERAL_LOTES_TOTAL_NETO,
+     RESUMEN_GENERAL_LOTES."MP_COSTOS" AS RESUMEN_GENERAL_LOTES_MP_COSTOS,
+     RESUMEN_GENERAL_LOTES."EP_COSTOS" AS RESUMEN_GENERAL_LOTES_EP_COSTOS,
+     RESUMEN_GENERAL_LOTES."ESM_COSTOS" AS RESUMEN_GENERAL_LOTES_ESM_COSTOS,
+     RESUMEN_GENERAL_LOTES."ES_COSTOS" AS RESUMEN_GENERAL_LOTES_ES_COSTOS,
+     RESUMEN_GENERAL_LOTES."VA_COSTOS" AS RESUMEN_GENERAL_LOTES_VA_COSTOS,
+     RESUMEN_GENERAL_LOTES."COD_LOTE_PRODUCCION" AS RESUMEN_GENERAL_LOTES_COD_LOTE_PRODUCCION,
+     RESUMEN_GENERAL_LOTES."COD_PERSONAL" AS RESUMEN_GENERAL_LOTES_COD_PERSONAL
+FROM
+     "dbo"."RESUMEN_GENERAL_LOTES" RESUMEN_GENERAL_LOTES INNER JOIN "dbo"."MATERIALES" MATERIALES ON RESUMEN_GENERAL_LOTES."COD_MATERIAL" = MATERIALES."COD_MATERIAL"
+     INNER JOIN "dbo"."COMPONENTES_PROD" COMPONENTES_PROD ON RESUMEN_GENERAL_LOTES."COD_PROD" = COMPONENTES_PROD."COD_COMPPROD"
+WHERE
+     RESUMEN_GENERAL_LOTES."COD_PERSONAL" = $P{codigo_personal}
+ORDER BY
+     MATERIALES."NOMBRE_MATERIAL" ASC]]></queryString>
+
+	<field name="MATERIALES_COD_MATERIAL" class="java.lang.Integer"/>
+	<field name="RESUMEN_GENERAL_LOTES_COD_MATERIAL" class="java.lang.Integer"/>
+	<field name="RESUMEN_GENERAL_LOTES_COD_PROD" class="java.lang.Integer"/>
+	<field name="COMPONENTES_PROD_COD_COMPPROD" class="java.lang.Integer"/>
+	<field name="COMPONENTES_PROD_nombre_prod_semiterminado" class="java.lang.String"/>
+	<field name="MATERIALES_NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="RESUMEN_GENERAL_LOTES_lotes_proveedor" class="java.lang.String"/>
+	<field name="RESUMEN_GENERAL_LOTES_MP" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_EP" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_ESM" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_ES" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_VA" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_D_MP" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_D_EP" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_D_ESM" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_D_ES" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_D_VA" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_DM_MP" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_DM_EP" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_DM_ESM" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_DM_ES" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_DM_VA" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_TOTAL_LOTE" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_TOTAL_DIF" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_TOTAL_AJUSTADO" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_TOTAL_NETO" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_MP_COSTOS" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_EP_COSTOS" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_ESM_COSTOS" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_ES_COSTOS" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_VA_COSTOS" class="java.lang.Double"/>
+	<field name="RESUMEN_GENERAL_LOTES_COD_LOTE_PRODUCCION" class="java.lang.String"/>
+	<field name="RESUMEN_GENERAL_LOTES_COD_PERSONAL" class="java.lang.Integer"/>
+
+	<variable name="FECHA" class="java.util.Date" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new java.util.Date()]]></variableExpression>
+		<initialValueExpression><![CDATA[new java.util.Date()]]></initialValueExpression>
+	</variable>
+	<variable name="MP_SUM" class="java.lang.Double" resetType="Group" resetGroup="GRUPOMATERIAL" calculation="Sum">
+		<variableExpression><![CDATA[$F{RESUMEN_GENERAL_LOTES_MP}]]></variableExpression>
+	</variable>
+	<variable name="EP" class="java.lang.Double" resetType="Group" resetGroup="GRUPOMATERIAL" calculation="Sum">
+		<variableExpression><![CDATA[$F{RESUMEN_GENERAL_LOTES_EP}]]></variableExpression>
+	</variable>
+
+		<group  name="GRUPOMATERIAL" >
+			<groupExpression><![CDATA[$F{MATERIALES_COD_MATERIAL}]]></groupExpression>
+			<groupHeader>
+			<band height="19"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-18"
+						y="2"
+						width="217"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MATERIALES_NOMBRE_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="651"
+						y="0"
+						width="1"
+						height="19"
+						key="line-32"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="752"
+						y="-3"
+						width="1"
+						height="22"
+						key="line-33"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="12"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="-20"
+						y="11"
+						width="773"
+						height="1"
+						key="line-37"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="-21"
+						y="-7"
+						width="1"
+						height="19"
+						key="line-44"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="349"
+						y="-4"
+						width="1"
+						height="15"
+						key="line-45"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="411"
+						y="-4"
+						width="1"
+						height="15"
+						key="line-46"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="504"
+						y="-4"
+						width="1"
+						height="15"
+						key="line-47"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="570"
+						y="-4"
+						width="1"
+						height="15"
+						key="line-48"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="651"
+						y="-26"
+						width="1"
+						height="37"
+						key="line-49"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="752"
+						y="-4"
+						width="1"
+						height="15"
+						key="line-50"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="241"
+						y="1"
+						width="49"
+						height="9"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{MP_SUM}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="300"
+						y="1"
+						width="45"
+						height="9"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$V{EP}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="14"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="127"  isSplitAllowed="true" >
+				<line direction="BottomUp">
+					<reportElement
+						x="-22"
+						y="22"
+						width="775"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="BottomUp">
+					<reportElement
+						x="-22"
+						y="93"
+						width="776"
+						height="1"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="-22"
+						y="23"
+						width="1"
+						height="71"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="753"
+						y="22"
+						width="1"
+						height="71"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="BottomUp">
+					<reportElement
+						x="98"
+						y="41"
+						width="655"
+						height="1"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="BottomUp">
+					<reportElement
+						x="98"
+						y="60"
+						width="655"
+						height="1"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="98"
+						y="23"
+						width="1"
+						height="71"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="590"
+						y="22"
+						width="1"
+						height="71"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="262"
+						y="25"
+						width="211"
+						height="18"
+						key="staticText-1"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[ALMACEN DE MATERIA PRIMA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="293"
+						y="45"
+						width="211"
+						height="18"
+						key="staticText-2"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[AMP - IN - 007/R01]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="254"
+						y="63"
+						width="211"
+						height="16"
+						key="staticText-3"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[PROCEDIMIENTO DE DESPACHO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="236"
+						y="78"
+						width="269"
+						height="16"
+						key="staticText-4"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[MATERIA PRIMA Y EMPAQUE PRIMARIO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="601"
+						y="24"
+						width="57"
+						height="18"
+						key="staticText-5"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[Pagina :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="601"
+						y="43"
+						width="139"
+						height="18"
+						key="staticText-6"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[Vigencia : 01/12/2008]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="601"
+						y="69"
+						width="101"
+						height="18"
+						key="staticText-7"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement>
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[Revision 1]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="664"
+						y="25"
+						width="89"
+						height="16"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="137"
+						y="99"
+						width="400"
+						height="18"
+						key="staticText-20"/>
+					<box>					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.0" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.0" lineColor="#FFFFFF"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ RESUMEN GENERAL DE LOTES CANTIDADES POR ITEM]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="570"
+						y="99"
+						width="154"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$V{FECHA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="-18"
+						y="104"
+						width="99"
+						height="16"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[COPIA 01 I]]></text>
+				</staticText>
+				<image  isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="7"
+						y="40"
+						width="74"
+						height="37"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
+				</image>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="29"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="-21"
+						y="4"
+						width="1"
+						height="23"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="-21"
+						y="4"
+						width="773"
+						height="1"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="-21"
+						y="28"
+						width="773"
+						height="1"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="752"
+						y="4"
+						width="1"
+						height="22"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="299"
+						y="5"
+						width="1"
+						height="23"
+						key="line-13"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="411"
+						y="5"
+						width="1"
+						height="23"
+						key="line-14"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="570"
+						y="5"
+						width="1"
+						height="23"
+						key="line-16"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="504"
+						y="5"
+						width="1"
+						height="23"
+						key="line-17"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="7"
+						y="10"
+						width="29"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ITEM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="81"
+						y="10"
+						width="48"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[NRO. LOTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="180"
+						y="10"
+						width="51"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PRODUCTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="251"
+						y="7"
+						width="46"
+						height="18"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CANTIDAD SALIDAS MP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="303"
+						y="7"
+						width="44"
+						height="18"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CANTIDAD SALIDA EP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="511"
+						y="11"
+						width="57"
+						height="15"
+						key="staticText-13"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DIFERENCIA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="576"
+						y="10"
+						width="70"
+						height="15"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[OBSERVACIONES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="419"
+						y="6"
+						width="83"
+						height="10"
+						key="staticText-15"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CANTIDAD DEVUELTA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="657"
+						y="10"
+						width="88"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[LOTES DE PROVEEDOR]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="412"
+						y="16"
+						width="92"
+						height="1"
+						key="line-18"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="418"
+						y="17"
+						width="33"
+						height="10"
+						key="staticText-17"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TEORICA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="470"
+						y="17"
+						width="25"
+						height="10"
+						key="staticText-18"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FISICA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="355"
+						y="7"
+						width="53"
+						height="18"
+						key="staticText-19"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CANTIDAD ENTREGADA]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="349"
+						y="5"
+						width="1"
+						height="23"
+						key="line-20"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="457"
+						y="16"
+						width="1"
+						height="12"
+						key="line-21"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="651"
+						y="5"
+						width="1"
+						height="23"
+						key="line-34"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="29"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="137"
+						y="3"
+						width="109"
+						height="19"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{COMPONENTES_PROD_nombre_prod_semiterminado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="3"
+						width="42"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{RESUMEN_GENERAL_LOTES_MP}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="3"
+						width="48"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{RESUMEN_GENERAL_LOTES_EP}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="658"
+						y="3"
+						width="88"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{RESUMEN_GENERAL_LOTES_lotes_proveedor}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="349"
+						y="-26"
+						width="1"
+						height="26"
+						key="line-24"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="-21"
+						y="-21"
+						width="1"
+						height="46"
+						key="line-27"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="411"
+						y="-20"
+						width="1"
+						height="20"
+						key="line-29"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="504"
+						y="-22"
+						width="1"
+						height="22"
+						key="line-30"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="570"
+						y="-22"
+						width="1"
+						height="22"
+						key="line-31"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="349"
+						y="0"
+						width="1"
+						height="25"
+						key="line-36"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="411"
+						y="0"
+						width="1"
+						height="25"
+						key="line-38"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="504"
+						y="0"
+						width="1"
+						height="25"
+						key="line-39"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="570"
+						y="0"
+						width="1"
+						height="25"
+						key="line-40"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="752"
+						y="-7"
+						width="1"
+						height="32"
+						key="line-41"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="651"
+						y="-7"
+						width="1"
+						height="32"
+						key="line-43"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="80"
+						y="3"
+						width="52"
+						height="20"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{RESUMEN_GENERAL_LOTES_COD_LOTE_PRODUCCION}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="14"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

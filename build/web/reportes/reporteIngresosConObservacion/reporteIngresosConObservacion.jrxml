@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-11-20T08:36:01 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteIngresosProveedorMaterial" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="82e102bd-7cb2-4f5d-8dbd-b334b6a4b815">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+	<template><![CDATA["C:\\stylosJasperReport\\StylosImpresionOM.jrtx"]]></template>
+	<subDataset name="dataSetResumen" uuid="47b35e52-eda0-4c4a-b403-d5e410bbce77">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="codTipoProveedor" class="java.lang.Integer"/>
+		<parameter name="fechaInicio" class="java.util.Date"/>
+		<parameter name="fechaFinal" class="java.util.Date"/>
+		<queryString>
+			<![CDATA[select
+cast((
+select count(*)
+from INGRESOS_ALMACEN ia
+	inner join PROVEEDORES p on p.COD_PROVEEDOR = ia.COD_PROVEEDOR
+    inner join TIPOS_PROVEEDOR tp on tp.COD_TIPO_PROVEEDOR = p.COD_TIPO_PROVEEDOR
+	inner join INGRESOS_ALMACEN_DETALLE id on id.COD_INGRESO_ALMACEN = ia.COD_INGRESO_ALMACEN
+    inner join MATERIALES m on m.COD_MATERIAL = id.COD_MATERIAL
+    inner join unidades_medida um on um.COD_UNIDAD_MEDIDA = id.COD_UNIDAD_MEDIDA
+where  ia.FECHA_INGRESO_ALMACEN BETWEEN  $P{fechaInicio}   and   $P{fechaFinal}
+	and (p.COD_TIPO_PROVEEDOR =  $P{codTipoProveedor}  or  $P{codTipoProveedor} =0)
+ ) as float) as cantidadIngresos,
+cast( (select count(distinct cast(ia.COD_INGRESO_ALMACEN as varchar(10))+' - '+cast(id.COD_MATERIAL as varchar(10)) )
+from INGRESOS_ALMACEN ia
+	inner join PROVEEDORES p on p.COD_PROVEEDOR = ia.COD_PROVEEDOR
+    inner join TIPOS_PROVEEDOR tp on tp.COD_TIPO_PROVEEDOR = p.COD_TIPO_PROVEEDOR
+	inner join INGRESOS_ALMACEN_DETALLE id on id.COD_INGRESO_ALMACEN = ia.COD_INGRESO_ALMACEN
+    inner join MATERIALES m on m.COD_MATERIAL = id.COD_MATERIAL
+    inner join unidades_medida um on um.COD_UNIDAD_MEDIDA = id.COD_UNIDAD_MEDIDA
+	inner join INGRESOS_ALMACEN_DETALLE_ESTADO iade on id.COD_INGRESO_ALMACEN=iade.COD_INGRESO_ALMACEN
+    	and iade.COD_MATERIAL = id.COD_MATERIAL
+where  ia.FECHA_INGRESO_ALMACEN BETWEEN  $P{fechaInicio}   and   $P{fechaFinal} 
+	and (p.COD_TIPO_PROVEEDOR =  $P{codTipoProveedor}  or  $P{codTipoProveedor} =0)
+	and len(iade.OBSERVACIONES) >3) as float) as cantidadObservados]]>
+		</queryString>
+		<field name="cantidadIngresos" class="java.lang.Double"/>
+		<field name="cantidadObservados" class="java.lang.Double"/>
+	</subDataset>
+	<parameter name="fechaInicio" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[(new SimpleDateFormat("dd/MM/yyyy")).parse("01/10/2017")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFinal" class="java.util.Date" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D://PROYECTOS//ALMACENESV//web//img/cofar.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="codTipoProveedor" class="java.lang.Integer"/>
+	<parameter name="nombreTipoProveedor" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select ia.COD_INGRESO_ALMACEN,ia.NRO_INGRESO_ALMACEN,m.NOMBRE_MATERIAL,eia.NOMBRE_ESTADO_INGRESO_ALMACEN,
+	iad.CANTIDAD_PARCIAL,em.NOMBRE_ESTADO_MATERIAL,ia.FECHA_INGRESO_ALMACEN,iad.FECHA_CAMBIO_ESTADO_MATERIAL
+    ,iad.OBS_CONTROL_CALIDAD,iad.OBSERVACIONES,um.NOMBRE_UNIDAD_MEDIDA,iad.ETIQUETA
+    ,tp.NOMBRE_TIPO_PROVEEDOR,p.NOMBRE_PROVEEDOR
+from INGRESOS_ALMACEN ia
+	inner join PROVEEDORES p on p.COD_PROVEEDOR = ia.COD_PROVEEDOR
+    inner join TIPOS_PROVEEDOR tp on tp.COD_TIPO_PROVEEDOR = p.COD_TIPO_PROVEEDOR
+	inner join INGRESOS_ALMACEN_DETALLE id on id.COD_INGRESO_ALMACEN = ia.COD_INGRESO_ALMACEN
+	inner join INGRESOS_ALMACEN_DETALLE_ESTADO iad on iad.COD_INGRESO_ALMACEN = ia.COD_INGRESO_ALMACEN
+    	and iad.COD_MATERIAL = id.COD_MATERIAL
+    inner join ESTADOS_MATERIAL em on em.COD_ESTADO_MATERIAL = iad.COD_ESTADO_MATERIAL
+    inner join MATERIALES m on m.COD_MATERIAL = iad.COD_MATERIAL
+    inner join unidades_medida um on um.COD_UNIDAD_MEDIDA = id.COD_UNIDAD_MEDIDA
+    inner join ESTADOS_INGRESO_ALMACEN eia on eia.COD_ESTADO_INGRESO_ALMACEN = ia.COD_ESTADO_INGRESO_ALMACEN
+where  ia.FECHA_INGRESO_ALMACEN BETWEEN  $P{fechaInicio} and  $P{fechaFinal} 
+	and (p.COD_TIPO_PROVEEDOR =  $P{codTipoProveedor}  or  $P{codTipoProveedor} =0)
+order by ia.FECHA_INGRESO_ALMACEN]]>
+	</queryString>
+	<field name="COD_INGRESO_ALMACEN" class="java.lang.Integer"/>
+	<field name="NRO_INGRESO_ALMACEN" class="java.lang.Integer"/>
+	<field name="NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="CANTIDAD_PARCIAL" class="java.lang.Double"/>
+	<field name="NOMBRE_ESTADO_INGRESO_ALMACEN" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_MATERIAL" class="java.lang.String"/>
+	<field name="FECHA_INGRESO_ALMACEN" class="java.sql.Timestamp"/>
+	<field name="FECHA_CAMBIO_ESTADO_MATERIAL" class="java.sql.Timestamp"/>
+	<field name="OBS_CONTROL_CALIDAD" class="java.lang.Integer"/>
+	<field name="OBSERVACIONES" class="java.lang.String"/>
+	<field name="NOMBRE_UNIDAD_MEDIDA" class="java.lang.String"/>
+	<field name="ETIQUETA" class="java.lang.Integer"/>
+	<field name="NOMBRE_TIPO_PROVEEDOR" class="java.lang.String"/>
+	<field name="NOMBRE_PROVEEDOR" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="texto" x="190" y="15" width="52" height="10" uuid="20c54d41-bf50-413f-aade-3966706c07cc">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="texto" x="190" y="26" width="100" height="10" uuid="2f91329a-15e6-4c1b-984e-cc895deeb92b"/>
+				<textFieldExpression><![CDATA[$P{fechaFinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="textoBold" x="0" y="0" width="752" height="14" uuid="a1e0e7a8-af37-4aa9-875d-af568dd9a639"/>
+				<textElement textAlignment="Center">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Reporte Indicador de Ingresos con Observación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBold" x="127" y="14" width="60" height="10" uuid="8b01ac9f-2322-480f-9c97-24fce7ca192d"/>
+				<text><![CDATA[Fecha Inicio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBold" x="127" y="26" width="60" height="10" uuid="e74f1d32-ca05-4873-ae08-20a338b513d3"/>
+				<text><![CDATA[Fecha Final:]]></text>
+			</staticText>
+			<image>
+				<reportElement x="40" y="8" width="50" height="34" uuid="dda5a7d2-d33a-48cb-84c3-e0d34caf292b"/>
+				<imageExpression><![CDATA[$P{dirLogoCofar}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="textoBold" x="127" y="39" width="60" height="10" uuid="e1f1d085-9db6-453c-87e5-7008af9344e5"/>
+				<text><![CDATA[Tipo Proveedor:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="texto" x="190" y="39" width="100" height="10" uuid="86539e68-e3f7-4dab-86e9-7d77ac85ab05"/>
+				<textFieldExpression><![CDATA[$P{nombreTipoProveedor}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="248" y="66" width="240" height="30" uuid="3e232f82-c7f7-4897-b172-d02b04a9a822">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataSetResumen" uuid="6da2cb69-ca3c-4f35-b34b-2cc88bef731f">
+						<datasetParameter name="fechaFinal">
+							<datasetParameterExpression><![CDATA[$P{fechaFinal}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="codTipoProveedor">
+							<datasetParameterExpression><![CDATA[$P{codTipoProveedor}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="30" width="240">
+						<textField pattern="#,##0">
+							<reportElement style="texto" x="160" y="0" width="80" height="10" uuid="9d45ec6e-1855-4436-be5b-2462b5558d0c"/>
+							<box>
+								<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph rightIndent="3"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{cantidadIngresos}]]></textFieldExpression>
+						</textField>
+						<textField pattern="#,##0">
+							<reportElement style="texto" x="160" y="10" width="80" height="10" uuid="ea6547ac-6091-4691-9fd4-598634d5de10"/>
+							<box>
+								<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph rightIndent="3"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{cantidadObservados}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement style="textoBold" x="0" y="0" width="160" height="10" uuid="41bb7505-7f44-4364-a4f7-8abb7f8b2b0a"/>
+							<box>
+								<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<paragraph leftIndent="3"/>
+							</textElement>
+							<text><![CDATA[Total pedidos recibidos]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="textoBold" x="0" y="10" width="160" height="10" uuid="e208666a-f4a5-4a32-b43e-76c3b05cdc5f"/>
+							<box>
+								<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<paragraph leftIndent="3"/>
+							</textElement>
+							<text><![CDATA[Total pedidos recibidos con observaciones]]></text>
+						</staticText>
+						<staticText>
+							<reportElement style="textoBold" x="0" y="20" width="160" height="10" uuid="fe9a8c33-da33-4e2f-ba82-61c35c06c15a"/>
+							<box>
+								<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement verticalAlignment="Middle">
+								<paragraph leftIndent="3"/>
+							</textElement>
+							<text><![CDATA[Porcentaje de pedidos observados]]></text>
+						</staticText>
+						<textField pattern="#,##0.00">
+							<reportElement style="texto" x="160" y="20" width="80" height="10" uuid="8ac196b7-5dbd-4a26-aedb-039b5814de1f"/>
+							<box>
+								<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Middle">
+								<paragraph rightIndent="3"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{cantidadObservados}/$F{cantidadIngresos}*100d]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="248" y="56" width="240" height="10" uuid="fa1ebcbd-e38e-49b9-b72d-f668bd576a88"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[INDICADOR]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="0" y="0" width="120" height="16" uuid="5ae61e42-1bec-4db3-a8c7-acea72e4f144"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="120" y="0" width="40" height="16" uuid="4523bb64-f340-48be-92a7-bf570530b1bb"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Número de Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="160" y="0" width="60" height="16" uuid="cc44b766-d698-4ee8-98fd-8a19c309e07e"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Tipo de Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="220" y="0" width="90" height="16" uuid="8161ddda-575c-4014-ba26-a44c0b7b836e"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="310" y="0" width="40" height="16" uuid="d63ff5f8-270b-47da-aca3-5b6e8f5c210f"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Fecha de Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="350" y="0" width="50" height="16" uuid="046a634a-a503-40d5-af40-a5c6e8847b24"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Estado Ingreso Almacén]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="400" y="0" width="50" height="16" uuid="7437f0ef-5481-4cec-9cbe-7f028a26c7bb"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Unidad de Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="450" y="0" width="50" height="16" uuid="b3bc38e6-5c9f-40ed-8090-ab899e347130"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Cantidad Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="500" y="0" width="50" height="16" uuid="37ba0f22-07f8-4d5c-b47a-85f8e33c00e3"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Estado Material C.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="550" y="0" width="40" height="16" uuid="73c29e5e-d758-48aa-9766-d6f030d61995"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Fecha revisión C.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="590" y="0" width="30" height="16" uuid="fafb7735-0c49-404f-9604-0dfd8f37520e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Obs. (Si / No)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabeceraProceso" x="620" y="0" width="132" height="16" uuid="d09150e1-a0cd-46e7-8a78-3dfef2559033"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<text><![CDATA[Observación]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="0" y="0" width="120" height="20" uuid="63ccfc66-d4f9-4640-bad5-1862281461d7"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_MATERIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="120" y="0" width="40" height="20" uuid="b335e31f-32d1-4f6d-9998-7f00ac57c586"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NRO_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="160" y="0" width="60" height="20" uuid="fc36c3c5-e07c-49a7-a4b3-febee8f61877"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_TIPO_PROVEEDOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="220" y="0" width="90" height="20" uuid="9cfbc792-5d9a-4a32-bfff-6f8bed668a3a"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_PROVEEDOR}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="310" y="0" width="40" height="20" uuid="3b816bfe-79fb-4883-af9c-6b0d205b0947"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FECHA_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="350" y="0" width="50" height="20" uuid="3d31bf2d-fda1-4496-88bd-d1a8b3eeaf5b"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ESTADO_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="400" y="0" width="50" height="20" uuid="7d854ff9-f336-4d0b-b13c-ff7b9ebb7620"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_UNIDAD_MEDIDA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="450" y="0" width="50" height="20" uuid="3b0c2966-6619-4984-b412-0002215767ec"/>
+				<box leftPadding="3" rightPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CANTIDAD_PARCIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="500" y="0" width="50" height="20" uuid="38bbd8ba-8390-406d-970c-90a59e8c981f"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ESTADO_MATERIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="550" y="0" width="40" height="20" uuid="ad826c53-dee7-4449-8c57-4976994d529c"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FECHA_CAMBIO_ESTADO_MATERIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="590" y="0" width="30" height="20" uuid="986a53ef-f120-417f-bb41-cc276534df70">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{OBSERVACIONES}.length() > 1?"SI":"NO"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="texto" stretchType="RelativeToBandHeight" x="620" y="0" width="132" height="20" uuid="4458d84c-7029-4b03-8f77-e86fe6fc6c10"/>
+				<box leftPadding="3">
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{OBSERVACIONES}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="10">
+			<textField>
+				<reportElement style="texto" x="612" y="0" width="90" height="10" uuid="91f027cb-1f66-48f7-a92d-c6530284e818"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="texto" x="702" y="0" width="50" height="10" uuid="03cc5db5-590a-44f3-b621-643199c4eb1a"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-12-12T09:29:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSalidaAlmacen_subreport0" pageWidth="535" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="610f9bd7-fda9-4de3-a210-d94f65555a37">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="codigo" class="java.lang.String"/>
+	<parameter name="codmaterial" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select isnull(a.NOMBRE_AMBIENTE,'') NOMBRE_AMBIENTE,isnull(i.LOTE_MATERIAL_PROVEEDOR,'') LOTE_MATERIAL_PROVEEDOR,s.CANTIDAD,isnull(E.NOMBRE_ESTANTE,'') NOMBRE_ESTANTE,isnull(I.FILA,'') FILA,isnull(I.COLUMNA,'') COLUMNA
+from SALIDAS_ALMACEN_DETALLE_INGRESO s 
+inner join SALIDAS_ALMACEN sa on s.COD_SALIDA_ALMACEN=sa.COD_SALIDA_ALMACEN
+inner join INGRESOS_ALMACEN_DETALLE_ESTADO i
+on s.COD_INGRESO_ALMACEN = i.COD_INGRESO_ALMACEN and 
+s.COD_MATERIAL = i.COD_MATERIAL 
+and s.ETIQUETA = i.ETIQUETA
+LEFT OUTER JOIN ESTANTE_AMBIENTE E ON E.COD_ESTANTE = I.COD_ESTANTE
+LEFT OUTER JOIN AMBIENTE_ALMACEN A ON A.COD_AMBIENTE = E.COD_AMBIENTE
+where 
+sa.COD_LOTE_PRODUCCION =$P{codigo}
+and 
+s.cod_material =$P{codmaterial}
+and s.CANTIDAD>0.01 and sa.cod_estado_salida_almacen=1
+order by i.FECHA_VENCIMIENTO asc]]>
+	</queryString>
+	<field name="NOMBRE_AMBIENTE" class="java.lang.String"/>
+	<field name="LOTE_MATERIAL_PROVEEDOR" class="java.lang.String"/>
+	<field name="CANTIDAD" class="java.lang.Double"/>
+	<field name="NOMBRE_ESTANTE" class="java.lang.String"/>
+	<field name="FILA" class="java.lang.String"/>
+	<field name="COLUMNA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="132" y="1" width="29" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="9f48303a-6f3f-4923-8c8e-4a376f5c0eee"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Verdana" size="6" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" x="78" y="1" width="52" height="10" uuid="f4b38004-fadc-4f52-9f5a-601f5041936b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="6" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOTE_MATERIAL_PROVEEDOR}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-1" x="131" y="0" width="1" height="12" uuid="dd9be863-9beb-40e2-a20c-bbb630788c07"/>
+			</line>
+			<line>
+				<reportElement key="line-3" x="162" y="0" width="1" height="12" uuid="f74ba6b2-4f28-4e3f-94ce-85983f63d4c9"/>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="34" y="3" width="19" height="8" uuid="1f62ca23-3a54-423a-b0fd-34fd9fc40b82"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ESTANTE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="49" y="3" width="19" height="8" uuid="ec08f616-dc7f-4f10-866e-7093a7385566"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FILA}.equals("null")?"":$F{FILA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="64" y="3" width="14" height="8" uuid="83389326-27ee-4345-8110-c9db4ee529f2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="5" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMNA}.equals("null")?"":$F{COLUMNA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" stretchType="RelativeToTallestObject" x="1" y="0" width="33" height="11" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="48f83b5d-e9d7-4891-9dcd-1e8e23154976"/>
+				<textElement>
+					<font size="4" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_AMBIENTE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-4" x="0" y="0" width="1" height="12" uuid="d6ebc2a0-4729-4ffa-b5e5-5c07c9bfcba5"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

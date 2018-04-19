@@ -1,0 +1,923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2018-02-08T08:54:20 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="impresionIngresoAlmacenLog" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="528" leftMargin="56" rightMargin="28" topMargin="28" bottomMargin="28" whenResourceMissingType="Empty" uuid="5eccf244-45e2-4438-95dc-5657578d10d9">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#E6E6E8">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_Subtitle" backcolor="#EBF0F2" vTextAlign="Middle" fontName="Arial" isBold="true">
+		<box>
+			<topPen lineWidth="0.75"/>
+			<leftPen lineWidth="0.75"/>
+			<bottomPen lineWidth="0.75"/>
+			<rightPen lineWidth="0.75"/>
+		</box>
+		<paragraph leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
+	</style>
+	<style name="Style1"/>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF" hTextAlign="Center" vTextAlign="Middle" fontName="Arial">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="condicionalTipoIA" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{COD_TIPO_INGRESO_ALMACEN_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalProveedorIA" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{COD_PROVEEDOR_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalObservacionIA" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{OBS_INGRESO_ALMACEN_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalNroDocumentoIA" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{NRO_DOCUMENTO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalTipoCompraIA" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{COD_TIPO_COMPRA_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalNroOrdenCompraIA" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{COD_ORDEN_COMPRA_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalCantidadIAD" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{IAD_COD_MATERIAL_C}!=null && $F{IAD_CANT_TOTAL_INGRESO_FISICO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalUnidadIAD" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{IAD_COD_MATERIAL_C}!=null && $F{IAD_COD_UNIDAD_MEDIDA_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalCantidadParcialIADE" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{IADE_COD_MATERIAL_C}!=null && $F{IADE_ETIQUETA_C}!=null && $F{IADE_CANTIDAD_PARCIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalFechaVencimientoIADE" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{IADE_COD_MATERIAL_C}!=null && $F{IADE_ETIQUETA_C}!=null && $F{IADE_FECHA_VENCIMIENTO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalEstadoMaterialIADE" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{IADE_COD_MATERIAL_C}!=null && $F{IADE_ETIQUETA_C}!=null && $F{IADE_COD_ESTADO_MATERIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalObservacionIADE" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{FILA_IA}!=1 && $F{IADE_COD_MATERIAL_C}!=null && $F{IADE_ETIQUETA_C}!=null && $F{IADE_OBSERVACIONES_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="codIngresoAlmacen" class="java.lang.Integer"/>
+	<parameter name="grupo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D://PROYECTOS//ALMACENESV//web//img/cofar.png"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT  ia.F as FILA_IA, ia.COD_INGRESO_ALMACEN_LOG, ia.COD_INGRESO_ALMACEN, ia.OBS_INGRESO_ALMACEN, ia.NRO_INGRESO_ALMACEN
+, ia.FECHA_TRANSACCION, ia.COD_TIPO_TRANSACCION_LOG, ia.DESCRIPCION_RAZON_TRANSACCION, ia.FECHA_INGRESO_ALMACEN, al.NOMBRE_ALMACEN
+, (per.NOMBRES_PERSONAL+' '+per.AP_PATERNO_PERSONAL+' '+per.AP_MATERNO_PERSONAL) as NOMBRE_COMPLETO_PERSONAL
+, ttl.NOMBRE_TIPO_TRANSACCION_LOG, ia.NRO_DOCUMENTO
+, tc.NOMBRE_TIPO_COMPRA, tia.NOMBRE_TIPO_INGRESO_ALMACEN, p.NOMBRE_PROVEEDOR, oc.NRO_ORDEN_COMPRA
+, CASE WHEN isnull(ia.COD_TIPO_INGRESO_ALMACEN,0) = isnull(iac.COD_TIPO_INGRESO_ALMACEN,0) THEN 1 END as COD_TIPO_INGRESO_ALMACEN_C
+, CASE WHEN CONVERT(VARCHAR(MAX), ia.OBS_INGRESO_ALMACEN) = CONVERT(VARCHAR(MAX), iac.OBS_INGRESO_ALMACEN) THEN 1 END as OBS_INGRESO_ALMACEN_C
+, CASE WHEN isnull(ia.COD_PROVEEDOR,0) = isnull(iac.COD_PROVEEDOR,0) THEN 1 END as COD_PROVEEDOR_C
+, CASE WHEN isnull(ia.NRO_DOCUMENTO,0) = isnull(iac.NRO_DOCUMENTO,0) THEN 1 END as NRO_DOCUMENTO_C
+, CASE WHEN isnull(ia.COD_ESTADO_INGRESO_ALMACEN,0) = isnull(iac.COD_ESTADO_INGRESO_ALMACEN,0) THEN 1 END as COD_ESTADO_INGRESO_ALMACEN_C
+, CASE WHEN isnull(ia.COD_ORDEN_COMPRA,0) = isnull(iac.COD_ORDEN_COMPRA,0) THEN 1 END as COD_ORDEN_COMPRA_C
+, CASE WHEN isnull(ia.COD_TIPO_COMPRA,0) = isnull(iac.COD_TIPO_COMPRA,0) THEN 1 END as COD_TIPO_COMPRA_C
+, m.CODIGO_ANTIGUO,iad.COD_MATERIAL, m.NOMBRE_MATERIAL, um.NOMBRE_UNIDAD_MEDIDA, um.ABREVIATURA
+, iad.COD_INGRESOS_ALMACEN_DETALLE_LOG
+, iad.CANT_TOTAL_INGRESO_FISICO, iad.COD_UNIDAD_MEDIDA
+, CASE WHEN isnull(iad.COD_MATERIAL,0) = isnull(iadc.COD_MATERIAL,0) THEN 1 END as IAD_COD_MATERIAL_C
+, CASE WHEN isnull(iad.COD_UNIDAD_MEDIDA,0) = isnull(iadc.COD_UNIDAD_MEDIDA,0) THEN 1 END as IAD_COD_UNIDAD_MEDIDA_C
+, CASE WHEN isnull(iad.CANT_TOTAL_INGRESO_FISICO,0) = isnull(iadc.CANT_TOTAL_INGRESO_FISICO,0) THEN 1 END as IAD_CANT_TOTAL_INGRESO_FISICO_C
+, iade.COD_INGRESOS_ALMACEN_DETALLE_ESTADO_LOG, iade.ETIQUETA,iade.COD_MATERIAL, iade.CANTIDAD_PARCIAL, iade.FECHA_VENCIMIENTO,iade.OBSERVACIONES as IADE_OBSERVACIONES, em.NOMBRE_ESTADO_MATERIAL
+, CASE WHEN isnull(iade.ETIQUETA,0) = isnull(iadec.ETIQUETA,0) THEN 1 END as IADE_ETIQUETA_C
+, CASE WHEN isnull(iade.COD_MATERIAL,0) = isnull(iadec.COD_MATERIAL,0) THEN 1 END as IADE_COD_MATERIAL_C
+, CASE WHEN isnull(iade.CANTIDAD_PARCIAL,0) = isnull(iadec.CANTIDAD_PARCIAL,0) THEN 1 END as IADE_CANTIDAD_PARCIAL_C
+, CASE WHEN isnull(iade.FECHA_VENCIMIENTO,0) = isnull(iadec.FECHA_VENCIMIENTO,0) THEN 1 END as IADE_FECHA_VENCIMIENTO_C
+, CASE WHEN isnull(iade.COD_ESTADO_MATERIAL,0) = isnull(iadec.COD_ESTADO_MATERIAL,0) THEN 1 END as IADE_COD_ESTADO_MATERIAL_C
+, CASE WHEN isnull(iade.OBSERVACIONES,'') = isnull(iadec.OBSERVACIONES,'') THEN 1 END as IADE_OBSERVACIONES_C
+FROM (
+  SELECT ROW_NUMBER() OVER (ORDER BY COD_INGRESO_ALMACEN_LOG asc) as 'F', ial.*
+  FROM INGRESOS_ALMACEN_LOG ial
+  where COD_INGRESO_ALMACEN =  $P{codIngresoAlmacen} 
+)ia
+LEFT JOIN (
+    SELECT (ROW_NUMBER() OVER (ORDER BY COD_INGRESO_ALMACEN_LOG asc)+1) as 'FC', ial2.* 
+    FROM INGRESOS_ALMACEN_LOG ial2
+    where COD_INGRESO_ALMACEN = $P{codIngresoAlmacen}  
+)iac on ia.F = iac.FC
+LEFT OUTER JOIN TIPOS_COMPRA tc ON ia.COD_TIPO_COMPRA = tc.COD_TIPO_COMPRA
+LEFT OUTER JOIN TIPOS_INGRESO_ALMACEN tia ON ia.COD_TIPO_INGRESO_ALMACEN = tia.COD_TIPO_INGRESO_ALMACEN
+LEFT OUTER JOIN PROVEEDORES p ON ia.COD_PROVEEDOR = p.COD_PROVEEDOR
+LEFT OUTER JOIN ORDENES_COMPRA oc ON ia.COD_ORDEN_COMPRA = oc.COD_ORDEN_COMPRA
+LEFT OUTER JOIN PERSONAL per ON ia.COD_PERSONAL_TRANSACCION = per.COD_PERSONAL
+LEFT OUTER JOIN TIPOS_TRANSACCION_LOG ttl ON ia.COD_TIPO_TRANSACCION_LOG = ttl.COD_TIPO_TRANSACCION_LOG
+LEFT OUTER JOIN ALMACENES al ON ia.COD_ALMACEN = al.COD_ALMACEN
+LEFT JOIN (
+  SELECT ROW_NUMBER() OVER (ORDER BY COD_MATERIAL, COD_INGRESO_ALMACEN_LOG) as 'F', iadl.*
+  FROM INGRESOS_ALMACEN_DETALLE_LOG iadl
+  where COD_INGRESO_ALMACEN = $P{codIngresoAlmacen} 
+)iad on ia.COD_INGRESO_ALMACEN_LOG = iad.COD_INGRESO_ALMACEN_LOG
+LEFT JOIN (
+    SELECT (ROW_NUMBER() OVER (ORDER BY COD_MATERIAL, COD_INGRESO_ALMACEN_LOG)+1) as 'FC', iadl2.* 
+    FROM INGRESOS_ALMACEN_DETALLE_LOG iadl2
+    where COD_INGRESO_ALMACEN = $P{codIngresoAlmacen}  
+)iadc on iad.F = iadc.FC
+LEFT OUTER JOIN MATERIALES m ON iad.COD_MATERIAL = m.COD_MATERIAL
+LEFT OUTER JOIN UNIDADES_MEDIDA um ON m.COD_UNIDAD_MEDIDA = um.COD_UNIDAD_MEDIDA
+LEFT JOIN (
+  SELECT ROW_NUMBER() OVER (ORDER BY iadel.COD_MATERIAL,iadel.ETIQUETA,iadel.COD_INGRESO_ALMACEN_LOG) as 'F', iadel.*
+  FROM INGRESOS_ALMACEN_DETALLE_ESTADO_LOG iadel
+  where COD_INGRESO_ALMACEN = $P{codIngresoAlmacen} 
+)iade on iad.COD_INGRESO_ALMACEN_LOG = iade.COD_INGRESO_ALMACEN_LOG and iad.COD_MATERIAL = iade.COD_MATERIAL
+LEFT JOIN (
+    SELECT (ROW_NUMBER() OVER (ORDER BY iadel2.COD_MATERIAL,iadel2.ETIQUETA,iadel2.COD_INGRESO_ALMACEN_LOG)+1) as 'FC', iadel2.* 
+    FROM INGRESOS_ALMACEN_DETALLE_ESTADO_LOG iadel2
+    where COD_INGRESO_ALMACEN = $P{codIngresoAlmacen}  
+)iadec ON iade.F = iadec.FC
+LEFT OUTER JOIN ESTADOS_MATERIAL em ON iade.COD_ESTADO_MATERIAL = em.COD_ESTADO_MATERIAL
+ORDER BY ia.COD_INGRESO_ALMACEN_LOG, iad.COD_INGRESOS_ALMACEN_DETALLE_LOG, iade.ETIQUETA]]>
+	</queryString>
+	<field name="FILA_IA" class="java.lang.Long"/>
+	<field name="COD_INGRESO_ALMACEN_LOG" class="java.lang.Integer"/>
+	<field name="COD_INGRESO_ALMACEN" class="java.lang.Integer"/>
+	<field name="OBS_INGRESO_ALMACEN" class="java.lang.String"/>
+	<field name="NRO_INGRESO_ALMACEN" class="java.lang.Integer"/>
+	<field name="FECHA_TRANSACCION" class="java.sql.Timestamp"/>
+	<field name="COD_TIPO_TRANSACCION_LOG" class="java.lang.Integer"/>
+	<field name="DESCRIPCION_RAZON_TRANSACCION" class="java.lang.String"/>
+	<field name="FECHA_INGRESO_ALMACEN" class="java.sql.Timestamp"/>
+	<field name="NOMBRE_ALMACEN" class="java.lang.String"/>
+	<field name="NOMBRE_COMPLETO_PERSONAL" class="java.lang.String"/>
+	<field name="NOMBRE_TIPO_TRANSACCION_LOG" class="java.lang.String"/>
+	<field name="NRO_DOCUMENTO" class="java.lang.String"/>
+	<field name="NOMBRE_TIPO_COMPRA" class="java.lang.String"/>
+	<field name="NOMBRE_TIPO_INGRESO_ALMACEN" class="java.lang.String"/>
+	<field name="NOMBRE_PROVEEDOR" class="java.lang.String"/>
+	<field name="NRO_ORDEN_COMPRA" class="java.lang.Integer"/>
+	<field name="COD_TIPO_INGRESO_ALMACEN_C" class="java.lang.Integer"/>
+	<field name="OBS_INGRESO_ALMACEN_C" class="java.lang.Integer"/>
+	<field name="COD_PROVEEDOR_C" class="java.lang.Integer"/>
+	<field name="NRO_DOCUMENTO_C" class="java.lang.Integer"/>
+	<field name="COD_ESTADO_INGRESO_ALMACEN_C" class="java.lang.Integer"/>
+	<field name="COD_ORDEN_COMPRA_C" class="java.lang.Integer"/>
+	<field name="COD_TIPO_COMPRA_C" class="java.lang.Integer"/>
+	<field name="CODIGO_ANTIGUO" class="java.lang.String"/>
+	<field name="COD_MATERIAL" class="java.lang.Integer"/>
+	<field name="NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="NOMBRE_UNIDAD_MEDIDA" class="java.lang.String"/>
+	<field name="ABREVIATURA" class="java.lang.String"/>
+	<field name="COD_INGRESOS_ALMACEN_DETALLE_LOG" class="java.lang.Integer"/>
+	<field name="CANT_TOTAL_INGRESO_FISICO" class="java.lang.Double"/>
+	<field name="COD_UNIDAD_MEDIDA" class="java.lang.Integer"/>
+	<field name="IAD_COD_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="IAD_COD_UNIDAD_MEDIDA_C" class="java.lang.Integer"/>
+	<field name="IAD_CANT_TOTAL_INGRESO_FISICO_C" class="java.lang.Integer"/>
+	<field name="COD_INGRESOS_ALMACEN_DETALLE_ESTADO_LOG" class="java.lang.Integer"/>
+	<field name="ETIQUETA" class="java.lang.Integer"/>
+	<field name="COLUMN_38" class="java.lang.Integer"/>
+	<field name="CANTIDAD_PARCIAL" class="java.lang.Double"/>
+	<field name="FECHA_VENCIMIENTO" class="java.sql.Timestamp"/>
+	<field name="IADE_OBSERVACIONES" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_MATERIAL" class="java.lang.String"/>
+	<field name="IADE_ETIQUETA_C" class="java.lang.Integer"/>
+	<field name="IADE_COD_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="IADE_CANTIDAD_PARCIAL_C" class="java.lang.Integer"/>
+	<field name="IADE_FECHA_VENCIMIENTO_C" class="java.lang.Integer"/>
+	<field name="IADE_COD_ESTADO_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="IADE_OBSERVACIONES_C" class="java.lang.Integer"/>
+	<group name="grupoVersion">
+		<groupExpression><![CDATA[$F{COD_INGRESO_ALMACEN_LOG}]]></groupExpression>
+		<groupHeader>
+			<band height="80">
+				<textField>
+					<reportElement mode="Opaque" x="0" y="17" width="528" height="13" forecolor="#436D8C" backcolor="#DCECF7" uuid="63f597a7-6ead-449d-8e2b-f1ddd63d8e7d"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+						<paragraph lineSpacing="1_1_2" lineSpacingSize="0.0" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Versión "+$F{FILA_IA}+": "+$F{NOMBRE_TIPO_TRANSACCION_LOG}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="0" y="30" width="180" height="10" forecolor="#436D8C" backcolor="#E6E6E8" uuid="aed45f23-2cb4-4ec4-8d77-04d88bc4679d"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Personal Transacción]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Table_TH" x="0" y="40" width="180" height="15" forecolor="#436D8C" backcolor="#FFFFFF" uuid="b43936a9-7a0d-4a8e-a28d-518b0935ac3c">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="false"/>
+						<paragraph firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_COMPLETO_PERSONAL} != null? $F{NOMBRE_COMPLETO_PERSONAL} : ""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="180" y="30" width="70" height="10" forecolor="#436D8C" backcolor="#E6E6E8" uuid="dbc95f8d-ab06-4053-8ba5-815556ab4833"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+					<reportElement style="Table_TH" x="180" y="40" width="70" height="15" forecolor="#436D8C" backcolor="#FFFFFF" uuid="85dc422e-b40f-4731-a6cc-60dc9b4d1cfe"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="4" spacingAfter="4"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{FECHA_TRANSACCION}!=null?$F{FECHA_TRANSACCION}:""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="250" y="30" width="278" height="10" forecolor="#436D8C" backcolor="#E6E6E8" uuid="e272214f-24d6-40f0-94b8-e1c6cac66555">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Motivo]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Table_TH" x="250" y="40" width="278" height="15" forecolor="#436D8C" backcolor="#FFFFFF" uuid="7ce5cec7-fb7b-485c-9e81-fbd1ee5ecccd"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DESCRIPCION_RAZON_TRANSACCION} != null? $F{DESCRIPCION_RAZON_TRANSACCION}:""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+					<reportElement key="" style="condicionalTipoIA" stretchType="RelativeToBandHeight" x="0" y="65" width="70" height="15" forecolor="#000000" uuid="417e18d1-cbd6-4422-9c14-009aa4417248">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph lineSpacingSize="0.0" firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_TIPO_INGRESO_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+					<reportElement style="condicionalProveedorIA" stretchType="RelativeToBandHeight" x="70" y="65" width="110" height="15" forecolor="#000000" uuid="dfd5a67a-941f-4f7d-9f0b-b3d5ad3a0f1b"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph lineSpacingSize="0.0" firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_PROVEEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+					<reportElement style="condicionalNroDocumentoIA" stretchType="RelativeToBandHeight" x="180" y="65" width="70" height="15" forecolor="#000000" uuid="248811f8-656d-4a8b-9aca-d0ef5f7d594f"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph lineSpacingSize="0.0" firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NRO_DOCUMENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm" isBlankWhenNull="true">
+					<reportElement style="condicionalTipoCompraIA" stretchType="RelativeToBandHeight" x="250" y="65" width="50" height="15" forecolor="#000000" uuid="bf9fb76e-10a1-4c8a-8d9e-63282ccba7ce"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph lineSpacingSize="0.0" firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_TIPO_COMPRA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="condicionalNroOrdenCompraIA" stretchType="RelativeToBandHeight" x="300" y="65" width="50" height="15" forecolor="#000000" uuid="46dedac9-a9ae-46f8-83ca-75e41ad8db4f"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph lineSpacingSize="0.0" firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NRO_ORDEN_COMPRA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="condicionalObservacionIA" stretchType="RelativeToBandHeight" x="350" y="65" width="178" height="15" forecolor="#000000" uuid="97f4bb7e-e0bc-449e-9556-4111e7ff1e1a"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+						<paragraph lineSpacingSize="0.0" firstLineIndent="0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OBS_INGRESO_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="0" y="55" width="70" height="10" backcolor="#E6E6E8" uuid="47fda6e2-d749-4345-8abf-69c1acf49a54"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Tipo de Ingreso]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="70" y="55" width="110" height="10" backcolor="#E6E6E8" uuid="40ba2fa0-4a4b-4f58-a8bd-35569a89eccc"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Proveedor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="180" y="55" width="70" height="10" backcolor="#E6E6E8" uuid="854b67a8-2baf-4d62-96c5-9b69f676bdad">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Nro. Factura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="250" y="55" width="50" height="10" backcolor="#E6E6E8" uuid="fc696835-a431-4a30-a4fb-3ab67c00a3e2">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Tipo Compra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="300" y="55" width="50" height="10" backcolor="#E6E6E8" uuid="fae0cb1e-6bfc-4aac-918e-698187e3da45">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Nro. O.C.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Table 1_TH" mode="Opaque" x="350" y="55" width="178" height="10" backcolor="#E6E6E8" uuid="3a49dbd9-9c33-4a32-9899-4b0b79f08f52">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[Observación Ingreso]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="grupoDetalle">
+		<groupExpression><![CDATA[$F{COD_INGRESOS_ALMACEN_DETALLE_LOG}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="20" y="0" width="280" height="20" forecolor="#1B966F" backcolor="#FFFFFF" uuid="c9af9dda-9302-44b2-a172-81b559c16c7d">
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#47917A"/>
+						<leftPen lineWidth="0.5" lineColor="#47917A"/>
+						<bottomPen lineWidth="0.5" lineColor="#47917A"/>
+						<rightPen lineWidth="0.5" lineColor="#47917A"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="condicionalCantidadIAD" stretchType="RelativeToBandHeight" mode="Opaque" x="300" y="0" width="70" height="20" forecolor="#1B966F" uuid="2e6abfbb-5c28-4abd-9095-56515d7fe968"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#47917A"/>
+						<leftPen lineWidth="0.5" lineColor="#47917A"/>
+						<bottomPen lineWidth="0.5" lineColor="#47917A"/>
+						<rightPen lineWidth="0.5" lineColor="#47917A"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CANT_TOTAL_INGRESO_FISICO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="condicionalUnidadIAD" stretchType="RelativeToBandHeight" mode="Opaque" x="370" y="0" width="50" height="20" forecolor="#1B966F" uuid="7737fae3-4c8a-42cd-adfd-6b1de54fdce5"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#47917A"/>
+						<leftPen lineWidth="0.5" lineColor="#47917A"/>
+						<bottomPen lineWidth="0.5" lineColor="#47917A"/>
+						<rightPen lineWidth="0.5" lineColor="#47917A"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="2" spacingAfter="2" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_UNIDAD_MEDIDA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="30" y="20" width="40" height="10" forecolor="#000000" uuid="2eabb81d-82ad-4eda-be1e-f4a24df12c0f"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Etiqueta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="350" y="20" width="178" height="10" forecolor="#000000" uuid="d8cdc9af-f715-4517-9e64-f526db33630f">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Observaciones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="300" y="20" width="50" height="10" forecolor="#000000" uuid="4ebd404c-6e68-4804-96fe-7cbc1476b421"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fecha Venc.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="250" y="20" width="50" height="10" forecolor="#000000" uuid="4800a359-c1a7-4892-8b45-175cdbaa3270"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Unidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="180" y="20" width="70" height="10" forecolor="#000000" uuid="8bbbd7de-32c1-4e9c-b9c0-d2c9eee94b83"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cantidad Parcial]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="70" y="20" width="110" height="10" forecolor="#000000" uuid="600abc07-37ad-4b68-9b30-79049c845a83"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="grupoDetalleEstado">
+		<groupExpression><![CDATA[$F{COD_INGRESOS_ALMACEN_DETALLE_ESTADO_LOG}]]></groupExpression>
+		<groupHeader>
+			<band height="10">
+				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="30" y="0" width="40" height="10" uuid="b56d0b82-2e31-4700-b4ce-8cb207f5bd68">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="7" isItalic="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="1" spacingAfter="1" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ETIQUETA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="condicionalEstadoMaterialIADE" stretchType="RelativeToBandHeight" x="70" y="0" width="110" height="10" uuid="4b710068-754a-440f-8fe8-65377b64dd14"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="7" isItalic="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="1" spacingAfter="1" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_ESTADO_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement style="condicionalCantidadParcialIADE" stretchType="RelativeToBandHeight" x="180" y="0" width="70" height="10" uuid="22fcffe8-d437-4a67-af65-a2952ac4a311"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="7" isItalic="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="1" spacingAfter="1" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CANTIDAD_PARCIAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="condicionalUnidadIAD" stretchType="RelativeToBandHeight" x="250" y="0" width="50" height="10" uuid="2716c878-4140-4939-b393-255c0d417749"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="7" isItalic="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="1" spacingAfter="1" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ABREVIATURA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="MM/yyyy" isBlankWhenNull="true">
+					<reportElement style="condicionalFechaVencimientoIADE" stretchType="RelativeToBandHeight" x="300" y="0" width="50" height="10" uuid="c2ab4484-9932-4361-9f18-53401a8bd185"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="7" isItalic="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="1" spacingAfter="1" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{FECHA_VENCIMIENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="condicionalObservacionIADE" stretchType="RelativeToBandHeight" x="350" y="0" width="178" height="10" uuid="279005e9-bfe7-411e-afe7-89f01c849bb7"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#030303"/>
+						<leftPen lineWidth="0.5" lineColor="#030303"/>
+						<bottomPen lineWidth="0.5" lineColor="#030303"/>
+						<rightPen lineWidth="0.5" lineColor="#030303"/>
+					</box>
+					<textElement textAlignment="Justified">
+						<font fontName="Arial" size="7" isItalic="true"/>
+						<paragraph lineSpacingSize="0.0" leftIndent="2" rightIndent="2" spacingBefore="1" spacingAfter="1" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IADE_OBSERVACIONES}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="138" y="1" width="312" height="15" uuid="58bc9994-9758-4a92-aa8b-b1c05f7c48da">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE TRAZABILIDAD DE INGRESOS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="222" y="22" width="228" height="12" uuid="76e28243-d1c6-4f18-b55c-52bf84357222"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NRO_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="138" y="22" width="82" height="12" uuid="27e323ca-2724-45c0-a796-f433329e1532">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[NRO. INGRESO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement x="222" y="34" width="228" height="12" uuid="6f7fbf0a-4580-4cf9-9937-b2122797e3eb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="138" y="34" width="82" height="12" uuid="e1328c49-3053-4d9d-895c-a3fa48302f05"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[FECHA INGRESO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="222" y="46" width="228" height="12" uuid="1cf594f2-dbd4-4050-8b4f-68b3a90e47dc">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="138" y="46" width="82" height="12" uuid="5624aba0-e6eb-41af-99de-db08e43bc2f5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[ALMACEN:]]></text>
+			</staticText>
+			<image isUsingCache="true">
+				<reportElement x="0" y="0" width="109" height="60" uuid="033c050d-19c7-4ef4-8448-8080dae91be7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{dirLogoCofar}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="138" y="58" width="82" height="12" uuid="086cffb3-469d-47bf-bff8-b8320a56b1f5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+					<paragraph leftIndent="2" rightIndent="2"/>
+				</textElement>
+				<text><![CDATA[GRUPO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="222" y="58" width="228" height="12" uuid="7a55f3cf-a3c4-4280-8558-b8534f58aaf8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{grupo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="266" y="80" width="85" height="15" backcolor="#CAFA64" uuid="1d671670-0c11-4b68-9760-b6a059f4eb7a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="160" y="80" width="85" height="15" backcolor="#FFFFFF" uuid="17f3bbb0-e527-485d-a5a4-7fce988810bf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Sin Modificar]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="15" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="64" y="3" width="70" height="12" uuid="0cd1bc79-6460-4c6e-97fc-774bfe3e4691"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="388" y="3" width="100" height="12" uuid="eb931ea6-c259-41ce-97fc-1ee75370fa26"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="488" y="3" width="40" height="12" uuid="8adbf254-039e-4b13-9755-b0328244029e"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="3" width="64" height="12" uuid="9eb44e5b-413f-4f14-aa27-a47f55a76ecb">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha Impresión:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

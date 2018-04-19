@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-11-03T08:58:26 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitudCompra" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" whenResourceMissingType="Error" uuid="93859db2-7ed9-4870-ad32-773df2573505">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="codSolicitudCompra" class="java.lang.Integer"/>
+	<parameter name="dirLogoCofar" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D://PROYECTOS//ALMACENESV//web//img/cofar.png"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT sc.COD_SOLICITUD_COMPRA
+, RTRIM(UPPER(ga.ABREVIATURA_GRADO_ACADEMICO)) + ' ' +dbo.ObtenerNombrePersonal(p.COD_PERSONAL) APROBADO_POR
+, dbo.ObtenerNombrePersonal(p1.COD_PERSONAL) RESPONSABLE_COMPRAS
+, ae.NOMBRE_AREA_EMPRESA
+, um.ABREVIATURA
+, scd.CANT_SOLICITADA
+, m.NOMBRE_MATERIAL
+, ae1.NOMBRE_AREA_EMPRESA AREA_GENERAL
+, sc.FECHA_ENVIO
+, scd.OBS_MATERIAL_SOLICITUD
+, sc.OBS_SOLICITUD_COMPRA
+, dbo.ObtenerNombrePersonal(dbo.ObtenerPersonalSolCompras(sc.COD_SOLICITUD_COMPRA)) SOLICITANTE
+, (
+	SELECT tsc.nombre_tipo_solicitud_compra
+	FROM tipos_solicitud_compra tsc
+	WHERE sc.cod_tipo_solicitud_compra = tsc.cod_tipo_solicitud_compra
+) TIPO_SOLICITUD
+FROM SOLICITUDES_COMPRA sc 
+LEFT OUTER JOIN SOLICITUDES_COMPRA_DETALLE scd
+ON sc.COD_SOLICITUD_COMPRA = scd.COD_SOLICITUD_COMPRA
+LEFT OUTER JOIN AREAS_EMPRESA ae
+ON sc.COD_AREA_EMPRESA = ae.COD_AREA_EMPRESA
+LEFT OUTER JOIN PERSONAL p
+ON sc.COD_PERSONAL = p.COD_PERSONAL
+LEFT OUTER JOIN PERSONAL p1
+ON sc.COD_RESPONSABLE_COMPRAS = p1.COD_PERSONAL
+LEFT OUTER JOIN MATERIALES m
+ON scd.COD_MATERIAL = m.COD_MATERIAL
+LEFT OUTER JOIN UNIDADES_MEDIDA um
+ON m.COD_UNIDAD_MEDIDA = um.COD_UNIDAD_MEDIDA
+LEFT OUTER JOIN GRADOS_ACADEMICOS ga
+ON p.COD_GRADO_ACADEMICO = ga.COD_GRADO_ACADEMICO
+LEFT OUTER JOIN AREAS_EMPRESA ae1
+ON p.COD_AREA_EMPRESA = ae1.COD_AREA_EMPRESA
+WHERE sc.COD_SOLICITUD_COMPRA = $P{codSolicitudCompra}
+ORDER BY m.NOMBRE_MATERIAL]]>
+	</queryString>
+	<field name="COD_SOLICITUD_COMPRA" class="java.lang.Integer"/>
+	<field name="APROBADO_POR" class="java.lang.String"/>
+	<field name="RESPONSABLE_COMPRAS" class="java.lang.String"/>
+	<field name="NOMBRE_AREA_EMPRESA" class="java.lang.String"/>
+	<field name="ABREVIATURA" class="java.lang.String"/>
+	<field name="CANT_SOLICITADA" class="java.lang.Double"/>
+	<field name="NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="AREA_GENERAL" class="java.lang.String"/>
+	<field name="FECHA_ENVIO" class="java.sql.Timestamp"/>
+	<field name="OBS_MATERIAL_SOLICITUD" class="java.lang.String"/>
+	<field name="OBS_SOLICITUD_COMPRA" class="java.lang.String"/>
+	<field name="SOLICITANTE" class="java.lang.String"/>
+	<field name="TIPO_SOLICITUD" class="java.lang.String"/>
+	<group name="totalLiteral">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Prevent"/>
+		</groupHeader>
+	</group>
+	<group name="totalOC">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Prevent"/>
+		</groupHeader>
+	</group>
+	<group name="cargosExtra">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band splitType="Prevent"/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Prevent"/>
+	</background>
+	<title>
+		<band splitType="Prevent"/>
+	</title>
+	<pageHeader>
+		<band height="181" splitType="Prevent">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="160" y="30" width="320" height="20" forecolor="#990099" uuid="691e9626-88f2-43b2-b0df-9680af9fd135"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIPO_SOLICITUD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="242" y="49" width="40" height="13" uuid="ba512ce0-ddb2-4dc4-9e58-391d97131905"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[La Paz, ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false">
+				<reportElement key="textField" x="283" y="49" width="145" height="13" uuid="af390ecc-154c-4fed-b099-b8fd5621fdb4"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-2" x="489" y="38" width="30" height="19" forecolor="#990099" uuid="6025695e-670d-4305-b493-bd2c47fc216a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Verdana" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="520" y="38" width="70" height="19" forecolor="#990099" uuid="bf86a065-8e0d-4f16-9d41-be61f4b28b67"/>
+				<textElement>
+					<font fontName="Verdana" size="14" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COD_SOLICITUD_COMPRA}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-5" x="70" y="85" width="512" height="1" forecolor="#990099" uuid="1e7952de-f62c-49e8-b70b-ce1d7a08ba90"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-14" x="247" y="74" width="148" height="11" forecolor="#990099" uuid="49a36ed7-cba1-40ec-b9d7-046e15fc319e"/>
+				<textElement>
+					<font fontName="Verdana" size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL SOLICITANTE
+]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="152" y="102" width="412" height="10" uuid="ca39cbce-c681-40ee-90ab-302d644763c5"/>
+				<textElement>
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SOLICITANTE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="170" y="118" width="395" height="10" uuid="93ea1010-2617-4b4d-9316-2f9c567d891f"/>
+				<textElement>
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RESPONSABLE_COMPRAS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-3" x="152" y="88" width="254" height="10" uuid="79be75a9-4cb1-4816-8fe4-c33c053ad0ba"/>
+				<textElement>
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{APROBADO_POR} + " - " + $F{AREA_GENERAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-34" x="76" y="118" width="94" height="10" uuid="7dac84b7-7471-49cc-8463-379f88f3a833"/>
+				<textElement>
+					<font fontName="Verdana" size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[RESP. DE COMPRAS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-35" x="410" y="87" width="77" height="10" uuid="fb9a7084-4490-4b10-b201-f235ec6c7bc4"/>
+				<textElement>
+					<font fontName="Verdana" size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[FECHA DE APROB.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-37" x="76" y="88" width="73" height="10" uuid="549325b2-2d3d-4ae0-b586-f21599b09cd4"/>
+				<textElement>
+					<font fontName="Verdana" size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[APROBADO POR:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-38" x="76" y="102" width="72" height="10" uuid="713b1965-30de-4f4d-8ceb-0ade6a029a8b"/>
+				<textElement>
+					<font fontName="Verdana" size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[SOLICITADO POR:]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-10" x="70" y="145" width="512" height="1" forecolor="#990099" uuid="5a574742-4087-4f1e-8cda-5e432a5629ba"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-39" x="191" y="146" width="270" height="11" forecolor="#990099" uuid="3b5b2be6-df52-4541-b8db-60c7c11f7dc1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[DETALLE DE LA ORDEN DE COMPRA
+]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-11" x="70" y="157" width="512" height="1" forecolor="#990099" uuid="a290dfeb-269b-4b9b-81ca-2f249f6c9908"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-40" x="77" y="166" width="46" height="10" uuid="d17d04ee-7b95-4497-aa4a-875ad2abd413"/>
+				<textElement>
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-12" x="70" y="178" width="512" height="1" forecolor="#990099" uuid="aa139ef3-b61b-445a-91e3-4a76bf7d7916"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-41" x="485" y="157" width="50" height="21" uuid="eeecc018-59ad-40be-bb08-c0f97720f1b8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cantidad
+Solicitada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-42" x="548" y="166" width="25" height="10" uuid="99f08b17-5791-4ac5-ac6c-3567b10e0ba1"/>
+				<textElement>
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Unid.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="489" y="87" width="76" height="10" uuid="ebba57e2-ed97-4c36-83fd-878c8a8dae0c"/>
+				<textElement>
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FECHA_ENVIO}]]></textFieldExpression>
+			</textField>
+			<image isUsingCache="true">
+				<reportElement key="image-1" x="73" y="33" width="79" height="40" uuid="503b3246-50b2-4fe0-8acb-211de97ea4ff"/>
+				<imageExpression><![CDATA[$P{dirLogoCofar}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-32" x="76" y="130" width="104" height="10" uuid="88b92a7b-646f-44b6-95f1-098605f4b94e"/>
+				<textElement>
+					<font fontName="Verdana" size="7" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[AREA/DEPTO DESTINO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="180" y="129" width="398" height="10" uuid="b1e1c204-3f1f-4be5-a16a-4437878fa779"/>
+				<textElement>
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_AREA_EMPRESA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Prevent"/>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Prevent">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="485" y="-1" width="52" height="12" uuid="a6a29137-8ebc-48eb-9608-e8ed3484ba25"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CANT_SOLICITADA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="539" y="-1" width="41" height="12" uuid="a27f086e-88d3-4bdc-8ae4-fe1393b85ce1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Verdana" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ABREVIATURA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" isPrintRepeatedValues="false" x="73" y="-1" width="406" height="12" uuid="6d37c7e8-b739-4d1a-a86d-05a3dbafced8"/>
+				<textElement>
+					<font fontName="Verdana" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_MATERIAL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" x="73" y="12" width="406" height="5" isRemoveLineWhenBlank="true" uuid="cfa27244-e9ff-4741-879e-f5ac341f69e9"/>
+				<textElement>
+					<font fontName="Verdana" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OBS_MATERIAL_SOLICITUD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="52" splitType="Prevent">
+			<staticText>
+				<reportElement key="staticText-59" positionType="Float" x="73" y="4" width="70" height="10" uuid="1afa9c56-029d-43d4-8278-bd40856993ad"/>
+				<textElement>
+					<font fontName="Verdana" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" positionType="Float" x="144" y="5" width="436" height="27" uuid="1dee63e8-f05e-454c-b757-f352de29ee88"/>
+				<textElement>
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OBS_SOLICITUD_COMPRA}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-37" positionType="Float" x="70" y="4" width="512" height="1" forecolor="#990099" uuid="0bb34bf5-d9d3-4563-8acd-bbfaad971315"/>
+			</line>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="555" y="33" width="20" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5e8aad22-44ba-4dd6-af78-3672d0d97453"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-4" x="510" y="33" width="44" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="2e7a9f00-24a0-4d10-bf13-2bd93aa1f7d7"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}+ " de "]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Prevent"/>
+	</summary>
+</jasperReport>

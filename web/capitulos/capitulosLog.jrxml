@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2018-02-27T15:36:40 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="capitulosLog" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f32c2fe6-96b8-4f05-91d1-8fb78bde4b11">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="local20171010"/>
+	<template><![CDATA["C:\\stylosJasperReport\\StylosImpresionOM.jrtx"]]></template>
+	<style name="condicional" style="textoBody.">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(2)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCCAF2"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(3)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#9FFCAD"/>
+		</conditionalStyle>
+	</style>
+	<style name="nombreCapitulo" style="condicional">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1) &&
+!$F{NOMBRE_CAPITULO}.equals($F{NOMBRE_CAPITULOAnterior})]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<style name="obsCapitulo" style="condicional">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1) &&
+	!$F{OBS_CAPITULO}.equals($F{OBS_CAPITULOAnterior})]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<style name="estadoRegistro" style="condicional" mode="Opaque" fill="Solid">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1) &&
+	!$F{NOMBRE_ESTADO_REGISTRO}.equals($F{NOMBRE_ESTADO_REGISTROAnterior})]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="codCapitulo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT  cl.COD_CAPITULO,cl.NOMBRE_CAPITULO,cl.OBS_CAPITULO,er.NOMBRE_ESTADO_REGISTRO,
+		 cl.CAPITULO_ALMACEN,tl.FECHA_TRANSACCION, tl.DESCRIPCION_CAUSA_TRANSACCION,ttl.NOMBRE_TIPO_TRANSACCION_LOG
+		 ,tl.COD_TIPO_TRANSACCION_LOG
+		 ,p.AP_PATERNO_PERSONAL+' '+p.AP_MATERNO_PERSONAL+' '+p.NOMBRES_PERSONAL+' '+p.nombre2_personal as nombrePersonal
+         ,datosAnteriorLog.NOMBRE_CAPITULO as NOMBRE_CAPITULOAnterior
+         ,datosAnteriorLog.OBS_CAPITULO as OBS_CAPITULOAnterior
+         ,datosAnteriorLog.NOMBRE_ESTADO_REGISTRO as NOMBRE_ESTADO_REGISTROAnterior
+FROM  CAPITULOS_LOG cl
+	   INNER JOIN TRANSACCIONES_LOG tl ON tl.COD_TRANSACCION_LOG = cl.COD_TRANSACCION_LOG  
+	   INNER JOIN TIPOS_TRANSACCION_LOG ttl ON tl.COD_TIPO_TRANSACCION_LOG = ttl.COD_TIPO_TRANSACCION_LOG
+	   INNER JOIN PERSONAL p ON p.COD_PERSONAL = tl.COD_PERSONAL 
+	   LEFT OUTER JOIN ESTADOS_REFERENCIALES er ON er.COD_ESTADO_REGISTRO = cl.COD_ESTADO_REGISTRO  
+	   outer APPLY(
+		       select top 1 cl1.NOMBRE_CAPITULO,cl1.OBS_CAPITULO,er1.NOMBRE_ESTADO_REGISTRO
+		       from CAPITULOS_LOG cl1
+		              LEFT OUTER join ESTADOS_REFERENCIALES er1 on er1.COD_ESTADO_REGISTRO= cl1.COD_ESTADO_REGISTRO
+		       where cl1.COD_CAPITULO = cl.COD_CAPITULO
+		       		and cl1.COD_TRANSACCION_LOG < cl.COD_TRANSACCION_LOG
+               order by  cl1.COD_TRANSACCION_LOG desc 
+		   ) as datosAnteriorLog
+where cl.COD_CAPITULO =  $P{codCapitulo} 
+order by  tl.FECHA_TRANSACCION]]>
+	</queryString>
+	<field name="COD_CAPITULO" class="java.lang.Integer"/>
+	<field name="NOMBRE_CAPITULO" class="java.lang.String"/>
+	<field name="OBS_CAPITULO" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_REGISTRO" class="java.lang.String"/>
+	<field name="CAPITULO_ALMACEN" class="java.lang.Integer"/>
+	<field name="FECHA_TRANSACCION" class="java.sql.Timestamp"/>
+	<field name="DESCRIPCION_CAUSA_TRANSACCION" class="java.lang.String"/>
+	<field name="NOMBRE_TIPO_TRANSACCION_LOG" class="java.lang.String"/>
+	<field name="COD_TIPO_TRANSACCION_LOG" class="java.lang.Integer"/>
+	<field name="nombrePersonal" class="java.lang.String"/>
+	<field name="NOMBRE_CAPITULOAnterior" class="java.lang.String"/>
+	<field name="OBS_CAPITULOAnterior" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_REGISTROAnterior" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<ellipse>
+				<reportElement x="105" y="49" width="29" height="28" forecolor="#FFFFFF" backcolor="#9FFCAD" uuid="c0ff14fa-9afb-49e1-a1d6-24886195120a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="282" y="49" width="29" height="28" forecolor="#FFFCFC" backcolor="#FCF1A4" uuid="deeb4f36-5ef8-44ed-bf5f-6bb11ea4035c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="449" y="49" width="29" height="28" forecolor="#FAF7F7" backcolor="#FCCAF2" uuid="591c98fe-1441-424e-a09f-529f483a1373"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+				</graphicElement>
+			</ellipse>
+			<staticText>
+				<reportElement key="" style="textoBold" x="67" y="56" width="100" height="19" uuid="b7281d80-8da1-41b2-a7f8-6fe1c3ebbb5e"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUEVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="56" width="100" height="19" uuid="8804e39e-069d-4afc-996e-5b52e8e13743"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MODIFICADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="391" y="56" width="100" height="19" uuid="fa86e9b7-70c0-4177-a5c3-acc7c6719da8"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ELIMINADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBold" x="167" y="10" width="224" height="30" uuid="ccc11138-c8eb-4e13-b000-1d71108e9d10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE LOGS CAPITULOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="146" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement x="30" y="24" width="490" height="116" uuid="bfb4de4d-9e33-49ce-be7d-7acd576f3300"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="" style="textoBody." x="47" y="27" width="88" height="13" uuid="a1af6343-f6db-4974-bc19-f44979234045"/>
+				<textElement textAlignment="Left">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA TRANSACCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="47" y="46" width="88" height="16" uuid="8760221c-03e1-4c6d-b663-78dc9cc54384"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO TRANSACCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="260" y="27" width="92" height="13" uuid="588cdb53-13ff-45b9-82d1-afbfc485b057"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONAL TRANSACCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="260" y="46" width="78" height="17" uuid="a9ba6c4e-14f2-4359-9189-7200f248c52a"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JUSTIFICACION :]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement x="46" y="71" width="459" height="24" backcolor="#CCCCCC" uuid="ee026f8d-4f5c-44b0-9cea-33ea694fbb36"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement x="46" y="95" width="459" height="29" uuid="d96112f0-8dfd-4174-b832-a56748f52d50"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement key="" style="textoCabeceraProceso" mode="Opaque" x="30" y="7" width="490" height="17" backcolor="#CCCCCC" uuid="df98b848-dc10-416d-9843-3fbb105d70e4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="243" y="9" width="30" height="15" uuid="7bff41a9-d631-48da-b1c2-0ce0106be8e4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOG :]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="278" y="10" width="100" height="14" uuid="10ba5ba5-8ced-4ef0-9f26-61fa1e69b2c5"/>
+				<textElement>
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="403" y="71" width="1" height="53" uuid="b676655d-4922-495f-adab-08e91f3b7df3"/>
+			</line>
+			<line>
+				<reportElement x="299" y="71" width="1" height="53" uuid="d6c32775-3ad3-4aa6-8914-a7408bf13932"/>
+			</line>
+			<line>
+				<reportElement x="162" y="71" width="1" height="53" uuid="6757f550-a0a0-4413-a8fc-e7b2efc7ab0d"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement style="nombreCapitulo" x="47" y="96" width="114" height="27" uuid="2f933eee-e67b-4322-8447-feaa6d6080cd"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CAPITULO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="textoCabecera" x="49" y="73" width="110" height="18" uuid="f8f3d3f1-f1c5-4209-ae94-43471894febb"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement style="obsCapitulo" x="163" y="96" width="136" height="27" uuid="a0e5dd37-b364-461b-92bf-bd4bde69add7"/>
+				<textFieldExpression><![CDATA[$F{OBS_CAPITULO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="textoCabecera" x="163" y="74" width="136" height="17" uuid="ffb932c8-c43d-4e00-95f2-40de1e62ae22"/>
+				<text><![CDATA[OBSERVACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoCabecera" x="300" y="74" width="102" height="16" uuid="24a30bcf-8b97-449f-ab4e-d46c019c09bc"/>
+				<text><![CDATA[ESTADO REGISTRO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement style="textoBody." x="137" y="27" width="100" height="13" uuid="3dbd28e0-3c6c-4922-b23c-3f463c22c031"/>
+				<textFieldExpression><![CDATA[$F{FECHA_TRANSACCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="textoBody." x="357" y="46" width="146" height="17" uuid="7843f92c-534e-400d-bf20-69f01f5d05e6"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_CAUSA_TRANSACCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="textoBody." x="137" y="46" width="100" height="16" uuid="614b6d33-083c-4b2d-a28b-63f295862372"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_TIPO_TRANSACCION_LOG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="textoBody." x="357" y="27" width="145" height="13" uuid="a197db2c-5482-4243-8893-f0f1d0cd7770"/>
+				<textFieldExpression><![CDATA[$F{nombrePersonal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="condicional" x="404" y="96" width="100" height="28" uuid="0d636e4d-4b3c-4948-a69e-431f7ca5066e"/>
+				<textFieldExpression><![CDATA[$F{CAPITULO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="textoCabecera" x="404" y="72" width="100" height="22" uuid="990753c1-cae3-47ad-b171-611b2c5ad9e8"/>
+				<text><![CDATA[CAPITULO ALMACEN]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement style="estadoRegistro" x="300" y="96" width="103" height="28" uuid="c7b8ea65-4772-4d01-b108-45a6b91f3893"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ESTADO_REGISTRO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement style="texto" x="420" y="3" width="100" height="10" uuid="f865d312-836c-4c48-9e5d-8168bb0d4513">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement key="" style="texto" x="520" y="3" width="37" height="10" uuid="56354a11-cace-4388-9603-a26b6595a237"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="filename">BACO.log</Property>
+  </Properties>
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%-5level:%msg%n"/>
+    </Console>
+    <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="../logs/BACO/${filename}" append="true"
+                 filePattern="../logs/BACO/BACO$${date:yyyy-MM}/app-%d{yyyy-MM-dd-HH-mm-ss}-%i.log.gz">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="20 MB"/>
+      </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingSolDevoluciones" fileName="../logs/BACO/SOLDEVOLUCIONES.log" append="true"
+                 filePattern="../logs/BACO/SOLDEVOLUCIONES/soldevoluciones-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingSalidas" fileName="../logs/BACO/SALIDAS.log" append="true"
+                 filePattern="../logs/BACO/SALIDAS/salidas-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingIngresos" fileName="../logs/BACO/INGRESOS.log" append="true"
+                 filePattern="../logs/BACO/INGRESOS/ingresos-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingMateriales" fileName="../logs/BACO/MATERIALES.log" append="true"
+                 filePattern="../logs/BACO/MATERIALES/materiales-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>  
+    <RollingRandomAccessFile name="RoollingSolicitudSalidas" fileName="../logs/BACO/SOLICITUD_SALIDA.log" append="true"
+                 filePattern="../logs/BACO/SOLICITUD_SALIDA/solicitudSalida-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingIngresosOc" fileName="../logs/BACO/INGRESOSOC.log" append="true"
+                 filePattern="../logs/BACO/INGRESOS_OC/ingresosOc-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingTraspasos" fileName="../logs/BACO/TRASPASOS.log" append="true"
+                 filePattern="../logs/BACO/TRASPASOS/traspasos-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingCambioEstadoMaterial" fileName="../logs/BACO/CAMBIO_ESTADO_MATERIAL.log" append="true"
+                 filePattern="../logs/BACO/CAMBIO_ESTADO_MATERIAL/cambioEstadoMaterial-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+      
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+    <RollingRandomAccessFile name="RoollingLogging" fileName="../logs/ATLAS/LOGGIN.log" append="true"
+                 filePattern="../logs/BACO/LOGGIN-%d{yyyy-MM-dd-HH-mm-ss}-%i.log">
+        <PatternLayout pattern="[%d] \n%-5level: %msg%n%throwable"/>
+        <Policies>
+          <SizeBasedTriggeringPolicy size="20 MB"/>
+        </Policies>
+    </RollingRandomAccessFile>
+</Appenders>
+        
+    <Loggers>
+        <Logger name="Loggin" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingLogging"/>
+        </Logger>
+        <Logger name="Traspasos" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingTraspasos"/>
+        </Logger>  
+        <Logger name="Salidas" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingSalidas"/>
+        </Logger> 
+        <Logger name="SolicitudSalidas" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingSolicitudSalidas"/>
+        </Logger>  
+        <Logger name="Ingresos" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingIngresos"/>
+        </Logger>  
+        <Logger name="IngresosOc" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingIngresosOc"/>
+        </Logger>  
+        <Logger name="SolicitudDevoluciones" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingSolDevoluciones"/>
+        </Logger>
+        <Logger name="CambioEstadoMaterial" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingCambioEstadoMaterial"/>
+        </Logger>
+        <Root level="ALL">
+          <AppenderRef ref="Console"/>
+          <AppenderRef ref="RollingRandomAccessFile"/>
+        </Root>
+        <Logger name="Salidas" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingSalidas"/>
+        </Logger>  
+        <Logger name="SolicitudSalidas" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingSolicitudSalidas"/>
+        </Logger>  
+        <Logger name="Ingresos" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingIngresos"/>
+        </Logger>  
+        <Logger name="IngresosOc" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingIngresosOc"/>
+        </Logger>  
+        <Logger name="SolicitudDevoluciones" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingSolDevoluciones"/>
+        </Logger>
+        <Logger name="CambioEstadoMaterial" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingCambioEstadoMaterial"/>
+        </Logger>
+        <Logger name="Materiales" level="ALL" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RoollingMateriales"/>
+        </Logger>
+        <Root level="ALL">
+          <AppenderRef ref="Console"/>
+          <AppenderRef ref="RollingRandomAccessFile"/>
+        </Root>  
+    </Loggers>
+</Configuration>

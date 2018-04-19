@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2018-02-09T11:32:35 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSalidaAlmacen" pageWidth="612" pageHeight="394" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="584" leftMargin="14" rightMargin="14" topMargin="14" bottomMargin="14" whenResourceMissingType="Empty" uuid="cf7ccf08-30c8-470f-a013-f10131d04b08">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="com.jaspersoft.studio.unit." value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="cm"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="cm"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="dataSetUbicaciones" uuid="b50c322e-3373-40f8-a258-1a1e63c84c96">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="codSalidaAlmacen" class="java.lang.Integer"/>
+		<parameter name="codMaterial" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[select isnull(aa.NOMBRE_AMBIENTE,'') NOMBRE_AMBIENTE,isnull(iade.LOTE_MATERIAL_PROVEEDOR,'') LOTE_MATERIAL_PROVEEDOR,
+		sadi.CANTIDAD,isnull(ea.NOMBRE_ESTANTE,'') NOMBRE_ESTANTE,isnull(sadi.FILA,'') FILA,
+        isnull(sadi.COLUMNA,'') COLUMNA
+from SALIDAS_ALMACEN_DETALLE_INGRESO sadi
+	 inner join INGRESOS_ALMACEN_DETALLE_ESTADO iade on sadi.COD_INGRESO_ALMACEN = iade.COD_INGRESO_ALMACEN
+     		and sadi.COD_MATERIAL = iade.COD_MATERIAL 
+			and sadi.ETIQUETA = iade.ETIQUETA
+      LEFT OUTER JOIN ESTANTE_AMBIENTE ea ON ea.COD_ESTANTE = sadi.COD_ESTANTE
+      LEFT OUTER JOIN AMBIENTE_ALMACEN aa ON aa.COD_AMBIENTE = ea.COD_AMBIENTE
+where sadi.COD_SALIDA_ALMACEN = $P{codSalidaAlmacen} 
+	and sadi.cod_material =  $P{codMaterial} 
+	and sadi.CANTIDAD>0.01
+order by iade.FECHA_VENCIMIENTO,iade.ETIQUETA]]>
+		</queryString>
+		<field name="NOMBRE_AMBIENTE" class="java.lang.String"/>
+		<field name="LOTE_MATERIAL_PROVEEDOR" class="java.lang.String"/>
+		<field name="CANTIDAD" class="java.lang.Double"/>
+		<field name="NOMBRE_ESTANTE" class="java.lang.String"/>
+		<field name="FILA" class="java.lang.String"/>
+		<field name="COLUMNA" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataSetProveedores" uuid="859821b9-506d-4b27-9845-8d8ac8ee5ec4">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Oficial"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="codSalidaAlmacen" class="java.lang.Integer"/>
+		<parameter name="codMaterial" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[select top 2 i.FECHA_VENCIMIENTO,p.NOMBRE_PROVEEDOR
+from salidas_almacen_detalle_ingreso s
+		inner join ingresos_almacen_detalle_estado i on s.cod_ingreso_almacen = i.COD_INGRESO_ALMACEN and s.cod_material = i.cod_material and s.ETIQUETA = i.ETIQUETA
+		inner join ingresos_almacen ia on ia.COD_INGRESO_ALMACEN = i.COD_INGRESO_ALMACEN
+		inner join proveedores p on p.COD_PROVEEDOR = ia.COD_PROVEEDOR
+where s.COD_SALIDA_ALMACEN =  $P{codSalidaAlmacen} 
+		and s.COD_MATERIAL = $P{codMaterial} 
+group by i.FECHA_VENCIMIENTO,p.NOMBRE_PROVEEDOR]]>
+		</queryString>
+		<field name="FECHA_VENCIMIENTO" class="java.sql.Timestamp"/>
+		<field name="NOMBRE_PROVEEDOR" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="codigo" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new Integer("149009")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     SALIDAS_ALMACEN."NRO_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN."FECHA_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_FECHA_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN."OBS_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN,
+     UNIDADES_MEDIDA."ABREVIATURA" AS UNIDADES_MEDIDA_ABREVIATURA,
+     SALIDAS_ALMACEN_DETALLE."CANTIDAD_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_DETALLE_CANTIDAD_SALIDA_ALMACEN,
+     MATERIALES."CODIGO_ANTIGUO" AS MATERIALES_CODIGO_ANTIGUO,
+     MATERIALES."NOMBRE_MATERIAL" AS MATERIALES_NOMBRE_MATERIAL,
+     TIPOS_SALIDAS_ALMACEN."NOMBRE_TIPO_SALIDA_ALMACEN" AS TIPOS_SALIDAS_ALMACEN_NOMBRE_TIPO_SALIDA_ALMACEN,
+     PRESENTACIONES_PRODUCTO."NOMBRE_PRODUCTO_PRESENTACION" AS PRESENTACIONES_PRODUCTO_NOMBRE_PRODUCTO_PRESENTACION,
+     SALIDAS_ALMACEN."COD_LOTE_PRODUCCION" AS SALIDAS_ALMACEN_COD_LOTE_PRODUCCION,
+     SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_COD_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN_DETALLE."COD_MATERIAL" AS SALIDAS_ALMACEN_DETALLE_COD_MATERIAL,
+     COMPONENTES_PROD."nombre_prod_semiterminado" AS COMPONENTES_PROD_nombre_prod_semiterminado,
+     COMPONENTES_PROD1."nombre_prod_semiterminado" AS COMPONENTES_PROD_nombre_prod_semiterminado1,
+     AREAS_EMPRESA_A."NOMBRE_AREA_EMPRESA" AS AREAS_EMPRESA_A_NOMBRE_AREA_EMPRESA
+FROM "dbo"."SALIDAS_ALMACEN" SALIDAS_ALMACEN 
+     LEFT OUTER JOIN "dbo"."PRESENTACIONES_PRODUCTO" PRESENTACIONES_PRODUCTO ON SALIDAS_ALMACEN."COD_PRESENTACION" = PRESENTACIONES_PRODUCTO."cod_presentacion"
+     LEFT OUTER JOIN "dbo"."TIPOS_SALIDAS_ALMACEN" TIPOS_SALIDAS_ALMACEN ON SALIDAS_ALMACEN."COD_TIPO_SALIDA_ALMACEN" = TIPOS_SALIDAS_ALMACEN."COD_TIPO_SALIDA_ALMACEN"
+     LEFT OUTER JOIN "dbo"."SALIDAS_ALMACEN_DETALLE" SALIDAS_ALMACEN_DETALLE ON SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" = SALIDAS_ALMACEN_DETALLE."COD_SALIDA_ALMACEN"
+     LEFT OUTER JOIN "dbo"."COMPONENTES_PROD" COMPONENTES_PROD ON SALIDAS_ALMACEN."COD_PROD" = COMPONENTES_PROD."COD_COMPPROD"
+     INNER JOIN "dbo"."AREAS_EMPRESA" AREAS_EMPRESA_A ON SALIDAS_ALMACEN."COD_AREA_EMPRESA" = AREAS_EMPRESA_A."COD_AREA_EMPRESA"
+     LEFT OUTER JOIN "dbo"."MATERIALES" MATERIALES ON SALIDAS_ALMACEN_DETALLE."COD_MATERIAL" = MATERIALES."COD_MATERIAL"
+     LEFT OUTER JOIN "dbo"."UNIDADES_MEDIDA" UNIDADES_MEDIDA ON SALIDAS_ALMACEN_DETALLE."COD_UNIDAD_MEDIDA" = UNIDADES_MEDIDA."COD_UNIDAD_MEDIDA"
+     LEFT OUTER JOIN "dbo"."COMPONENTES_PROD" COMPONENTES_PROD1 ON SALIDAS_ALMACEN."COD_PROD1" = COMPONENTES_PROD1."COD_COMPPROD"
+    
+WHERE
+     SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" = $P{codigo}]]>
+	</queryString>
+	<field name="SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN" class="java.lang.Integer"/>
+	<field name="SALIDAS_ALMACEN_FECHA_SALIDA_ALMACEN" class="java.sql.Timestamp"/>
+	<field name="SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN" class="java.lang.String"/>
+	<field name="UNIDADES_MEDIDA_ABREVIATURA" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_DETALLE_CANTIDAD_SALIDA_ALMACEN" class="java.lang.Double"/>
+	<field name="MATERIALES_CODIGO_ANTIGUO" class="java.lang.String"/>
+	<field name="MATERIALES_NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="TIPOS_SALIDAS_ALMACEN_NOMBRE_TIPO_SALIDA_ALMACEN" class="java.lang.String"/>
+	<field name="PRESENTACIONES_PRODUCTO_NOMBRE_PRODUCTO_PRESENTACION" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_COD_LOTE_PRODUCCION" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_COD_SALIDA_ALMACEN" class="java.lang.Integer"/>
+	<field name="SALIDAS_ALMACEN_DETALLE_COD_MATERIAL" class="java.lang.Integer"/>
+	<field name="COMPONENTES_PROD_nombre_prod_semiterminado" class="java.lang.String"/>
+	<field name="COMPONENTES_PROD_nombre_prod_semiterminado1" class="java.lang.String"/>
+	<field name="AREAS_EMPRESA_A_NOMBRE_AREA_EMPRESA" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="2" y="2" width="580" height="20" uuid="10832862-319b-461a-8a34-f2c801254eeb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALIDA DE ALMACEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="72" y="28" width="70" height="15" uuid="9d8fb280-aa1d-4e86-95c2-33a739174895"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. Salida:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="72" y="43" width="70" height="10" uuid="7cca8e31-31a6-487f-896e-35a19b3311a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Salida:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="72" y="54" width="70" height="11" uuid="bd4b34ba-d577-46c6-ac74-0626ecf22171"/>
+				<box topPadding="1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presentacion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="341" y="28" width="59" height="15" uuid="7d9c7e26-8268-4282-97a6-5db6af61e6c7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lote:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="342" y="43" width="59" height="10" uuid="d7a335af-0f62-4a48-af7e-f7dcc7d24024"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="145" y="28" width="194" height="15" uuid="9585c2cf-184e-4004-a650-d98f95a31449"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField" x="145" y="43" width="193" height="10" uuid="80f8844a-7bd5-4c11-8dd7-c1be7c2e324c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_FECHA_SALIDA_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" x="145" y="54" width="194" height="12" isPrintWhenDetailOverflows="true" uuid="84923f50-a00f-4564-bfbd-51c30d7a61ec"/>
+				<box topPadding="1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRESENTACIONES_PRODUCTO_NOMBRE_PRODUCTO_PRESENTACION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="404" y="28" width="165" height="15" uuid="a1781649-cfb0-4c9f-b135-1084a40fa3d9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_COD_LOTE_PRODUCCION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" x="404" y="43" width="167" height="9" isPrintWhenDetailOverflows="true" uuid="2e76bfab-31a5-450d-b740-db626d0e1db3"/>
+				<box topPadding="1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMPONENTES_PROD_nombre_prod_semiterminado}]]></textFieldExpression>
+			</textField>
+			<image isUsingCache="true">
+				<reportElement key="image-1" x="5" y="23" width="64" height="58" uuid="8db5101e-7021-4ea2-b1c2-42dcc64c3418"/>
+				<imageExpression><![CDATA[$P{dirLogoCofar}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" positionType="Float" x="404" y="52" width="165" height="3" isPrintWhenDetailOverflows="true" uuid="c0093b7d-70e1-4b60-b935-e081eaaeafb3"/>
+				<box topPadding="2"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Verdana" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMPONENTES_PROD_nombre_prod_semiterminado1}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement positionType="Float" x="72" y="66" width="267" height="15" uuid="0d708cdd-d9c4-45f5-a49e-4b4aadb8c26d">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<staticText>
+					<reportElement key="staticText" x="0" y="2" width="70" height="15" uuid="92371a4d-10ac-40d4-999e-e14146f6203c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo Salida:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-1" x="73" y="2" width="194" height="15" uuid="5b021dd6-f73d-4a6d-a00c-04c2c16f5aa5"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIPOS_SALIDAS_ALMACEN_NOMBRE_TIPO_SALIDA_ALMACEN}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="341" y="55" width="232" height="21" uuid="ff95b2c6-152d-4117-977d-68a02c7510de"/>
+				<staticText>
+					<reportElement key="staticText" x="0" y="0" width="59" height="21" uuid="a7edad46-d605-4518-a9cd-7bbd53c4a673">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1"/>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Area/Dpto.
+Destino:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" x="63" y="0" width="167" height="21" uuid="1ccb830e-1fb6-4ea0-9b04-325353501333"/>
+					<box topPadding="5"/>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{AREAS_EMPRESA_A_NOMBRE_AREA_EMPRESA}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="2" y="86" width="574" height="15" uuid="8d99f910-a6f6-4a1e-8719-6ef1c4298b0b">
+					<property name="com.jaspersoft.studio.unit.x" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<staticText>
+					<reportElement key="staticText-1" x="0" y="0" width="57" height="15" uuid="99414a5b-0b8a-42b9-8fdd-00078c06a8bf"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Codigo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-2" x="57" y="0" width="213" height="15" uuid="e3205e59-11a6-4cfb-991a-6bd282898e17"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-3" x="270" y="0" width="65" height="15" uuid="401dbb6f-dcb0-4fec-8fc3-d64dd186449c"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-11" x="375" y="0" width="18" height="15" uuid="6fafa3f2-3732-432e-a6a6-2233184026b6">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pas.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-12" x="393" y="0" width="15" height="15" uuid="d6ee583d-6dbb-4fde-a26e-af30e787f581">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Est.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-13" x="408" y="0" width="15" height="15" uuid="c5a84e49-8a58-4029-a24f-8ae4c327d2cd"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ubic.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-14" x="335" y="0" width="40" height="15" uuid="aca52c96-f02c-4c5c-b982-6c15123e8bd0">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="5" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ambiente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-4" x="542" y="0" width="29" height="15" uuid="07d54ec9-dc78-4ac2-a636-4057ac082d74"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Unid.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-10" x="495" y="0" width="47" height="15" uuid="b76cafcf-b3af-432a-a652-b4e81f098b9a"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-9" x="423" y="0" width="72" height="15" uuid="3fc7a6b9-af3a-43d9-b269-baf081153b33"/>
+					<box rightPadding="7">
+						<topPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lote]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="5" y="0" width="54" height="12" uuid="9c62bc22-b310-4341-a06b-19938dc01209">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATERIALES_CODIGO_ANTIGUO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" x="59" y="0" width="213" height="12" isPrintWhenDetailOverflows="true" uuid="0eacd992-7047-44ae-99a5-57ce9c0b3ec4">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
+				</reportElement>
+				<box leftPadding="3" rightPadding="3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Verdana" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATERIALES_NOMBRE_MATERIAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="273" y="0" width="64" height="12" uuid="11e09818-dd09-44d1-a971-47a894310191">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+				</reportElement>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_DETALLE_CANTIDAD_SALIDA_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="544" y="0" width="29" height="12" uuid="14b9dd29-6c6b-4f72-9cf3-f68f7eee13d1">
+					<property name="com.jaspersoft.studio.unit.y" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UNIDADES_MEDIDA_ABREVIATURA}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="337" y="0" width="207" height="11" uuid="809509d0-7834-4ac4-b9e7-c45eb1299439">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataSetUbicaciones" uuid="3e76863c-335a-46b5-b91c-7e7b34dc8da4">
+						<datasetParameter name="codMaterial">
+							<datasetParameterExpression><![CDATA[$F{SALIDAS_ALMACEN_DETALLE_COD_MATERIAL}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="codSalidaAlmacen">
+							<datasetParameterExpression><![CDATA[$P{codigo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="40" uuid="4b1d0877-d4a5-4791-bb62-ca60ff55a9c3">
+						<jr:detailCell height="14">
+							<box>
+								<leftPen lineWidth="1.0"/>
+								<rightPen lineWidth="0.4"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="40" height="14" uuid="834e5873-05c0-4e13-b692-27f5ecfdfe4b"/>
+								<box leftPadding="1" rightPadding="1"/>
+								<textElement>
+									<font fontName="Verdana" size="4" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOMBRE_AMBIENTE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="18" uuid="9eac7401-1fa3-4067-b6eb-c8bf4ea966ea">
+						<jr:detailCell height="14">
+							<box>
+								<rightPen lineWidth="0.4"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="18" height="14" uuid="44d0dfa2-a9dc-44ed-83ba-98be97c24d20"/>
+								<box leftPadding="1" rightPadding="1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="5" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOMBRE_ESTANTE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="15" uuid="abad9387-83fb-4ede-a5f9-19cbbaa19c71">
+						<jr:detailCell height="14">
+							<box>
+								<rightPen lineWidth="0.4"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="15" height="14" uuid="1195bfb9-51fe-42be-a234-bf89da214cd5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="5" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{FILA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="15" uuid="17013542-adfc-4689-a111-61270843edbf">
+						<jr:detailCell height="14">
+							<box>
+								<rightPen lineWidth="0.4"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="15" height="14" uuid="a3ca6845-b6c0-434f-ae67-5bc442a8a996"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="5" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{COLUMNA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="72" uuid="7239ded6-26e3-40e1-93cc-70b693ace5c2">
+						<jr:detailCell height="14">
+							<box>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="72" height="14" uuid="5e77b9d5-2542-4130-a3a5-889215672d6e"/>
+								<box leftPadding="0" rightPadding="4"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Verdana" size="6" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{LOTE_MATERIAL_PROVEEDOR}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="47" uuid="22757d34-adb4-4e0b-9422-e83d2a7604c5">
+						<jr:detailCell height="14">
+							<box>
+								<rightPen lineWidth="1.0"/>
+							</box>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="47" height="14" uuid="e8e818e2-9e8b-4931-9e44-0d655b64ddea"/>
+								<box rightPadding="3"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Verdana" size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement positionType="Float" x="71" y="12" width="199" height="1" uuid="645f92bd-92e1-40cc-94b7-05d87d8b1789">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataSetProveedores" uuid="67e75f65-8595-445e-bc10-c238d538244e">
+						<datasetParameter name="codMaterial">
+							<datasetParameterExpression><![CDATA[$F{SALIDAS_ALMACEN_DETALLE_COD_MATERIAL}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="codSalidaAlmacen">
+							<datasetParameterExpression><![CDATA[$P{codigo}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="140" uuid="48504663-a145-4fa0-bfbb-0f6fddca0e78">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<jr:detailCell height="9">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="140" height="9" uuid="a067dda3-b07e-4e20-b4e5-4b68d0b195a5"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="6" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOMBRE_PROVEEDOR}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="56" uuid="feda1a38-d200-4313-a9eb-5a6d9a0fceb1">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+						<jr:detailCell height="9">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+							<textField isStretchWithOverflow="true" pattern="MM/yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="56" height="9" uuid="f3df8a5b-22a9-4a2c-87a3-daac46423e60"/>
+								<box leftPadding="3"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font size="6" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{FECHA_VENCIMIENTO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="58" splitType="Stretch">
+			<line>
+				<reportElement key="line-14" x="2" y="2" width="581" height="1" uuid="b6599fec-987c-44c7-b954-3a86908fa82a"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-15" x="13" y="6" width="53" height="15" uuid="f29809aa-db37-4eee-ab13-74eeb757cfbe"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Glosa:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="69" y="6" width="460" height="20" uuid="c3721fd0-bc37-49ed-9973-626e0149af1b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Verdana" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-16" x="209" y="30" width="150" height="26" uuid="368a98f3-ce52-4ec6-9caa-e5f9222fdd9a"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entregado
+Nombre y Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-17" x="19" y="31" width="150" height="15" uuid="3798ac11-19a5-48aa-bd3b-df57079726e0"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aprobado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-18" x="400" y="30" width="150" height="27" uuid="2ff2667f-50ed-4a88-bb6a-712510db7f3d"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recibido
+Nombre y Firma]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

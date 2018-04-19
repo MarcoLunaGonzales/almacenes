@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2018-02-08T09:11:18 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteIngreso" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5b629ea9-9fd0-41b0-bb28-d2400a22edb6">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<parameter name="grupo" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\PROYECTO\\ALMACENES\\web\\salidasAlmacen\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D://PROYECTOS//ALMACENESV//web//img/cofar.png"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     INGRESOS_ALMACEN."COD_INGRESO_ALMACEN" AS INGRESOS_ALMACEN_COD_INGRESO_ALMACEN,
+     INGRESOS_ALMACEN."OBS_INGRESO_ALMACEN" AS INGRESOS_ALMACEN_OBS_INGRESO_ALMACEN
+FROM
+     "dbo"."INGRESOS_ALMACEN" INGRESOS_ALMACEN
+WHERE
+     INGRESOS_ALMACEN."COD_INGRESO_ALMACEN" = $P{codigo}]]>
+	</queryString>
+	<field name="INGRESOS_ALMACEN_COD_INGRESO_ALMACEN" class="java.lang.Integer"/>
+	<field name="INGRESOS_ALMACEN_OBS_INGRESO_ALMACEN" class="java.lang.String"/>
+	<variable name="glosa1" class="java.lang.String" resetType="None"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="286" splitType="Stretch">
+			<elementGroup>
+				<elementGroup>
+					<subreport isUsingCache="true">
+						<reportElement key="subreport-1" isPrintRepeatedValues="false" x="2" y="3" width="608" height="280" uuid="300dfc79-6bed-44d2-9b9c-e4b13e93e529"/>
+						<subreportParameter name="codigo">
+							<subreportParameterExpression><![CDATA[$P{codigo}]]></subreportParameterExpression>
+						</subreportParameter>
+						<subreportParameter name="grupo">
+							<subreportParameterExpression><![CDATA[$P{grupo}]]></subreportParameterExpression>
+						</subreportParameter>
+						<subreportParameter name="dirLogoCofar">
+							<subreportParameterExpression><![CDATA[$P{dirLogoCofar}]]></subreportParameterExpression>
+						</subreportParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						<returnValue subreportVariable="glosa" toVariable="glosa1"/>
+						<subreportExpression><![CDATA["./reporteIngresosAlmacen.jasper"]]></subreportExpression>
+					</subreport>
+				</elementGroup>
+			</elementGroup>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="506" splitType="Stretch">
+			<line>
+				<reportElement key="line-1" x="29" y="60" width="150" height="1" uuid="c709ac1c-aecc-4b55-96e9-57a7af0ffe12"/>
+			</line>
+			<line>
+				<reportElement key="line-2" x="210" y="60" width="150" height="1" uuid="1d472df3-0672-4782-9d68-0a0b55faed4d"/>
+			</line>
+			<line>
+				<reportElement key="line-3" x="386" y="60" width="150" height="1" uuid="571c13c1-8773-4e56-97db-ad53aa8901e5"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-1" x="50" y="61" width="100" height="15" uuid="bf7548ca-5b4c-4bea-a25c-2a9dfe2f3fd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aprobado Por]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="231" y="60" width="100" height="14" uuid="8bdcc825-8750-4602-bec0-3263bb1884bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recibido Por]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" x="411" y="60" width="100" height="15" uuid="bc34bd6e-d4a3-45ae-9212-fa2e0b8a97dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Controlado Por]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField" x="64" y="2" width="538" height="23" uuid="e1e03ee4-48ed-452f-a343-d22c3ac0a279"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Verdana" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INGRESOS_ALMACEN_OBS_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="29" y="2" width="35" height="15" uuid="2fd8b5f3-8cf8-43f8-988f-8961981f1327"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Glosa:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

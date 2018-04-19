@@ -1,0 +1,1741 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ordenCompraLocal"
+
+		 language="groovy"		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="792"
+		 columnWidth="612"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="codOrdenCompra" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="texto" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="bs" isForPrompting="true" class="java.lang.Double"/>
+	<parameter name="sus" isForPrompting="true" class="java.lang.Double"/>
+	<parameter name="total_detalle" isForPrompting="true" class="java.lang.Double"/>
+	<parameter name="nulo" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="aprobado1" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="aprobado2" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="aprobado3" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="cargo1" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="cargo2" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="cargo3" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="cod_personal1" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="cod_personal2" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="cod_personal3" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="sw_cargos_extra" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="fecha1" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="fecha2" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="fecha3" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="titulo" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["C:\\ULTIMOS REPORTES WILMER\\jrxml\\25 MAYO 2010\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="solicitante" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="fechaEntrega" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="logo" isForPrompting="true" class="java.io.InputStream"/>
+	<queryString><![CDATA[SELECT
+     ORDENES_COMPRA."COD_ORDEN_COMPRA" AS ORDENES_COMPRA_COD_ORDEN_COMPRA,
+     ORDENES_COMPRA."NRO_ORDEN_COMPRA" AS ORDENES_COMPRA_NRO_ORDEN_COMPRA,
+     ORDENES_COMPRA."FECHA_EMISION" AS ORDENES_COMPRA_FECHA_EMISION,
+     ORDENES_COMPRA."DIVISION" AS ORDENES_COMPRA_DIVISION,
+     ORDENES_COMPRA."FECHA_ENTREGA" AS ORDENES_COMPRA_FECHA_ENTREGA,
+     ORDENES_COMPRA."DESC_FECHA_ENTREGA" AS ORDENES_COMPRA_DESC_FECHA_ENTREGA,
+     ORDENES_COMPRA."OBS_ORDEN_COMPRA" AS ORDENES_COMPRA_OBS_ORDEN_COMPRA,
+     ORDENES_COMPRA."EMITIR_CHEQUEANOMBREDE" AS ORDENES_COMPRA_EMITIR_CHEQUEANOMBREDE,
+     ORDENES_COMPRA."DIAS_TERMINOSPAGO" AS ORDENES_COMPRA_DIAS_TERMINOSPAGO,
+     ORDENES_COMPRA."OBS_ORDEN_COMPRA_APROBACION" AS ORDENES_COMPRA_OBS_ORDEN_COMPRA_APROBACION,
+     ORDENES_COMPRA_DETALLE."CANTIDAD_NETA" AS ORDENES_COMPRA_DETALLE_CANTIDAD_NETA,
+     ORDENES_COMPRA_DETALLE."PRECIO_UNITARIO" AS ORDENES_COMPRA_DETALLE_PRECIO_UNITARIO,
+     ORDENES_COMPRA_DETALLE."PRECIO_TOTAL" AS ORDENES_COMPRA_DETALLE_PRECIO_TOTAL,
+     ORDENES_COMPRA_DETALLE."DESCRIPCION" AS ORDENES_COMPRA_DETALLE_DESCRIPCION,
+     PROVEEDORES."NOMBRE_PROVEEDOR" AS PROVEEDORES_NOMBRE_PROVEEDOR,
+     PROVEEDORES."CIUDAD_PROVEEDOR" AS PROVEEDORES_CIUDAD_PROVEEDOR,
+     PROVEEDORES."DIRECCION_PROVEEDOR" AS PROVEEDORES_DIRECCION_PROVEEDOR,
+     PROVEEDORES."EMAIL_PROVEEDOR" AS PROVEEDORES_EMAIL_PROVEEDOR,
+     PROVEEDORES."TELEFONO_PROVEEDOR" AS PROVEEDORES_TELEFONO_PROVEEDOR,
+     PROVEEDORES."FAX_PROVEEDOR" AS PROVEEDORES_FAX_PROVEEDOR,
+     PROVEEDORES."PAGINAWEB_PROVEEDOR" AS PROVEEDORES_PAGINAWEB_PROVEEDOR,
+     PROVEEDORES."OBS_PROVEEDOR" AS PROVEEDORES_OBS_PROVEEDOR,
+     MEDIOS_PAGO."NOMBRE_MEDIOPAGO" AS MEDIOS_PAGO_NOMBRE_MEDIOPAGO,
+     TIPOS_PAGO."NOMBRE_TIPO_PAGO" AS TIPOS_PAGO_NOMBRE_TIPO_PAGO,
+     TIPOS_TRANSPORTE."NOMBRE_TIPO_TRANSPORTE" AS TIPOS_TRANSPORTE_NOMBRE_TIPO_TRANSPORTE,
+     TIPOS_DOCUMENTOS_COMPRAS."NOMBRE_TIPO_DOCUMENTO" AS TIPOS_DOCUMENTOS_COMPRAS_NOMBRE_TIPO_DOCUMENTO,
+     ALMACENES."NOMBRE_ALMACEN" AS ALMACENES_NOMBRE_ALMACEN,
+     UNIDADES_MEDIDA."NOMBRE_UNIDAD_MEDIDA" AS UNIDADES_MEDIDA_NOMBRE_UNIDAD_MEDIDA,
+     UNIDADES_MEDIDA."ABREVIATURA" AS UNIDADES_MEDIDA_ABREVIATURA,
+     CONTACTOS_PROVEEDOR."AP_PATERNO_CONTACTO" AS CONTACTOS_PROVEEDOR_AP_PATERNO_CONTACTO,
+     CONTACTOS_PROVEEDOR."AP_MATERNO_CONTACTO" AS CONTACTOS_PROVEEDOR_AP_MATERNO_CONTACTO,
+     CONTACTOS_PROVEEDOR."NOMBRE_CONTACTO" AS CONTACTOS_PROVEEDOR_NOMBRE_CONTACTO,
+     GRADOS_ACADEMICOS."ABREVIATURA_GRADO_ACADEMICO" AS GRADOS_ACADEMICOS_ABREVIATURA_GRADO_ACADEMICO,
+     PERSONAL."AP_MATERNO_PERSONAL" AS PERSONAL_AP_MATERNO_PERSONAL,
+     PERSONAL."AP_PATERNO_PERSONAL" AS PERSONAL_AP_PATERNO_PERSONAL,
+     PERSONAL."NOMBRE_PILA" AS PERSONAL_NOMBRE_PILA,
+     PAISES."NOMBRE_PAIS" AS PAISES_NOMBRE_PAIS,
+     MATERIALES."NOMBRE_COMERCIAL_MATERIAL" AS MATERIALES_NOMBRE_COMERCIAL_MATERIAL,
+     TIPOS_CENTRO_DE_COSTO."NOMBRE_TIPO_CENTRO_COSTOS" AS TIPOS_CENTRO_DE_COSTO_NOMBRE_TIPO_CENTRO_COSTOS,
+     PLAN_DE_CUENTAS."NOMBRE_CUENTA" AS PLAN_DE_CUENTAS_NOMBRE_CUENTA,
+     ORDENES_COMPRA."FECHA_DESPACHO" AS ORDENES_COMPRA_FECHA_DESPACHO,
+     CONTACTOS_PROVEEDOR."CARGO_CONTACTO" AS CONTACTOS_PROVEEDOR_CARGO_CONTACTO,
+     ALMACENES."OBS_ALMACEN" AS ALMACENES_OBS_ALMACEN,
+     DISTRIBUCION_GASTOS_COMPRAS."DEPARTAMENTO" AS DISTRIBUCION_GASTOS_COMPRAS_DEPARTAMENTO,
+     DISTRIBUCION_GASTOS_COMPRAS."REGIONAL" AS DISTRIBUCION_GASTOS_COMPRAS_REGIONAL,
+     DISTRIBUCION_GASTOS_COMPRAS."PRODUCTOS" AS DISTRIBUCION_GASTOS_COMPRAS_PRODUCTOS
+FROM
+     "dbo"."ORDENES_COMPRA_DETALLE" ORDENES_COMPRA_DETALLE INNER JOIN "dbo"."ORDENES_COMPRA" ORDENES_COMPRA ON ORDENES_COMPRA_DETALLE."COD_ORDEN_COMPRA" = ORDENES_COMPRA."COD_ORDEN_COMPRA"
+     LEFT OUTER JOIN "dbo"."DISTRIBUCION_GASTOS_COMPRAS" DISTRIBUCION_GASTOS_COMPRAS ON ORDENES_COMPRA."COD_ORDEN_COMPRA" = DISTRIBUCION_GASTOS_COMPRAS."COD_ORDEN_COMPRA"
+     INNER JOIN "dbo"."PROVEEDORES" PROVEEDORES ON ORDENES_COMPRA."COD_PROVEEDOR" = PROVEEDORES."COD_PROVEEDOR"
+     INNER JOIN "dbo"."ALMACENES" ALMACENES ON ORDENES_COMPRA."COD_ALMACEN_ENTREGA" = ALMACENES."COD_ALMACEN"
+     INNER JOIN "dbo"."TIPOS_DOCUMENTOS_COMPRAS" TIPOS_DOCUMENTOS_COMPRAS ON ORDENES_COMPRA."COD_TIPO_DOCUMENTO_TERMINOSPAGO" = TIPOS_DOCUMENTOS_COMPRAS."COD_TIPO_DOCUMENTO"
+     INNER JOIN "dbo"."TIPOS_TRANSPORTE" TIPOS_TRANSPORTE ON ORDENES_COMPRA."COD_TIPO_TRANSPORTE" = TIPOS_TRANSPORTE."COD_TIPO_TRANSPORTE"
+     INNER JOIN "dbo"."TIPOS_PAGO" TIPOS_PAGO ON ORDENES_COMPRA."COD_TIPO_PAGO" = TIPOS_PAGO."COD_TIPO_PAGO"
+     INNER JOIN "dbo"."MEDIOS_PAGO" MEDIOS_PAGO ON ORDENES_COMPRA."COD_MEDIOPAGO" = MEDIOS_PAGO."COD_MEDIOPAGO"
+     INNER JOIN "dbo"."PERSONAL" PERSONAL ON ORDENES_COMPRA."COD_RESPONSABLE_COMPRAS" = PERSONAL."COD_PERSONAL"
+     INNER JOIN "dbo"."GRADOS_ACADEMICOS" GRADOS_ACADEMICOS ON PERSONAL."COD_GRADO_ACADEMICO" = GRADOS_ACADEMICOS."COD_GRADO_ACADEMICO"
+     LEFT OUTER JOIN "dbo"."CONTACTOS_PROVEEDOR" CONTACTOS_PROVEEDOR ON PROVEEDORES."COD_PROVEEDOR" = CONTACTOS_PROVEEDOR."COD_PROVEEDOR"
+     LEFT OUTER JOIN "dbo"."PAISES" PAISES ON PROVEEDORES."COD_PAIS" = PAISES."COD_PAIS"
+     LEFT OUTER JOIN "dbo"."TIPOS_CENTRO_DE_COSTO" TIPOS_CENTRO_DE_COSTO ON DISTRIBUCION_GASTOS_COMPRAS."COD_DIVISION" = TIPOS_CENTRO_DE_COSTO."COD_TIPO_CENTRO_COSTOS"
+     LEFT OUTER JOIN "dbo"."PLAN_DE_CUENTAS" PLAN_DE_CUENTAS ON DISTRIBUCION_GASTOS_COMPRAS."COD_CUENTA" = PLAN_DE_CUENTAS."COD_PLAN_CUENTA"
+     INNER JOIN "dbo"."UNIDADES_MEDIDA" UNIDADES_MEDIDA ON ORDENES_COMPRA_DETALLE."COD_UNIDAD_MEDIDA" = UNIDADES_MEDIDA."COD_UNIDAD_MEDIDA"
+     INNER JOIN "dbo"."MATERIALES" MATERIALES ON ORDENES_COMPRA_DETALLE."COD_MATERIAL" = MATERIALES."COD_MATERIAL"
+WHERE
+     ORDENES_COMPRA."COD_ORDEN_COMPRA" = $P{codOrdenCompra}
+     and CONTACTOS_PROVEEDOR."COD_ESTADO_CONTACTO" = 1
+     and CONTACTOS_PROVEEDOR."CONTACTO_PROVEEDOR_ACTIVO" = 1]]></queryString>
+
+	<field name="ORDENES_COMPRA_COD_ORDEN_COMPRA" class="java.lang.Integer"/>
+	<field name="ORDENES_COMPRA_NRO_ORDEN_COMPRA" class="java.lang.Integer"/>
+	<field name="ORDENES_COMPRA_FECHA_EMISION" class="java.sql.Timestamp"/>
+	<field name="ORDENES_COMPRA_DIVISION" class="java.lang.Integer"/>
+	<field name="ORDENES_COMPRA_FECHA_ENTREGA" class="java.sql.Timestamp"/>
+	<field name="ORDENES_COMPRA_DESC_FECHA_ENTREGA" class="java.lang.String"/>
+	<field name="ORDENES_COMPRA_OBS_ORDEN_COMPRA" class="java.lang.String"/>
+	<field name="ORDENES_COMPRA_EMITIR_CHEQUEANOMBREDE" class="java.lang.String"/>
+	<field name="ORDENES_COMPRA_DIAS_TERMINOSPAGO" class="java.lang.Integer"/>
+	<field name="ORDENES_COMPRA_OBS_ORDEN_COMPRA_APROBACION" class="java.lang.String"/>
+	<field name="ORDENES_COMPRA_DETALLE_CANTIDAD_NETA" class="java.lang.Double"/>
+	<field name="ORDENES_COMPRA_DETALLE_PRECIO_UNITARIO" class="java.lang.Double"/>
+	<field name="ORDENES_COMPRA_DETALLE_PRECIO_TOTAL" class="java.lang.Double"/>
+	<field name="ORDENES_COMPRA_DETALLE_DESCRIPCION" class="java.lang.String"/>
+	<field name="PROVEEDORES_NOMBRE_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_CIUDAD_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_DIRECCION_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_EMAIL_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_TELEFONO_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_FAX_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_PAGINAWEB_PROVEEDOR" class="java.lang.String"/>
+	<field name="PROVEEDORES_OBS_PROVEEDOR" class="java.lang.String"/>
+	<field name="MEDIOS_PAGO_NOMBRE_MEDIOPAGO" class="java.lang.String"/>
+	<field name="TIPOS_PAGO_NOMBRE_TIPO_PAGO" class="java.lang.String"/>
+	<field name="TIPOS_TRANSPORTE_NOMBRE_TIPO_TRANSPORTE" class="java.lang.String"/>
+	<field name="TIPOS_DOCUMENTOS_COMPRAS_NOMBRE_TIPO_DOCUMENTO" class="java.lang.String"/>
+	<field name="ALMACENES_NOMBRE_ALMACEN" class="java.lang.String"/>
+	<field name="UNIDADES_MEDIDA_NOMBRE_UNIDAD_MEDIDA" class="java.lang.String"/>
+	<field name="UNIDADES_MEDIDA_ABREVIATURA" class="java.lang.String"/>
+	<field name="CONTACTOS_PROVEEDOR_AP_PATERNO_CONTACTO" class="java.lang.String"/>
+	<field name="CONTACTOS_PROVEEDOR_AP_MATERNO_CONTACTO" class="java.lang.String"/>
+	<field name="CONTACTOS_PROVEEDOR_NOMBRE_CONTACTO" class="java.lang.String"/>
+	<field name="GRADOS_ACADEMICOS_ABREVIATURA_GRADO_ACADEMICO" class="java.lang.String"/>
+	<field name="PERSONAL_AP_MATERNO_PERSONAL" class="java.lang.String"/>
+	<field name="PERSONAL_AP_PATERNO_PERSONAL" class="java.lang.String"/>
+	<field name="PERSONAL_NOMBRE_PILA" class="java.lang.String"/>
+	<field name="PAISES_NOMBRE_PAIS" class="java.lang.String"/>
+	<field name="MATERIALES_NOMBRE_COMERCIAL_MATERIAL" class="java.lang.String"/>
+	<field name="TIPOS_CENTRO_DE_COSTO_NOMBRE_TIPO_CENTRO_COSTOS" class="java.lang.String"/>
+	<field name="PLAN_DE_CUENTAS_NOMBRE_CUENTA" class="java.lang.String"/>
+	<field name="ORDENES_COMPRA_FECHA_DESPACHO" class="java.sql.Timestamp"/>
+	<field name="CONTACTOS_PROVEEDOR_CARGO_CONTACTO" class="java.lang.String"/>
+	<field name="ALMACENES_OBS_ALMACEN" class="java.lang.String"/>
+	<field name="DISTRIBUCION_GASTOS_COMPRAS_DEPARTAMENTO" class="java.lang.String"/>
+	<field name="DISTRIBUCION_GASTOS_COMPRAS_REGIONAL" class="java.lang.String"/>
+	<field name="DISTRIBUCION_GASTOS_COMPRAS_PRODUCTOS" class="java.lang.String"/>
+
+
+		<group  name="totalLiteral" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="3"  isSplitAllowed="false" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="70"
+						y="1"
+						width="511"
+						height="1"
+						key="subreport-2"
+						stretchType="RelativeToBandHeight">
+							<printWhenExpression><![CDATA[$P{sw_cargos_extra}==1]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="codOrdenCompra">
+						<subreportParameterExpression><![CDATA[$F{ORDENES_COMPRA_COD_ORDEN_COMPRA}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="totalDetalle">
+						<subreportParameterExpression><![CDATA[$P{total_detalle}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="desc_detalle">
+						<subreportParameterExpression><![CDATA[$P{nulo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "cuotasOC.jasper"]]></subreportExpression>
+				</subreport>
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="70"
+						y="0"
+						width="0"
+						height="3"
+						forecolor="#990099"
+						key="line-20"
+						stretchType="RelativeToBandHeight">
+							<printWhenExpression><![CDATA[$P{sw_cargos_extra}==1]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="581"
+						y="0"
+						width="0"
+						height="3"
+						forecolor="#990099"
+						key="line-22"
+						stretchType="RelativeToBandHeight">
+							<printWhenExpression><![CDATA[$P{sw_cargos_extra}==1]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="totalOC" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="27"  isSplitAllowed="false" >
+				<rectangle radius="6" >
+					<reportElement
+						x="70"
+						y="1"
+						width="510"
+						height="25"
+						forecolor="#CCCCCC"
+						backcolor="#CCCCCC"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="80"
+						y="1"
+						width="330"
+						height="26"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{texto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="510"
+						y="2"
+						width="67"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$P{sus}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="510"
+						y="15"
+						width="67"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$P{bs}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="581"
+						y="0"
+						width="0"
+						height="27"
+						forecolor="#990099"
+						key="line-23"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="0"
+						width="0"
+						height="27"
+						forecolor="#990099"
+						key="line-24"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="26"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-25"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="510"
+						y="1"
+						width="0"
+						height="26"
+						forecolor="#990099"
+						key="line-26"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="490"
+						y="1"
+						width="0"
+						height="26"
+						forecolor="#990099"
+						key="line-27"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="447"
+						y="1"
+						width="0"
+						height="26"
+						forecolor="#990099"
+						key="line-28"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="447"
+						y="2"
+						width="40"
+						height="10"
+						key="staticText-44"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[T. Cambio]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="448"
+						y="13"
+						width="133"
+						height="0"
+						forecolor="#990099"
+						key="line-29"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="492"
+						y="2"
+						width="16"
+						height="10"
+						backcolor="#CCCCCC"
+						key="staticText-46"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[$us]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="494"
+						y="16"
+						width="20"
+						height="10"
+						key="staticText-47"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Bs.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="415"
+						y="16"
+						width="34"
+						height="10"
+						key="staticText-48"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="1"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-30"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="cargosExtra" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="3"  isSplitAllowed="false" >
+				<elementGroup><!--  Start: 1 !-->
+				<subreport  isUsingCache="true">
+					<reportElement
+						mode="Opaque"
+						x="70"
+						y="1"
+						width="510"
+						height="1"
+						key="subreport-1"
+						stretchType="RelativeToBandHeight">
+							<printWhenExpression><![CDATA[$P{sw_cargos_extra}==1]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="codOrdenCompra">
+						<subreportParameterExpression><![CDATA[$F{ORDENES_COMPRA_COD_ORDEN_COMPRA}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="totalDetalle">
+						<subreportParameterExpression><![CDATA[$P{total_detalle}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="desc_detalle">
+						<subreportParameterExpression><![CDATA[$P{nulo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "cargosExtraOC.jasper"]]></subreportExpression>
+				</subreport>
+				</elementGroup><!-- End 1 !-->
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="70"
+						y="0"
+						width="0"
+						height="3"
+						forecolor="#990099"
+						key="line-16"
+						stretchType="RelativeToBandHeight">
+							<printWhenExpression><![CDATA[$P{sw_cargos_extra}==1]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						mode="Transparent"
+						x="581"
+						y="0"
+						width="0"
+						height="3"
+						forecolor="#990099"
+						key="line-17"
+						stretchType="RelativeToBandHeight">
+							<printWhenExpression><![CDATA[$P{sw_cargos_extra}==1]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="305"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="160"
+						y="30"
+						width="320"
+						height="20"
+						forecolor="#990099"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="242"
+						y="49"
+						width="40"
+						height="13"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Arial"/>
+					</textElement>
+				<text><![CDATA[La Paz, ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="283"
+						y="49"
+						width="145"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{ORDENES_COMPRA_FECHA_EMISION}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="489"
+						y="38"
+						width="40"
+						height="19"
+						forecolor="#990099"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nro.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="531"
+						y="38"
+						width="48"
+						height="19"
+						forecolor="#990099"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ORDENES_COMPRA_NRO_ORDEN_COMPRA}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="28"
+						width="0"
+						height="276"
+						forecolor="#990099"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="581"
+						y="28"
+						width="0"
+						height="276"
+						forecolor="#990099"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="71"
+						y="28"
+						width="510"
+						height="0"
+						forecolor="#990099"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="73"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="85"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="276"
+						y="144"
+						width="120"
+						height="11"
+						forecolor="#990099"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[INSTRUCTIVO]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="144"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="155"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="247"
+						y="74"
+						width="148"
+						height="11"
+						forecolor="#990099"
+						key="staticText-14"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DATOS DEL PROVEEDOR
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="102"
+						width="212"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PROVEEDORES_NOMBRE_PROVEEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="118"
+						width="199"
+						height="26"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PROVEEDORES_DIRECCION_PROVEEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="102"
+						width="151"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PROVEEDORES_TELEFONO_PROVEEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="365"
+						y="118"
+						width="187"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PROVEEDORES_FAX_PROVEEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="130"
+						y="88"
+						width="202"
+						height="10"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CONTACTOS_PROVEEDOR_NOMBRE_CONTACTO}+" "+$F{CONTACTOS_PROVEEDOR_AP_PATERNO_CONTACTO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="342"
+						y="102"
+						width="46"
+						height="10"
+						key="staticText-31"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="342"
+						y="118"
+						width="21"
+						height="10"
+						key="staticText-32"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FAX:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="76"
+						y="118"
+						width="50"
+						height="10"
+						key="staticText-34"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DIRECCION:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="340"
+						y="88"
+						width="35"
+						height="10"
+						key="staticText-35"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CARGO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="76"
+						y="88"
+						width="48"
+						height="10"
+						key="staticText-37"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CONTACTO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="76"
+						y="102"
+						width="42"
+						height="10"
+						key="staticText-38"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[EMPRESA:]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="272"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="191"
+						y="274"
+						width="270"
+						height="11"
+						forecolor="#990099"
+						key="staticText-39"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DETALLE DE LA ORDEN DE COMPRA
+]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="284"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="77"
+						y="292"
+						width="46"
+						height="10"
+						key="staticText-40"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Item]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="304"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-12"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="359"
+						y="283"
+						width="50"
+						height="21"
+						key="staticText-41"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cantidad
+Solicitada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="422"
+						y="292"
+						width="25"
+						height="10"
+						key="staticText-42"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Unid.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="458"
+						y="283"
+						width="120"
+						height="21"
+						key="staticText-43"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Precio
+Unitario            Sub Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="510"
+						y="58"
+						width="34"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-4"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{PAGE_NUMBER}+ " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="545"
+						y="58"
+						width="20"
+						height="15"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-5"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[""+$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="258"
+						y="62"
+						width="120"
+						height="10"
+						key="textField-6"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="390"
+						y="87"
+						width="190"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CONTACTOS_PROVEEDOR_CARGO_CONTACTO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="73"
+						y="157"
+						width="497"
+						height="115"
+						key="staticText-61"/>
+					<box></box>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+				<text><![CDATA[ - Cualquier observación en la presente Orden de Compra se recibirá dentro de las 48 hrs. caso contrario se dará por aceptada.
+ - En caso de observaciones y/o consultas, favor comunicarse con el Departamento de Compras.
+ - Toda entrega parcial o total de materiales deberá ir acompañada por su FACTURA ó Nota de Remisión.
+ - Emitir la factura a nombre de LABORATORIOS "COFAR" S.A.  NIT. 1020603028, citando el número de la presente Orden de Compra.
+- Los ítems de la presente Orden de Compra deben ser entregados debidamente identificados y en embalaje adecuado  para evitar riesgo de pérdida, contaminación o daño. 
+ - En caso de Materias Primas, el periodo de validez debe ser de al menos un (1) año y corresponder en lo posible a un (1) solo lote y deben ser entregadas con sus respectivos Certificados de Análisis.
+ - La recepción de la mercadería estará sujeta a verificación y análisis por nuestro Departamento de Control de Calidad, Mantenimiento o
+   quien corresponda.
+- Los horarios de atención son:	Almacen Quintanilla	  Lunes - Viernes  08:00 a 11:30  y  14:00 a 18:00		Sabados 09:00  a  11:30
+							Almacen Central 	  Lunes - Sabado  07:00 a 11:40  y  12:40 a 15:00]]></text>
+				</staticText>
+				<image  isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="73"
+						y="33"
+						width="79"
+						height="40"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
+				</image>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="18"  isSplitAllowed="false" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="341"
+						y="2"
+						width="70"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ORDENES_COMPRA_DETALLE_CANTIDAD_NETA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="413"
+						y="2"
+						width="41"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{UNIDADES_MEDIDA_ABREVIATURA}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="458"
+						y="2"
+						width="55"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ORDENES_COMPRA_DETALLE_PRECIO_UNITARIO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="510"
+						y="2"
+						width="69"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{ORDENES_COMPRA_DETALLE_PRECIO_TOTAL}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="0"
+						width="0"
+						height="18"
+						forecolor="#990099"
+						key="line-13"
+						stretchType="RelativeToBandHeight"
+						isRemoveLineWhenBlank="true"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="581"
+						y="0"
+						width="0"
+						height="18"
+						forecolor="#990099"
+						key="line-14"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="73"
+						y="1"
+						width="276"
+						height="11"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MATERIALES_NOMBRE_COMERCIAL_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="94"
+						y="12"
+						width="255"
+						height="3"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORDENES_COMPRA_DETALLE_DESCRIPCION}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="267"  isSplitAllowed="false" >
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="0"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-31"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="190"
+						y="2"
+						width="270"
+						height="11"
+						forecolor="#990099"
+						key="staticText-49"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CONDICIONES COMERCIALES DE LA COMPRA
+]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="13"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-32"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="74"
+						y="29"
+						width="36"
+						height="10"
+						key="staticText-50"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FECHA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="74"
+						y="42"
+						width="46"
+						height="10"
+						key="staticText-51"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ALMACEN:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="74"
+						y="55"
+						width="70"
+						height="10"
+						key="staticText-52"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FORMA DE PAGO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="74"
+						y="68"
+						width="126"
+						height="10"
+						key="staticText-53"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[EMITIR CHEQUE A NOMBRE DE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="74"
+						y="81"
+						width="46"
+						height="10"
+						key="staticText-54"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DIVISION:]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="0"
+						width="0"
+						height="254"
+						forecolor="#990099"
+						key="line-33"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="581"
+						y="0"
+						width="0"
+						height="254"
+						forecolor="#990099"
+						key="line-34"
+						stretchType="RelativeToBandHeight"/>
+					<graphicElement stretchType="RelativeToBandHeight"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="106"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-35"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="149"
+						y="55"
+						width="151"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TIPOS_PAGO_NOMBRE_TIPO_PAGO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="123"
+						y="81"
+						width="207"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TIPOS_CENTRO_DE_COSTO_NOMBRE_TIPO_CENTRO_COSTOS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="332"
+						y="29"
+						width="58"
+						height="10"
+						key="staticText-55"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MEDIO PAGO:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="332"
+						y="55"
+						width="55"
+						height="10"
+						key="staticText-57"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DIAS FECHA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="332"
+						y="81"
+						width="38"
+						height="10"
+						key="staticText-58"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CUENTA:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="55"
+						width="191"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TIPOS_DOCUMENTOS_COMPRAS_NOMBRE_TIPO_DOCUMENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="375"
+						y="81"
+						width="205"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PLAN_DE_CUENTAS_NOMBRE_CUENTA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="73"
+						y="156"
+						width="70"
+						height="10"
+						key="staticText-59"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Observaciones:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="144"
+						y="157"
+						width="436"
+						height="27"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORDENES_COMPRA_OBS_ORDEN_COMPRA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="73"
+						y="183"
+						width="137"
+						height="10"
+						key="staticText-60"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Firmado Digitalmente por:]]></text>
+				</staticText>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="74"
+						y="195"
+						width="160"
+						height="30"
+						key="subreport-3"/>
+					<subreportParameter  name="cod_personal">
+						<subreportParameterExpression><![CDATA[$P{cod_personal1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "firma1.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="246"
+						y="195"
+						width="160"
+						height="30"
+						key="subreport-4"/>
+					<subreportParameter  name="cod_personal">
+						<subreportParameterExpression><![CDATA[$P{cod_personal2}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "firma1.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="417"
+						y="195"
+						width="160"
+						height="30"
+						key="subreport-5"/>
+					<subreportParameter  name="cod_personal">
+						<subreportParameterExpression><![CDATA[$P{cod_personal3}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "firma1.jasper"]]></subreportExpression>
+				</subreport>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="228"
+						width="156"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{aprobado1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="248"
+						y="228"
+						width="156"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{aprobado2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="420"
+						y="228"
+						width="156"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{aprobado3}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="241"
+						width="156"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{cargo1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="248"
+						y="241"
+						width="156"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{cargo2}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="420"
+						y="241"
+						width="156"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{cargo3}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="253"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-36"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="136"
+						y="94"
+						width="434"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{solicitante}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="74"
+						y="16"
+						width="136"
+						height="10"
+						key="staticText-62"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[ENTREGA DE LA MERCADERIA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="74"
+						y="94"
+						width="60"
+						height="10"
+						key="staticText-63"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SOLICITANTE:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="117"
+						y="29"
+						width="203"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{fechaEntrega}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="42"
+						width="440"
+						height="10"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ALMACENES_NOMBRE_ALMACEN}+" "+$F{ALMACENES_OBS_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="201"
+						y="68"
+						width="380"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ORDENES_COMPRA_EMITIR_CHEQUEANOMBREDE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="390"
+						y="29"
+						width="190"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MEDIOS_PAGO_NOMBRE_MEDIOPAGO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="55"
+						width="27"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{ORDENES_COMPRA_DIAS_TERMINOSPAGO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="193"
+						y="106"
+						width="270"
+						height="11"
+						forecolor="#990099"
+						key="staticText-64"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DISTRIBUCION DE GASTOS
+]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="156"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-37"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="117"
+						width="512"
+						height="0"
+						forecolor="#990099"
+						key="line-38"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="75"
+						y="120"
+						width="65"
+						height="10"
+						key="staticText-65"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[DEPTO/LINEA:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="75"
+						y="132"
+						width="46"
+						height="10"
+						key="staticText-66"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[REGIONAL:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="75"
+						y="144"
+						width="55"
+						height="10"
+						key="staticText-67"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[PRODUCTO:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="142"
+						y="120"
+						width="438"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DISTRIBUCION_GASTOS_COMPRAS_DEPARTAMENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="142"
+						y="132"
+						width="438"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DISTRIBUCION_GASTOS_COMPRAS_REGIONAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="142"
+						y="144"
+						width="438"
+						height="10"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DISTRIBUCION_GASTOS_COMPRAS_PRODUCTOS}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="false" >
+			</band>
+		</summary>
+</jasperReport>

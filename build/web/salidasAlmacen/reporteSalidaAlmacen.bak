@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="reporteSalidaAlmacen"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="609"
+		 pageHeight="250"
+		 columnWidth="609"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="codigo" isForPrompting="true" class="java.lang.Integer"/>
+	<parameter name="logo" isForPrompting="false" class="java.io.InputStream"/>
+	<parameter name="SUBREPORT_DIR" isForPrompting="true" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["D:\\PROYECTO\\ALMACENES\\web\\salidasAlmacen\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT
+     SALIDAS_ALMACEN."NRO_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN."FECHA_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_FECHA_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN."OBS_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN,
+     UNIDADES_MEDIDA."ABREVIATURA" AS UNIDADES_MEDIDA_ABREVIATURA,
+     SALIDAS_ALMACEN_DETALLE."CANTIDAD_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_DETALLE_CANTIDAD_SALIDA_ALMACEN,
+     MATERIALES."CODIGO_ANTIGUO" AS MATERIALES_CODIGO_ANTIGUO,
+     MATERIALES."NOMBRE_MATERIAL" AS MATERIALES_NOMBRE_MATERIAL,
+     TIPOS_SALIDAS_ALMACEN."NOMBRE_TIPO_SALIDA_ALMACEN" AS TIPOS_SALIDAS_ALMACEN_NOMBRE_TIPO_SALIDA_ALMACEN,
+     PRESENTACIONES_PRODUCTO."NOMBRE_PRODUCTO_PRESENTACION" AS PRESENTACIONES_PRODUCTO_NOMBRE_PRODUCTO_PRESENTACION,
+     SALIDAS_ALMACEN."COD_LOTE_PRODUCCION" AS SALIDAS_ALMACEN_COD_LOTE_PRODUCCION,
+     SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_COD_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN_DETALLE."COD_MATERIAL" AS SALIDAS_ALMACEN_DETALLE_COD_MATERIAL,
+     COMPONENTES_PROD."nombre_prod_semiterminado" AS COMPONENTES_PROD_nombre_prod_semiterminado,
+     COMPONENTES_PROD1."nombre_prod_semiterminado" AS COMPONENTES_PROD_nombre_prod_semiterminado1,
+     AREAS_EMPRESA_A."NOMBRE_AREA_EMPRESA" AS AREAS_EMPRESA_A_NOMBRE_AREA_EMPRESA
+FROM
+     "dbo"."SALIDAS_ALMACEN" SALIDAS_ALMACEN LEFT OUTER JOIN "dbo"."PRESENTACIONES_PRODUCTO" PRESENTACIONES_PRODUCTO ON SALIDAS_ALMACEN."COD_PRESENTACION" = PRESENTACIONES_PRODUCTO."cod_presentacion"
+     LEFT OUTER JOIN "dbo"."TIPOS_SALIDAS_ALMACEN" TIPOS_SALIDAS_ALMACEN ON SALIDAS_ALMACEN."COD_TIPO_SALIDA_ALMACEN" = TIPOS_SALIDAS_ALMACEN."COD_TIPO_SALIDA_ALMACEN"
+     LEFT OUTER JOIN "dbo"."SALIDAS_ALMACEN_DETALLE" SALIDAS_ALMACEN_DETALLE ON SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" = SALIDAS_ALMACEN_DETALLE."COD_SALIDA_ALMACEN"
+     LEFT OUTER JOIN "dbo"."COMPONENTES_PROD" COMPONENTES_PROD ON SALIDAS_ALMACEN."COD_PROD" = COMPONENTES_PROD."COD_COMPPROD"
+     INNER JOIN "dbo"."AREAS_EMPRESA" AREAS_EMPRESA_A ON SALIDAS_ALMACEN."COD_AREA_EMPRESA" = AREAS_EMPRESA_A."COD_AREA_EMPRESA"
+     LEFT OUTER JOIN "dbo"."MATERIALES" MATERIALES ON SALIDAS_ALMACEN_DETALLE."COD_MATERIAL" = MATERIALES."COD_MATERIAL"
+     LEFT OUTER JOIN "dbo"."UNIDADES_MEDIDA" UNIDADES_MEDIDA ON SALIDAS_ALMACEN_DETALLE."COD_UNIDAD_MEDIDA" = UNIDADES_MEDIDA."COD_UNIDAD_MEDIDA"
+     LEFT OUTER JOIN "dbo"."COMPONENTES_PROD" COMPONENTES_PROD1 ON SALIDAS_ALMACEN."COD_PROD1" = COMPONENTES_PROD1."COD_COMPPROD"
+    
+WHERE
+     SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" = $P{codigo}]]></queryString>
+
+	<field name="SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN" class="java.lang.Integer"/>
+	<field name="SALIDAS_ALMACEN_FECHA_SALIDA_ALMACEN" class="java.sql.Timestamp"/>
+	<field name="SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN" class="java.lang.String"/>
+	<field name="UNIDADES_MEDIDA_ABREVIATURA" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_DETALLE_CANTIDAD_SALIDA_ALMACEN" class="java.lang.Double"/>
+	<field name="MATERIALES_CODIGO_ANTIGUO" class="java.lang.String"/>
+	<field name="MATERIALES_NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="TIPOS_SALIDAS_ALMACEN_NOMBRE_TIPO_SALIDA_ALMACEN" class="java.lang.String"/>
+	<field name="PRESENTACIONES_PRODUCTO_NOMBRE_PRODUCTO_PRESENTACION" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_COD_LOTE_PRODUCCION" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_COD_SALIDA_ALMACEN" class="java.lang.Integer"/>
+	<field name="SALIDAS_ALMACEN_DETALLE_COD_MATERIAL" class="java.lang.Integer"/>
+	<field name="COMPONENTES_PROD_nombre_prod_semiterminado" class="java.lang.String"/>
+	<field name="COMPONENTES_PROD_nombre_prod_semiterminado1" class="java.lang.String"/>
+	<field name="AREAS_EMPRESA_A_NOMBRE_AREA_EMPRESA" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="121"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="13"
+						y="11"
+						width="555"
+						height="20"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SALIDA DE ALMACEN]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="83"
+						y="37"
+						width="70"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Nro.Salida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="83"
+						y="52"
+						width="70"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fecha de Salida:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="83"
+						y="68"
+						width="70"
+						height="22"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Presentacion:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="83"
+						y="90"
+						width="70"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tipo Salida:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="352"
+						y="74"
+						width="59"
+						height="30"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Area/Dpto.
+Destino:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="352"
+						y="37"
+						width="59"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Lote:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="353"
+						y="52"
+						width="59"
+						height="15"
+						key="staticText"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Producto:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="156"
+						y="37"
+						width="194"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Tahoma" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="14"
+						y="106"
+						width="56"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Codigo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="70"
+						y="106"
+						width="212"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Item]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="283"
+						y="106"
+						width="64"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="555"
+						y="106"
+						width="27"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Unid.]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="13"
+						y="120"
+						width="569"
+						height="1"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="70"
+						y="106"
+						width="1"
+						height="14"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="13"
+						y="106"
+						width="1"
+						height="14"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="554"
+						y="106"
+						width="1"
+						height="14"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="282"
+						y="105"
+						width="1"
+						height="14"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="583"
+						y="106"
+						width="1"
+						height="14"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="13"
+						y="106"
+						width="569"
+						height="1"
+						key="line-10"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="156"
+						y="52"
+						width="193"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.sql.Timestamp"><![CDATA[$F{SALIDAS_ALMACEN_FECHA_SALIDA_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="156"
+						y="69"
+						width="194"
+						height="21"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{PRESENTACIONES_PRODUCTO_NOMBRE_PRODUCTO_PRESENTACION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="415"
+						y="37"
+						width="165"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{SALIDAS_ALMACEN_COD_LOTE_PRODUCCION}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="415"
+						y="52"
+						width="167"
+						height="9"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{COMPONENTES_PROD_nombre_prod_semiterminado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="156"
+						y="90"
+						width="194"
+						height="15"
+						key="textField-1"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{TIPOS_SALIDAS_ALMACEN_NOMBRE_TIPO_SALIDA_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<image  isUsingCache="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="16"
+						y="32"
+						width="64"
+						height="65"
+						key="image-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[$P{logo}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="435"
+						y="106"
+						width="60"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Lote]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="347"
+						y="106"
+						width="1"
+						height="14"
+						key="line-11"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="415"
+						y="75"
+						width="165"
+						height="25"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{AREAS_EMPRESA_A_NOMBRE_AREA_EMPRESA}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="510"
+						y="106"
+						width="46"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="507"
+						y="106"
+						width="1"
+						height="14"
+						key="line-13"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="415"
+						y="62"
+						width="165"
+						height="9"
+						key="textField-2"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Verdana" size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{COMPONENTES_PROD_nombre_prod_semiterminado1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="387"
+						y="110"
+						width="13"
+						height="8"
+						key="staticText-11"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Pas.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="398"
+						y="110"
+						width="13"
+						height="8"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Est.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="416"
+						y="110"
+						width="13"
+						height="8"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Ubic.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="110"
+						width="38"
+						height="8"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="5" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Ambiente]]></text>
+				</staticText>
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="21"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="16"
+						y="1"
+						width="54"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MATERIALES_CODIGO_ANTIGUO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="70"
+						y="-1"
+						width="213"
+						height="14"
+						key="textField"
+						isPrintWhenDetailOverflows="true"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{MATERIALES_NOMBRE_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="281"
+						y="-1"
+						width="63"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{SALIDAS_ALMACEN_DETALLE_CANTIDAD_SALIDA_ALMACEN}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="554"
+						y="1"
+						width="32"
+						height="12"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana" size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{UNIDADES_MEDIDA_ABREVIATURA}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="346"
+						y="0"
+						width="204"
+						height="13"
+						key="subreport-1"
+						isPrintWhenDetailOverflows="true"/>
+					<subreportParameter  name="codigo">
+						<subreportParameterExpression><![CDATA[$P{codigo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="codmaterial">
+						<subreportParameterExpression><![CDATA[$F{SALIDAS_ALMACEN_DETALLE_COD_MATERIAL}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"reporteSalidaAlmacen_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="83"
+						y="14"
+						width="176"
+						height="7"
+						key="subreport-2"
+						isPrintWhenDetailOverflows="true"/>
+					<subreportParameter  name="cod_salida_almacen">
+						<subreportParameterExpression><![CDATA[$P{codigo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="cod_material">
+						<subreportParameterExpression><![CDATA[$F{SALIDAS_ALMACEN_DETALLE_COD_MATERIAL}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"reporteSalidaAlmacenProveedor_subreport0.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

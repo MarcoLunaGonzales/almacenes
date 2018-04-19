@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.1.1  -->
+<!-- 2018-02-27T17:47:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gruposLog" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f32c2fe6-96b8-4f05-91d1-8fb78bde4b11">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<template><![CDATA["C:\\stylosJasperReport\\StylesJasperReportCircle.jrtx"]]></template>
+	<template><![CDATA["C:\\stylosJasperReport\\StylosImpresionOM.jrtx"]]></template>
+	<style name="circuloLeyendaNuevoo" mode="Opaque" backcolor="#9FFCAD">
+		<pen lineWidth="0.5" lineStyle="Solid" lineColor="#0D0101"/>
+	</style>
+	<style name="condicional" style="textoBody.">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(2)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCCAF2"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(3)]]></conditionExpression>
+			<style mode="Opaque" backcolor="#9FFCAD"/>
+		</conditionalStyle>
+	</style>
+	<style name="nombreGrupo" style="condicional">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1)&&                                        !$F{NOMBRE_GRUPO}.equals( $F{NOMBRE_GRUPOAnterior} )]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<style name="obsGrupo" style="condicional">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1)&& !$F{OBS_GRUPO}.equals($F{OBS_GRUPOAnterior})]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<style name="estadoRegistro" style="condicional" fill="Solid">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1)&& !$F{NOMBRE_ESTADO_REGISTRO}.equals($F{NOMBRE_ESTADO_REGISTROAnterior})]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<style name="capitulo" style="condicional">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{COD_TIPO_TRANSACCION_LOG}.equals(1)&& !$F{NOMBRE_CAPITULO}.equals($F{NOMBRE_CAPITULOAnterior})]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FCF1A4"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="codGrupo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT  gl.COD_GRUPO,c.NOMBRE_CAPITULO,gl.NOMBRE_GRUPO, gl.OBS_GRUPO,er.NOMBRE_ESTADO_REGISTRO,
+		 tl.FECHA_TRANSACCION, tl.DESCRIPCION_CAUSA_TRANSACCION,ttl.NOMBRE_TIPO_TRANSACCION_LOG,
+		 tl.COD_TIPO_TRANSACCION_LOG,
+		 p.AP_PATERNO_PERSONAL+' '+p.AP_MATERNO_PERSONAL+' '+p.NOMBRES_PERSONAL+' '+p.nombre2_personal as nombrePersonal
+         ,datosAnteriorLog.NOMBRE_GRUPO as NOMBRE_GRUPOAnterior
+         ,datosAnteriorLog.OBS_GRUPO as OBS_GRUPOAnterior
+         ,datosAnteriorLog.NOMBRE_ESTADO_REGISTRO as NOMBRE_ESTADO_REGISTROAnterior
+         ,datosAnteriorLog.NOMBRE_CAPITULO as NOMBRE_CAPITULOAnterior
+FROM  GRUPOS_LOG gl
+	   INNER JOIN TRANSACCIONES_LOG tl ON tl.COD_TRANSACCION_LOG = gl.COD_TRANSACCION_LOG  
+	   INNER JOIN TIPOS_TRANSACCION_LOG ttl ON tl.COD_TIPO_TRANSACCION_LOG = ttl.COD_TIPO_TRANSACCION_LOG
+	   INNER JOIN PERSONAL p ON p.COD_PERSONAL = tl.COD_PERSONAL 
+	   LEFT OUTER JOIN ESTADOS_REFERENCIALES er ON er.COD_ESTADO_REGISTRO = gl.COD_ESTADO_REGISTRO
+       LEFT OUTER JOIN CAPITULOS c ON c.COD_CAPITULO = gl.COD_CAPITULO 
+	   outer APPLY(
+		       select top 1 gl1.NOMBRE_GRUPO,c1.NOMBRE_CAPITULO,gl1.OBS_GRUPO,er1.NOMBRE_ESTADO_REGISTRO
+		       from GRUPOS_LOG gl1
+		              INNER JOIN ESTADOS_REFERENCIALES er1 on er1.COD_ESTADO_REGISTRO= gl.COD_ESTADO_REGISTRO
+                      INNER JOIN CAPITULOS c1 on c1.COD_CAPITULO = gl1.COD_CAPITULO 
+		       where gl1.COD_GRUPO = gl.COD_GRUPO
+		       		 and gl1.COD_TRANSACCION_LOG < gl.COD_TRANSACCION_LOG
+       		   order by gl1.COD_TRANSACCION_LOG desc 	
+		   ) as datosAnteriorLog
+where gl.COD_GRUPO =  $P{codGrupo} 
+order by  tl.FECHA_TRANSACCION]]>
+	</queryString>
+	<field name="COD_GRUPO" class="java.lang.Integer"/>
+	<field name="NOMBRE_CAPITULO" class="java.lang.String"/>
+	<field name="NOMBRE_GRUPO" class="java.lang.String"/>
+	<field name="OBS_GRUPO" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_REGISTRO" class="java.lang.String"/>
+	<field name="FECHA_TRANSACCION" class="java.sql.Timestamp"/>
+	<field name="DESCRIPCION_CAUSA_TRANSACCION" class="java.lang.String"/>
+	<field name="NOMBRE_TIPO_TRANSACCION_LOG" class="java.lang.String"/>
+	<field name="COD_TIPO_TRANSACCION_LOG" class="java.lang.Integer"/>
+	<field name="nombrePersonal" class="java.lang.String"/>
+	<field name="NOMBRE_GRUPOAnterior" class="java.lang.String"/>
+	<field name="OBS_GRUPOAnterior" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_REGISTROAnterior" class="java.lang.String"/>
+	<field name="NOMBRE_CAPITULOAnterior" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<ellipse>
+				<reportElement style="circuloLeyendaNuevo" positionType="Float" x="105" y="49" width="29" height="29" forecolor="#FFFFFF" backcolor="#9FFCAD" uuid="c0ff14fa-9afb-49e1-a1d6-24886195120a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted" lineColor="#050000"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement style="circuloLeyendaEdicion" stretchType="RelativeToTallestObject" x="282" y="49" width="29" height="28" forecolor="#FFFCFC" backcolor="#FCF1A4" uuid="deeb4f36-5ef8-44ed-bf5f-6bb11ea4035c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted" lineColor="#030000"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement style="circuloLeyendaEliminado" x="449" y="49" width="29" height="28" forecolor="#FAF7F7" backcolor="#FCCAF2" uuid="591c98fe-1441-424e-a09f-529f483a1373"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dotted" lineColor="#080100"/>
+				</graphicElement>
+			</ellipse>
+			<staticText>
+				<reportElement style="texto" x="67" y="56" width="100" height="19" uuid="b7281d80-8da1-41b2-a7f8-6fe1c3ebbb5e"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUEVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="texto" x="220" y="56" width="100" height="19" uuid="8804e39e-069d-4afc-996e-5b52e8e13743"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MODIFICADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="texto" x="391" y="56" width="100" height="19" uuid="fa86e9b7-70c0-4177-a5c3-acc7c6719da8"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ELIMINADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBold" x="105" y="10" width="344" height="30" uuid="d2114b83-0ee6-4fd8-8c05-aa67722e79bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE LOGS GRUPOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="153" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement x="30" y="24" width="490" height="116" uuid="bfb4de4d-9e33-49ce-be7d-7acd576f3300"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="" style="textoBody." x="47" y="27" width="88" height="13" uuid="a1af6343-f6db-4974-bc19-f44979234045"/>
+				<textElement textAlignment="Left">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA TRANSACCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="47" y="45" width="88" height="17" uuid="8760221c-03e1-4c6d-b663-78dc9cc54384"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO TRANSACCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="258" y="27" width="95" height="13" uuid="588cdb53-13ff-45b9-82d1-afbfc485b057"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONAL TRANSACCION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="258" y="45" width="81" height="18" uuid="a9ba6c4e-14f2-4359-9189-7200f248c52a"/>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JUSTIFICACION :]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement x="46" y="71" width="459" height="24" backcolor="#CCCCCC" uuid="ee026f8d-4f5c-44b0-9cea-33ea694fbb36"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement x="46" y="95" width="459" height="29" uuid="d96112f0-8dfd-4174-b832-a56748f52d50"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="textoBody." x="50" y="77" width="114" height="14" uuid="0c902461-da16-4585-bb37-1f125fa584fd"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="300" y="77" width="100" height="14" uuid="99dc4cb1-aeb0-4bcd-87a7-82edbd44574e"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBSERVACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="textoBody." x="176" y="77" width="98" height="14" uuid="259aef5b-392c-44eb-9087-1035a8061ff0"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAPITULO]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement key="" style="textoCabeceraProceso" mode="Opaque" x="30" y="7" width="490" height="17" backcolor="#CCCCCC" uuid="df98b848-dc10-416d-9843-3fbb105d70e4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="243" y="9" width="30" height="15" uuid="7bff41a9-d631-48da-b1c2-0ce0106be8e4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOG :]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="278" y="10" width="100" height="14" uuid="10ba5ba5-8ced-4ef0-9f26-61fa1e69b2c5"/>
+				<textElement>
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="403" y="71" width="1" height="53" uuid="b676655d-4922-495f-adab-08e91f3b7df3"/>
+			</line>
+			<line>
+				<reportElement x="282" y="71" width="1" height="53" uuid="d6c32775-3ad3-4aa6-8914-a7408bf13932"/>
+			</line>
+			<line>
+				<reportElement x="167" y="71" width="1" height="53" uuid="6757f550-a0a0-4413-a8fc-e7b2efc7ab0d"/>
+			</line>
+			<staticText>
+				<reportElement style="textoBody." x="405" y="76" width="98" height="14" uuid="44faf877-9aeb-46ff-b958-f1ebbb343ffa"/>
+				<textElement textAlignment="Center">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO REGISTRO]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="textoBody." x="137" y="27" width="100" height="13" uuid="3e2a8430-b310-49f7-8b9d-e5ef23e226af"/>
+				<textFieldExpression><![CDATA[$F{FECHA_TRANSACCION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="textoBody." x="137" y="45" width="100" height="17" uuid="9ebe7e82-6677-45fb-b81f-de93de079b03"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_TIPO_TRANSACCION_LOG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="textoBody." x="356" y="45" width="149" height="18" uuid="998d7eed-e073-4e51-a2b6-3603883028f6"/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION_CAUSA_TRANSACCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="nombreGrupo" x="47" y="96" width="120" height="28" uuid="084357b5-46ce-40c5-b4fa-96ffcee435b5"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_GRUPO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="obsGrupo" x="283" y="96" width="120" height="28" uuid="09feaec9-b29d-475c-8475-1bf8791aca64"/>
+				<textFieldExpression><![CDATA[$F{OBS_GRUPO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="estadoRegistro" x="404" y="96" width="100" height="28" uuid="4b5dcc1b-5523-4d89-8035-8caef11dc462"/>
+				<textFieldExpression><![CDATA[$F{NOMBRE_ESTADO_REGISTRO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement style="capitulo" mode="Opaque" x="168" y="96" width="114" height="28" uuid="fe10a475-4c87-4e70-b768-1cd35e539b9b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="6"/>
+					<paragraph leftIndent="4" rightIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOMBRE_CAPITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="textoBold" x="356" y="27" width="148" height="13" uuid="bf616b44-f26d-4f18-9678-05d42dcc4f4f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombrePersonal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement style="texto" x="420" y="10" width="100" height="10" uuid="f865d312-836c-4c48-9e5d-8168bb0d4513">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement key="" style="texto" x="520" y="10" width="37" height="10" uuid="56354a11-cace-4388-9603-a26b6595a237"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

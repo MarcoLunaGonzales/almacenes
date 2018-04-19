@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-10-31T15:31:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDevolucionesAlmacen" pageWidth="609" pageHeight="382" orientation="Landscape" columnWidth="609" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9aa2c9fc-9569-4aac-9447-723056d69366">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D://PROYECTOS//ALMACENESV//web//img/cofar.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="COD_ALMACEN" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select 
+    DEVOLUCIONES."COD_DEVOLUCION" AS DEVOLUCIONES_COD_DEVOLUCION,
+    DEVOLUCIONES."NRO_DEVOLUCION" AS DEVOLUCIONES_NRO_DEVOLUCION,
+    INGRESOS_ALMACEN."nro_ingreso_almacen" AS INGRESOS_ALMACEN_NRO_INGRESO_ALMACEN,
+    INGRESOS_ALMACEN."FECHA_INGRESO_ALMACEN" AS INGRESOS_ALMACEN_FECHA_INGRESO_ALMACEN,
+    COMPONENTES_PROD."nombre_prod_semiterminado" as COMPONENTES_PROD_NOMBRE_PROD_SEMITERMINADO,
+    SALIDAS_ALMACEN."NRO_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN,
+    SALIDAS_ALMACEN."COD_LOTE_PRODUCCION" AS SALIDAS_ALMACEN_COD_LOTE_PRODUCCION, 
+    AREAS_EMPRESA."NOMBRE_AREA_EMPRESA" AS AREAS_EMPRESA_NOMBRE_AREAS_EMPRESA,
+    MATERIALES."CODIGO_ANTIGUO" AS MATERIALES_CODIGO_ANTIGUO,
+    MATERIALES."NOMBRE_MATERIAL" AS MATERIALES_NOMBRE_MATERIAL,
+    UNIDADES_MEDIDA."ABREVIATURA" AS UNIDADES_MEDIDA_ABREVIATURA,
+    SUM(ISNULL(DEVOLUCIONES_DETALLE_ETIQUETAS."CANTIDAD_DEVUELTA",0)) as cantBuenas,
+    SUM(ISNULL(DEVOLUCIONES_DETALLE_ETIQUETAS."CANTIDAD_FALLADOS",0)) as cantFallados,
+    SUM(ISNULL(DEVOLUCIONES_DETALLE_ETIQUETAS."CANTIDAD_FALLADOS_PROVEEDOR",0)) as cantFallProv
+    
+from "dbo"."devoluciones" DEVOLUCIONES 
+left outer join "dbo"."INGRESOS_ALMACEN" INGRESOS_ALMACEN on devoluciones.COD_DEVOLUCION = INGRESOS_ALMACEN.COD_DEVOLUCION
+left outer join "dbo"."SALIDAS_ALMACEN" SALIDAS_ALMACEN on SALIDAS_ALMACEN.COD_SALIDA_ALMACEN = DEVOLUCIONES.COD_SALIDA_ALMACEN
+left outer join "dbo"."COMPONENTES_PROD" COMPONENTES_PROD  on COMPONENTES_PROD.COD_COMPPROD = SALIDAS_ALMACEN.COD_PROD
+left outer join "dbo"."AREAS_EMPRESA" AREAS_EMPRESA on AREAS_EMPRESA.COD_AREA_EMPRESA = SALIDAS_ALMACEN.COD_AREA_EMPRESA
+INNER JOIN "dbo"."DEVOLUCIONES_DETALLE" DEVOLUCIONES_DETALLE ON DEVOLUCIONES_DETALLE."COD_DEVOLUCION"=DEVOLUCIONES."COD_DEVOLUCION"
+INNER JOIN "dbo"."DEVOLUCIONES_DETALLE_ETIQUETAS" DEVOLUCIONES_DETALLE_ETIQUETAS ON DEVOLUCIONES_DETALLE_ETIQUETAS."COD_DEVOLUCION"=DEVOLUCIONES."COD_DEVOLUCION"
+INNER JOIN "dbo"."MATERIALES" MATERIALES ON MATERIALES."COD_MATERIAL"=DEVOLUCIONES_DETALLE."COD_MATERIAL"
+INNER JOIN "dbo"."UNIDADES_MEDIDA" UNIDADES_MEDIDA ON UNIDADES_MEDIDA."COD_UNIDAD_MEDIDA"=DEVOLUCIONES_DETALLE."COD_UNIDAD_MEDIDA"
+and DEVOLUCIONES_DETALLE_ETIQUETAS."COD_MATERIAL"=DEVOLUCIONES_DETALLE."COD_MATERIAL"
+WHERE DEVOLUCIONES."COD_DEVOLUCION" =$P{codigo} 
+AND INGRESOS_ALMACEN."COD_ALMACEN" =$P{COD_ALMACEN} 
+GROUP BY 
+    DEVOLUCIONES."COD_DEVOLUCION" ,
+    DEVOLUCIONES."NRO_DEVOLUCION" ,
+    INGRESOS_ALMACEN."nro_ingreso_almacen",
+    INGRESOS_ALMACEN."FECHA_INGRESO_ALMACEN" ,
+    COMPONENTES_PROD."nombre_prod_semiterminado" ,
+    SALIDAS_ALMACEN."NRO_SALIDA_ALMACEN" ,
+    SALIDAS_ALMACEN."COD_LOTE_PRODUCCION" , 
+    AREAS_EMPRESA."NOMBRE_AREA_EMPRESA" ,
+    MATERIALES."CODIGO_ANTIGUO" ,
+    MATERIALES."NOMBRE_MATERIAL" ,
+    UNIDADES_MEDIDA."ABREVIATURA" 
+    ORDER BY  MATERIALES."NOMBRE_MATERIAL"]]>
+	</queryString>
+	<field name="DEVOLUCIONES_COD_DEVOLUCION" class="java.lang.Integer"/>
+	<field name="DEVOLUCIONES_NRO_DEVOLUCION" class="java.lang.Integer"/>
+	<field name="INGRESOS_ALMACEN_NRO_INGRESO_ALMACEN" class="java.lang.Integer"/>
+	<field name="INGRESOS_ALMACEN_FECHA_INGRESO_ALMACEN" class="java.sql.Timestamp"/>
+	<field name="COMPONENTES_PROD_NOMBRE_PROD_SEMITERMINADO" class="java.lang.String"/>
+	<field name="SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN" class="java.lang.Integer"/>
+	<field name="SALIDAS_ALMACEN_COD_LOTE_PRODUCCION" class="java.lang.String"/>
+	<field name="AREAS_EMPRESA_NOMBRE_AREAS_EMPRESA" class="java.lang.String"/>
+	<field name="MATERIALES_CODIGO_ANTIGUO" class="java.lang.String"/>
+	<field name="MATERIALES_NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="UNIDADES_MEDIDA_ABREVIATURA" class="java.lang.String"/>
+	<field name="cantBuenas" class="java.lang.Double"/>
+	<field name="cantFallados" class="java.lang.Double"/>
+	<field name="cantFallProv" class="java.lang.Double"/>
+	<variable name="glosa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="1" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="121" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="7" y="5" width="555" height="20" uuid="8014f155-35dc-4717-99b8-649c66c6f6de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEVOLUCIONES DE ALMACEN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="85" y="31" width="85" height="15" uuid="b26680df-4d38-4024-a42e-01521f22ebef"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro Devolucion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="85" y="46" width="85" height="15" uuid="1783059b-6d2a-41e3-a30f-2a198054e8b7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="85" y="61" width="85" height="15" uuid="d4dad419-ef8f-43a2-8d6b-8328bf748aa9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro Salida:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="85" y="76" width="85" height="12" uuid="0ee76830-50aa-4fce-992a-f5d3bd73e0f9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Area Dpto Destino:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="316" y="46" width="53" height="15" uuid="c8353d86-485f-45fb-9587-4fa945465615"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lote:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="316" y="31" width="53" height="15" uuid="49d3f960-20fe-4e7b-8773-38cde519fbdf"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro Ingreso:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="316" y="63" width="53" height="15" uuid="ceab8ebc-dd3a-4388-803e-319da6946892"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="175" y="31" width="134" height="15" uuid="11d3db76-4741-43d9-9f2c-7b3deaf3ecbb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEVOLUCIONES_NRO_DEVOLUCION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement key="textField" x="175" y="46" width="134" height="15" uuid="3d914f6f-a45b-4b9a-9a1b-daf55a18f610"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INGRESOS_ALMACEN_FECHA_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="174" y="60" width="134" height="15" uuid="2c892e78-cac6-4c2b-bb72-7a3b5db05086"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_NRO_SALIDA_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="371" y="31" width="191" height="15" uuid="de4c616b-ed73-4be0-8928-685072286670"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INGRESOS_ALMACEN_NRO_INGRESO_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="7" y="93" width="78" height="27" uuid="7a42893a-438b-4d7d-a049-c43766dac295"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="93" y="93" width="221" height="27" uuid="3052798e-5f3b-4872-a5f3-821c558ccdbf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" x="316" y="93" width="59" height="27" uuid="bed68f29-75af-49a4-b276-7569e876d999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="524" y="93" width="37" height="27" uuid="fdaaee2f-3891-4677-85c6-f1f62120e79c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unid.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="371" y="46" width="190" height="15" uuid="f47f6b73-fe7b-4a9e-a536-143f0ebc2f67"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_COD_LOTE_PRODUCCION}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-4" x="7" y="120" width="555" height="1" uuid="c226ea37-416c-4bf0-974b-769a27c98ef0"/>
+			</line>
+			<line>
+				<reportElement key="line-5" x="89" y="94" width="1" height="26" uuid="c5274bf9-393c-468b-813a-145cf8557c21"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="371" y="64" width="189" height="27" uuid="bd1bb84b-266d-497a-ba7a-eda7d9e2eacb"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COMPONENTES_PROD_NOMBRE_PROD_SEMITERMINADO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-7" x="524" y="94" width="1" height="27" uuid="9edd2823-ba30-4c19-af83-2b0851468fad"/>
+			</line>
+			<line>
+				<reportElement key="line-8" x="376" y="94" width="1" height="27" uuid="88de560f-42d5-4d26-bd95-dc3c92947e1a"/>
+			</line>
+			<line>
+				<reportElement key="line-9" x="561" y="93" width="1" height="27" uuid="0dc3815f-202a-4531-b8e9-dff769cce982"/>
+			</line>
+			<line>
+				<reportElement key="line-6" x="7" y="94" width="1" height="27" uuid="89ebcb9c-59bb-436d-be86-bfdfe27bb693"/>
+			</line>
+			<line>
+				<reportElement key="line-10" x="7" y="93" width="555" height="1" uuid="2847b816-486f-4fad-95a5-77f6019258e0"/>
+			</line>
+			<image isUsingCache="true">
+				<reportElement key="image-1" x="8" y="27" width="83" height="62" uuid="a95606cc-b178-45fe-af75-daf1b27a14cf"/>
+				<imageExpression><![CDATA[$P{dirLogoCofar}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-1" x="174" y="74" width="134" height="15" uuid="a3d05048-8643-4535-99f8-2b6b05e3c203"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AREAS_EMPRESA_NOMBRE_AREAS_EMPRESA}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-12" x="316" y="94" width="1" height="27" uuid="6793fa38-5b5c-49d3-a7e6-292c24342e04"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-5" x="377" y="94" width="64" height="26" uuid="8cea3e1f-f7f2-4a34-9c0d-3bbd8a35e3c9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Fallados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-6" x="445" y="94" width="73" height="26" uuid="52759e0e-a069-498c-8ab1-933f5e07e934"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cant. Fallados Proovedor]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-13" x="441" y="94" width="1" height="27" uuid="183244a0-738a-4c6c-8bd0-c7239a319843"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="9" y="0" width="77" height="9" uuid="b8465345-68ff-4fca-a78d-05237c8ee215"/>
+				<textElement>
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATERIALES_CODIGO_ANTIGUO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="90" y="0" width="227" height="9" uuid="29182a44-9de3-40c6-9a1a-d818adb5d84f"/>
+				<textElement>
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATERIALES_NOMBRE_MATERIAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField" x="317" y="0" width="59" height="9" uuid="3bdc73d1-9715-4cc8-80f2-7329b6c8819f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantBuenas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="524" y="0" width="37" height="9" uuid="6a235069-1fd8-4d52-a2ab-00519405b6a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UNIDADES_MEDIDA_ABREVIATURA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField-2" x="378" y="0" width="61" height="9" uuid="090147f4-b035-4a89-9582-9013e870013c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantFallados}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="443" y="0" width="80" height="9" uuid="b986c528-e403-4d0c-acb0-eec2492c920f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantFallProv}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<line>
+				<reportElement key="line-11" x="7" y="-2" width="555" height="1" uuid="261a972e-2fb4-42c8-9bdd-8f7695058e8b"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

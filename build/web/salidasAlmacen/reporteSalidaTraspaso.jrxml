@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-11-01T11:39:54 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteSalida" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f9f6a739-c256-4c03-89f6-d5acafeeebdd">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\PROYECTO\\ALMACENES\\web\\salidasAlmacen\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT
+     SALIDAS_ALMACEN."COD_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_COD_SALIDA_ALMACEN,
+     SALIDAS_ALMACEN."OBS_SALIDA_ALMACEN" AS SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN
+FROM
+     "dbo"."SALIDAS_ALMACEN" SALIDAS_ALMACEN
+
+WHERE 
+
+     SALIDAS_ALMACEN."COD_SALIDA_ALMACEN"=$P{codigo}]]>
+	</queryString>
+	<field name="SALIDAS_ALMACEN_COD_SALIDA_ALMACEN" class="java.lang.Integer"/>
+	<field name="SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="252" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement key="subreport-1" x="4" y="2" width="604" height="250" uuid="2de52ac4-fade-438d-a668-324ed6b0b4bc"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigo">
+					<subreportParameterExpression><![CDATA[$P{codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dirLogoCofar">
+					<subreportParameterExpression><![CDATA[$P{dirLogoCofar}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["./reporteSalidaAlmacenTraspaso.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="465" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="29" y="4" width="53" height="15" uuid="d810a0a6-067e-4e82-a37c-d8a989b54071"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Glosa:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="82" y="4" width="460" height="20" uuid="049c54d3-73d9-4ce3-ba92-e23fc200f5cb"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Verdana" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SALIDAS_ALMACEN_OBS_SALIDA_ALMACEN}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-1" x="24" y="26" width="150" height="1" uuid="fd50432d-2a25-43a6-88ce-535023d2ce8f"/>
+			</line>
+			<line>
+				<reportElement key="line-2" x="221" y="26" width="150" height="1" uuid="60f061da-7dfa-463b-974a-67c8f905f891"/>
+			</line>
+			<line>
+				<reportElement key="line-3" x="408" y="25" width="150" height="1" uuid="45dc67f0-ad98-4077-be30-5aac22bed5a9"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-2" x="25" y="23" width="150" height="15" uuid="d033305e-e755-4de1-8a8e-8ada9e368a0d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aprobado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-3" x="221" y="23" width="150" height="26" uuid="6b1e4f17-21cf-433f-af2a-90a7a98ae968"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entregado
+Nombre y Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="408" y="21" width="150" height="27" uuid="29f71840-caa3-4d9f-b9d0-f9f02ea42cbf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recibido
+Nombre y Firma]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-4" x="12" y="2" width="581" height="1" uuid="ff3c1a76-b5af-44bb-a710-a653b7ce5be6"/>
+			</line>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement key="textField-1" x="586" y="6" width="20" height="20" uuid="b0356c36-4f61-4cc0-adc4-94ef4cb9be36"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" x="542" y="6" width="25" height="20" uuid="1e75dc00-b482-419d-87b4-4800a9f7241a"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-5" x="569" y="6" width="18" height="21" uuid="fed32724-4dda-4d5f-80f7-424764314601"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.1.final using JasperReports Library version 6.0.2  -->
+<!-- 2017-10-31T19:04:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteMaterialLog" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="528" leftMargin="56" rightMargin="28" topMargin="28" bottomMargin="28" uuid="8723337e-3e94-49cc-aa8d-d0b4d4af8f4a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Style1"/>
+	<style name="condicionalGrupo" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COD_GRUPO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalNombre" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{NOMBRE_MATERIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalNombreCompra" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{NOMBRE_COMERCIAL_MATERIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalUnidadMedida" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COD_UNIDAD_MEDIDA_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalUnidadMedidaCompra" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COD_UNIDAD_MEDIDA_COMPRA_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalPesoAsociado" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{PESO_ASOCIADO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalUnidadMedidaPesoAsociado" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COD_UNIDAD_MEDIDA_PESOASOCIADO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalEstadoRegistro" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COD_ESTADO_REGISTRO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalTamanioMaterial" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{TAMANIO_MATERIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalTipoImpresion" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{TIPO_IMPRESION_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalAcabado" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{ACABADO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalCapacidad" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{CAPACIDAD_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalGramaje" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{GRAMAJE_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalColor" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COLOR_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalObsMaterial" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{OBS_MATERIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalGrupoStockMaterial" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{COD_GRUPO_STOCK_MATERIAL_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalMaterialProduccion" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{MATERIAL_PRODUCCION_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalMaterialMuestreo" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{MATERIAL_MUESTREO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalMaterialAlmacen" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{MATERIAL_ALMACEN_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalMovimientoItem" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{MOVIMIENTO_ITEM_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalPremio" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{PREMIO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalCantidadMinimaMuestreo" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{CANTIDAD_MINIMAMUESTREO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<style name="condicionalCantidadMaximaMuestreo" mode="Opaque">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{F}!=1 && $F{CANTIDAD_MAXIMAMUESTREO_C}==null]]></conditionExpression>
+			<style backcolor="#CAFA64"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="codMaterial" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="dirLogoCofar" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D://PROYECTOS//ALMACENESV//web//img/cofar.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreMaterial" class="java.lang.String"/>
+	<parameter name="nombreUnidadMedida" class="java.lang.String"/>
+	<parameter name="nombreMaterialCompra" class="java.lang.String"/>
+	<parameter name="nombreUnidadMedidaCompra" class="java.lang.String"/>
+	<parameter name="nombreEstado" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT m.F, m.COD_MATERIAL_LOG, c.NOMBRE_CAPITULO, gr.NOMBRE_GRUPO, m.NOMBRE_MATERIAL, um.NOMBRE_UNIDAD_MEDIDA
+, m.NOMBRE_COMERCIAL_MATERIAL, um1.NOMBRE_UNIDAD_MEDIDA NOMBRE_UNIDAD_MEDIDA_COMPRA, m.PESO_ASOCIADO
+, um2.NOMBRE_UNIDAD_MEDIDA NOMBRE_UNIDAD_MEDIDA_PESO_ASOC, e.NOMBRE_ESTADO_REGISTRO, gsm.NOMBRE_GRUPO_STOCK_MATERIAL
+, m.ACABADO, m.CAPACIDAD, m.COLOR, m.GRAMAJE, m.OBS_MATERIAL, m.TAMANIO_MATERIAL, m.TIPO_IMPRESION
+, m.CANTIDAD_MINIMAMUESTREO, m.CANTIDAD_MAXIMAMUESTREO, m.MATERIAL_PRODUCCION, m.MATERIAL_MUESTREO
+, m.MOVIMIENTO_ITEM, m.MATERIAL_ALMACEN, m.PREMIO
+, m.FECHA_TRANSACCION, m.DESCRIPCION_TRANSACCION, ttl.NOMBRE_TIPO_TRANSACCION_LOG
+, (per.NOMBRES_PERSONAL+' '+per.AP_PATERNO_PERSONAL+' '+per.AP_MATERNO_PERSONAL) as NOMBRE_COMPLETO_PERSONAL
+, CASE WHEN isnull(m.COD_GRUPO,0) = isnull(mc.COD_GRUPO,0) THEN 1 END as COD_GRUPO_C
+, CASE WHEN isnull(m.NOMBRE_MATERIAL,'') = isnull(mc.NOMBRE_MATERIAL,'') THEN 1 END as NOMBRE_MATERIAL_C
+, CASE WHEN isnull(m.NOMBRE_COMERCIAL_MATERIAL,'') = isnull(mc.NOMBRE_COMERCIAL_MATERIAL,'') THEN 1 END as NOMBRE_COMERCIAL_MATERIAL_C
+, CASE WHEN isnull(m.COD_UNIDAD_MEDIDA,0) = isnull(mc.COD_UNIDAD_MEDIDA,0) THEN 1 END as COD_UNIDAD_MEDIDA_C
+, CASE WHEN isnull(m.COD_UNIDAD_MEDIDA_COMPRA,0) = isnull(mc.COD_UNIDAD_MEDIDA_COMPRA,0) THEN 1 END as COD_UNIDAD_MEDIDA_COMPRA_C
+, CASE WHEN isnull(m.PESO_ASOCIADO,0) = isnull(mc.PESO_ASOCIADO,0) THEN 1 END as PESO_ASOCIADO_C
+, CASE WHEN isnull(m.COD_UNIDAD_MEDIDA_PESOASOCIADO,0) = isnull(mc.COD_UNIDAD_MEDIDA_PESOASOCIADO,0) THEN 1 END as COD_UNIDAD_MEDIDA_PESOASOCIADO_C
+, CASE WHEN isnull(m.COD_ESTADO_REGISTRO,0) = isnull(mc.COD_ESTADO_REGISTRO,0) THEN 1 END as COD_ESTADO_REGISTRO_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.TAMANIO_MATERIAL,'')) = CONVERT(VARCHAR(MAX), isnull(mc.TAMANIO_MATERIAL,'')) THEN 1 END as TAMANIO_MATERIAL_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.TIPO_IMPRESION,'')) = CONVERT(VARCHAR(MAX), isnull(mc.TIPO_IMPRESION,'')) THEN 1 END as TIPO_IMPRESION_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.ACABADO,'')) = CONVERT(VARCHAR(MAX), isnull(mc.ACABADO,'')) THEN 1 END as ACABADO_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.CAPACIDAD,'')) = CONVERT(VARCHAR(MAX), isnull(mc.CAPACIDAD,'')) THEN 1 END as CAPACIDAD_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.GRAMAJE,'')) = CONVERT(VARCHAR(MAX), isnull(mc.GRAMAJE,'')) THEN 1 END as GRAMAJE_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.COLOR,'')) = CONVERT(VARCHAR(MAX), isnull(mc.COLOR,'')) THEN 1 END as COLOR_C
+, CASE WHEN CONVERT(VARCHAR(MAX), isnull(m.OBS_MATERIAL,'')) = CONVERT(VARCHAR(MAX), isnull(mc.OBS_MATERIAL,'')) THEN 1 END as OBS_MATERIAL_C
+, CASE WHEN isnull(m.COD_GRUPO_STOCK_MATERIAL,0) = isnull(mc.COD_GRUPO_STOCK_MATERIAL,0) THEN 1 END as COD_GRUPO_STOCK_MATERIAL_C
+, CASE WHEN isnull(m.MATERIAL_PRODUCCION,0) = isnull(mc.MATERIAL_PRODUCCION,0) THEN 1 END as MATERIAL_PRODUCCION_C
+, CASE WHEN isnull(m.MATERIAL_MUESTREO,0) = isnull(mc.MATERIAL_MUESTREO,0) THEN 1 END as MATERIAL_MUESTREO_C  
+, CASE WHEN isnull(m.MOVIMIENTO_ITEM,0) = isnull(mc.MOVIMIENTO_ITEM,0) THEN 1 END as MOVIMIENTO_ITEM_C
+, CASE WHEN isnull(m.MATERIAL_ALMACEN,0) = isnull(mc.MATERIAL_ALMACEN,0) THEN 1 END as MATERIAL_ALMACEN_C
+, CASE WHEN isnull(m.PREMIO,0) = isnull(mc.PREMIO,0) THEN 1 END as PREMIO_C
+, CASE WHEN isnull(m.CANTIDAD_MINIMAMUESTREO,0) = isnull(mc.CANTIDAD_MINIMAMUESTREO,0) THEN 1 END as CANTIDAD_MINIMAMUESTREO_C
+, CASE WHEN isnull(m.CANTIDAD_MAXIMAMUESTREO,0) = isnull(mc.CANTIDAD_MAXIMAMUESTREO,0) THEN 1 END as CANTIDAD_MAXIMAMUESTREO_C
+FROM (
+  SELECT ROW_NUMBER() OVER (ORDER BY ml.COD_MATERIAL_LOG asc) as 'F', ml.*
+  FROM MATERIALES_LOG ml
+  where COD_MATERIAL =  $P{codMaterial} 
+)m
+LEFT JOIN (
+    SELECT (ROW_NUMBER() OVER (ORDER BY ml2.COD_MATERIAL_LOG asc)+1) as 'FC', ml2.* 
+    FROM MATERIALES_LOG ml2
+    where COD_MATERIAL = $P{codMaterial} 
+)mc on m.F = mc.FC
+	 inner join grupos gr on gr.COD_GRUPO = m.COD_GRUPO
+     inner join CAPITULOS c on c.COD_CAPITULO = gr.COD_CAPITULO
+     inner join ESTADOS_REFERENCIALES e on e.COD_ESTADO_REGISTRO = m.COD_ESTADO_REGISTRO
+     left outer join UNIDADES_MEDIDA um on um.COD_UNIDAD_MEDIDA = m.COD_UNIDAD_MEDIDA
+     left outer join UNIDADES_MEDIDA um1 on um1.COD_UNIDAD_MEDIDA = m.COD_UNIDAD_MEDIDA_COMPRA
+     left outer join UNIDADES_MEDIDA um2 on um2.COD_UNIDAD_MEDIDA = m.COD_UNIDAD_MEDIDA_PESOASOCIADO
+     left outer join TIPOS_MEDIDA t on t.COD_TIPO_MEDIDA = um.COD_TIPO_MEDIDA
+     left outer join GRUPOS_STOCK_MATERIALES gsm on gsm.COD_GRUPO_STOCK_MATERIAL = m.COD_GRUPO_STOCK_MATERIAL
+LEFT OUTER JOIN PERSONAL per ON m.COD_PERSONAL_TRANSACCION = per.COD_PERSONAL
+LEFT OUTER JOIN TIPOS_TRANSACCION_LOG ttl ON m.COD_TIPO_TRANSACCION_LOG = ttl.COD_TIPO_TRANSACCION_LOG
+ORDER BY m.COD_MATERIAL_LOG ASC]]>
+	</queryString>
+	<field name="F" class="java.lang.Long"/>
+	<field name="COD_MATERIAL_LOG" class="java.lang.Integer"/>
+	<field name="NOMBRE_CAPITULO" class="java.lang.String"/>
+	<field name="NOMBRE_GRUPO" class="java.lang.String"/>
+	<field name="NOMBRE_MATERIAL" class="java.lang.String"/>
+	<field name="NOMBRE_UNIDAD_MEDIDA" class="java.lang.String"/>
+	<field name="NOMBRE_COMERCIAL_MATERIAL" class="java.lang.String"/>
+	<field name="NOMBRE_UNIDAD_MEDIDA_COMPRA" class="java.lang.String"/>
+	<field name="PESO_ASOCIADO" class="java.lang.Double"/>
+	<field name="NOMBRE_UNIDAD_MEDIDA_PESO_ASOC" class="java.lang.String"/>
+	<field name="NOMBRE_ESTADO_REGISTRO" class="java.lang.String"/>
+	<field name="NOMBRE_GRUPO_STOCK_MATERIAL" class="java.lang.String"/>
+	<field name="ACABADO" class="java.lang.String"/>
+	<field name="CAPACIDAD" class="java.lang.String"/>
+	<field name="COLOR" class="java.lang.String"/>
+	<field name="GRAMAJE" class="java.lang.String"/>
+	<field name="OBS_MATERIAL" class="java.lang.String"/>
+	<field name="TAMANIO_MATERIAL" class="java.lang.String"/>
+	<field name="TIPO_IMPRESION" class="java.lang.String"/>
+	<field name="CANTIDAD_MINIMAMUESTREO" class="java.lang.Double"/>
+	<field name="CANTIDAD_MAXIMAMUESTREO" class="java.lang.Double"/>
+	<field name="MATERIAL_PRODUCCION" class="java.lang.Integer"/>
+	<field name="MATERIAL_MUESTREO" class="java.lang.Integer"/>
+	<field name="MOVIMIENTO_ITEM" class="java.lang.Integer"/>
+	<field name="MATERIAL_ALMACEN" class="java.lang.Integer"/>
+	<field name="PREMIO" class="java.lang.Integer"/>
+	<field name="FECHA_TRANSACCION" class="java.sql.Timestamp"/>
+	<field name="DESCRIPCION_TRANSACCION" class="java.lang.String"/>
+	<field name="NOMBRE_TIPO_TRANSACCION_LOG" class="java.lang.String"/>
+	<field name="NOMBRE_COMPLETO_PERSONAL" class="java.lang.String"/>
+	<field name="COD_GRUPO_C" class="java.lang.Integer"/>
+	<field name="NOMBRE_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="NOMBRE_COMERCIAL_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="COD_UNIDAD_MEDIDA_C" class="java.lang.Integer"/>
+	<field name="COD_UNIDAD_MEDIDA_COMPRA_C" class="java.lang.Integer"/>
+	<field name="PESO_ASOCIADO_C" class="java.lang.Integer"/>
+	<field name="COD_UNIDAD_MEDIDA_PESOASOCIADO_C" class="java.lang.Integer"/>
+	<field name="COD_ESTADO_REGISTRO_C" class="java.lang.Integer"/>
+	<field name="TAMANIO_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="TIPO_IMPRESION_C" class="java.lang.Integer"/>
+	<field name="ACABADO_C" class="java.lang.Integer"/>
+	<field name="CAPACIDAD_C" class="java.lang.Integer"/>
+	<field name="GRAMAJE_C" class="java.lang.Integer"/>
+	<field name="COLOR_C" class="java.lang.Integer"/>
+	<field name="OBS_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="COD_GRUPO_STOCK_MATERIAL_C" class="java.lang.Integer"/>
+	<field name="MATERIAL_PRODUCCION_C" class="java.lang.Integer"/>
+	<field name="MATERIAL_MUESTREO_C" class="java.lang.Integer"/>
+	<field name="MOVIMIENTO_ITEM_C" class="java.lang.Integer"/>
+	<field name="MATERIAL_ALMACEN_C" class="java.lang.Integer"/>
+	<field name="PREMIO_C" class="java.lang.Integer"/>
+	<field name="CANTIDAD_MINIMAMUESTREO_C" class="java.lang.Integer"/>
+	<field name="CANTIDAD_MAXIMAMUESTREO_C" class="java.lang.Integer"/>
+	<group name="grupoMaterialLog">
+		<groupExpression><![CDATA[$F{COD_MATERIAL_LOG}]]></groupExpression>
+		<groupHeader>
+			<band height="182">
+				<textField>
+					<reportElement positionType="Float" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="528" height="15" forecolor="#436D8C" backcolor="#D8EFF2" uuid="5e1461c0-27f7-4f26-b8a0-650dbfa0eae6">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="9" isBold="true"/>
+						<paragraph lineSpacingSize="0.0" tabStopWidth="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Versión "+$F{F}+": "+$F{NOMBRE_TIPO_TRANSACCION_LOG}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="51" width="50" height="12" uuid="b0193fc2-9153-4e79-a530-f5ceb80892c5">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Unidad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="39" width="50" height="12" uuid="d73eb245-5728-474b-a8ed-d9ab63a49dfe"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="63" width="50" height="12" uuid="048f474c-9ae2-40e4-93ed-2809fe80cbe2"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Capítulo:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="75" width="50" height="12" uuid="f16bd2d0-68ae-429e-9e6a-70cefd8e1fb4"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Grupo:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalUnidadMedida" stretchType="RelativeToBandHeight" x="50" y="51" width="210" height="12" uuid="23b1eb23-1d55-4145-aaa4-92a5717bd9b1"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_UNIDAD_MEDIDA}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalNombre" stretchType="RelativeToBandHeight" x="50" y="39" width="210" height="12" uuid="aeff06e2-3e71-43b0-9741-dff8248ecc26">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalGrupo" stretchType="RelativeToBandHeight" x="50" y="63" width="210" height="12" uuid="adb16f1a-6c70-4b37-a922-c52f4dab4eeb">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_CAPITULO}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalGrupo" stretchType="RelativeToBandHeight" x="50" y="75" width="210" height="12" uuid="4fddd7c7-4ae4-48c6-be31-2f2935ac36de">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_GRUPO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="39" width="70" height="12" uuid="95fec4e8-7e57-4126-812d-a0a487910b0c">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nombre Compra:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalNombreCompra" stretchType="RelativeToBandHeight" x="330" y="39" width="198" height="12" uuid="180b6d44-79de-4bb1-bddf-22264d1a3781">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_COMERCIAL_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="51" width="70" height="12" uuid="a85ac924-8806-47df-a687-506760234874"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Unidad Compra:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="75" width="70" height="12" uuid="dafb962e-d1f8-4c78-87a5-2f2936426f4b"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Impresión:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="63" width="70" height="12" uuid="35d1bcdd-91ca-4a5c-8629-ffb5cd2b8f65"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalUnidadMedidaCompra" stretchType="RelativeToBandHeight" x="330" y="51" width="198" height="12" uuid="54d8c178-c938-40fa-9354-aeacaf87b7b2">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_UNIDAD_MEDIDA_COMPRA}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalTipoImpresion" stretchType="RelativeToBandHeight" x="330" y="75" width="198" height="12" uuid="affe92fb-d421-43f0-98be-899fcfa9d2bb">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TIPO_IMPRESION}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalEstadoRegistro" stretchType="RelativeToBandHeight" x="330" y="63" width="198" height="12" uuid="a437c732-711c-47ba-ae3f-dee3c618844d">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_ESTADO_REGISTRO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="87" width="50" height="12" uuid="b615098b-4f98-4b05-88af-50fd3d14e5ec"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Acabado:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalAcabado" stretchType="RelativeToBandHeight" x="50" y="87" width="210" height="12" uuid="65ac36fb-a407-45b8-a738-a679cab11489">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ACABADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="87" width="70" height="12" uuid="63bfc363-43fd-4afe-904d-de2ce205204b"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Colores:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalColor" stretchType="RelativeToBandHeight" x="330" y="87" width="198" height="12" uuid="a54be9ee-dc25-4fda-8214-09884eead7f2">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COLOR}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="99" width="50" height="12" uuid="df7ef993-eaf6-4073-a365-efcf2198299e"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tamaño Item:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalTamanioMaterial" stretchType="RelativeToBandHeight" x="50" y="99" width="210" height="12" uuid="5905b3d0-daaf-48f1-aedb-25de734f27a0">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TAMANIO_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="99" width="70" height="12" uuid="33abab54-b1e5-49a5-8489-388e91909d6b"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Gramaje:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalGramaje" stretchType="RelativeToBandHeight" x="330" y="99" width="198" height="12" uuid="e94acfd7-e35e-44d6-ae63-40adae0b372a">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{GRAMAJE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="111" width="50" height="12" uuid="1cf1549e-33a6-4fe5-9ac1-c6e75aaa8907"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Capacidad:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalGramaje" stretchType="RelativeToBandHeight" x="50" y="111" width="210" height="12" uuid="e28aa700-e24a-4579-9f68-e6335aaff5b5">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CAPACIDAD}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="111" width="70" height="12" uuid="e355eb81-0690-4b01-90c9-1ac92fafffa7"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Peso Asociado:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalPesoAsociado" stretchType="RelativeToBandHeight" x="330" y="111" width="198" height="12" uuid="a0f50d4e-76f7-428f-8e23-628ff243f47a">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PESO_ASOCIADO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="123" width="50" height="20" uuid="ace70904-5196-40d4-b130-5a8a7c906809"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Unidad Peso Asociado:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalUnidadMedidaPesoAsociado" stretchType="RelativeToBandHeight" x="50" y="123" width="210" height="20" uuid="f6b5ff50-7bbe-450e-b265-cc2ea21bf368">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_UNIDAD_MEDIDA_PESO_ASOC}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="260" y="123" width="70" height="20" uuid="118e9cd0-60e3-40b5-83a9-30345b906b9d"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observación:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalObsMaterial" stretchType="RelativeToBandHeight" x="330" y="123" width="198" height="20" uuid="ad5f52d8-1206-488f-bbd9-a0d091d565e1">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OBS_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="143" width="120" height="12" uuid="1f2a1942-b8ad-49e6-a61d-2e224c157525">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Grupo Stock:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalGrupoStockMaterial" stretchType="RelativeToBandHeight" x="120" y="143" width="55" height="12" uuid="d571c388-3cb9-4f12-b933-1773c5d8b513">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_GRUPO_STOCK_MATERIAL}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="155" width="120" height="12" uuid="8af12ac5-915c-4a44-a630-db889239f45a">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Material de Muestreo:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalMaterialMuestreo" stretchType="RelativeToBandHeight" x="120" y="155" width="55" height="12" uuid="086a058d-b7f8-437e-81a0-795879a1808f"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MATERIAL_MUESTREO}==1?"Si":"No"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="175" y="143" width="120" height="12" uuid="3c5d23a6-2589-4d8e-8563-f78061461012">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Material de Almacén:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalMaterialAlmacen" stretchType="RelativeToBandHeight" x="295" y="143" width="55" height="12" uuid="0ef021a1-c046-4e69-8ef4-bc47b85c445c">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MATERIAL_ALMACEN}==1?"Si":"No"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="175" y="155" width="120" height="12" uuid="3beccdc6-fe7f-4bca-bf72-f67454babd89">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Material de Producción:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalMaterialProduccion" stretchType="RelativeToBandHeight" x="295" y="155" width="55" height="12" uuid="0717067c-2038-4e7a-bc5b-44832c08e5f7"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MATERIAL_PRODUCCION}==1?"Si":"No"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="350" y="143" width="120" height="12" uuid="f23fa736-2e49-4b61-a59f-0bf26a153183">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item con Movimiento:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="350" y="155" width="120" height="12" uuid="5377a2de-125e-4853-bdfa-8d633e444273">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Premio:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalMovimientoItem" stretchType="RelativeToBandHeight" x="470" y="143" width="58" height="12" uuid="7ff1317e-1a42-4522-a09c-0644a7e21f8c">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MOVIMIENTO_ITEM}==1?"Si":"No"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalPremio" stretchType="RelativeToBandHeight" x="470" y="155" width="58" height="12" uuid="82d600f7-19ac-4328-b602-ac2fcbb2f924"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PREMIO}==1?"Si":"No"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="167" width="120" height="12" uuid="e43478d4-a6fa-4e60-b908-55b92bfec597">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<printWhenExpression><![CDATA[$F{MATERIAL_MUESTREO}==1]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad Mínima Muestreo:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalCantidadMinimaMuestreo" stretchType="RelativeToBandHeight" x="120" y="167" width="55" height="12" uuid="281b7e98-c51c-45be-9965-9cd0113fa919">
+						<printWhenExpression><![CDATA[$F{MATERIAL_MUESTREO}==1]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CANTIDAD_MINIMAMUESTREO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="175" y="167" width="120" height="12" uuid="720faab6-bd6f-446c-a4cf-407bdeb17cda">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<printWhenExpression><![CDATA[$F{MATERIAL_MUESTREO}==1]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad Máxima Muestreo:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement style="condicionalCantidadMaximaMuestreo" stretchType="RelativeToBandHeight" x="295" y="167" width="55" height="12" uuid="743c5707-3709-4f9b-8baf-c7a9f3692317">
+						<printWhenExpression><![CDATA[$F{MATERIAL_MUESTREO}==1]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#474747"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CANTIDAD_MAXIMAMUESTREO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="15" width="50" height="12" forecolor="#436D8C" uuid="6f9b46a3-9e85-462f-84b1-862b52e68ee1"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Personal:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="27" width="50" height="12" forecolor="#436D8C" uuid="485e6ac1-9790-4ec0-9822-5f875f0919ce">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#436D8C"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="50" y="15" width="180" height="12" forecolor="#436D8C" uuid="522f5d97-52fb-44bf-b8d0-2927f3de7cd6">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRE_COMPLETO_PERSONAL}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="50" y="27" width="180" height="12" forecolor="#436D8C" uuid="9a308abf-45c2-4abd-aa9b-8fbc7c844e5f"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#436D8C"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{FECHA_TRANSACCION}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement stretchType="RelativeToBandHeight" x="230" y="15" width="60" height="24" forecolor="#436D8C" uuid="bdd1e6ee-38ac-4449-af6e-28734564fc5c">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#436D8C"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observación:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToBandHeight" x="290" y="15" width="238" height="24" forecolor="#436D8C" uuid="4c83d19c-9446-4379-9dd4-88af47d46f45">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#436D8C"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#436D8C"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DESCRIPCION_TRANSACCION}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="138" y="1" width="240" height="15" uuid="167a2a0b-4768-480f-84be-fc1e2874903a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE LOGS DE MATERIAL]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="24" width="155" height="12" uuid="62a77100-770a-4d53-b846-7cf7dc352868">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codMaterial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="65" y="24" width="50" height="12" uuid="a6104350-a132-4ec1-a5ee-c474be0e0332">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="36" width="155" height="12" uuid="44de9ffd-9d64-4469-ab42-4bbb9c3af911">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreMaterial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="65" y="36" width="50" height="12" uuid="732fedaa-9a24-4544-bf7f-eaf48f3cf798"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MATERIAL:]]></text>
+			</staticText>
+			<image isUsingCache="true">
+				<reportElement x="0" y="0" width="60" height="60" uuid="264b22a2-dec2-4853-bc49-e767ebf73570">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{dirLogoCofar}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="118" y="48" width="155" height="12" uuid="9db0b8c6-4288-4c2b-b088-59fe519b828f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreUnidadMedida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="65" y="48" width="50" height="12" uuid="1c1bf6db-b64b-4da9-926b-6d0d4c52ec0e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="374" y="24" width="155" height="12" uuid="3f1523a2-6acd-4fa4-a374-729c83552ac8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreMaterialCompra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="291" y="24" width="80" height="12" uuid="a997dc06-9b45-4fb4-b822-afe5c9b8c6ca">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE COMPRA:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="374" y="36" width="155" height="12" uuid="a922b2a3-3301-4f46-b9fa-50bb5a0f17d9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreUnidadMedidaCompra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="291" y="36" width="80" height="12" uuid="7882f113-9ce4-4450-a7da-20ea672b352a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UNIDAD COMPRA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="48" width="80" height="12" uuid="d89686fe-bbdb-4b46-b78e-0fe8e1ecfaa1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="374" y="48" width="155" height="12" uuid="f8c04302-ea1c-4307-a709-a6003fdbc6d2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreEstado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="266" y="80" width="85" height="15" backcolor="#CAFA64" uuid="f5265349-98dd-43e8-a7fc-6b176ddbe2f4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Modificado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="160" y="80" width="85" height="15" backcolor="#FFFFFF" uuid="61e557e1-8ce2-4fc5-805b-879476484360">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Sin Modificar]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="5" splitType="Stretch"/>
+	</detail>
+</jasperReport>
